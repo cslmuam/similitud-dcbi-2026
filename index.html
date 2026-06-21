@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Similitud de Contenidos DCBI 2026 · UAM-Azcapotzalco</title>
+  <title>Revisión de Contenidos DCBI 2026 · UAM-Azcapotzalco</title>
   <style>
     /* ── Variables ───────────────────────────────────────────────────────── */
     :root {
@@ -16,14 +16,19 @@
       --border:     #E4E2DF;
       --bg:         #F5F4F1;
       --card:       #FFFFFF;
+      --teal:       #00838F;
+      --teal-light: #E0F4F5;
+      --amber:      #B06A00;
+      --amber-light:#FFF3E0;
+      --green:      #2E7D32;
+      --green-light:#E8F5E9;
       --shadow-sm:  0 1px 4px rgba(0,0,0,.07), 0 4px 12px rgba(0,0,0,.06);
       --shadow-md:  0 4px 16px rgba(0,0,0,.10), 0 12px 32px rgba(0,0,0,.08);
       --radius:     10px;
       --font:       'Helvetica Neue', Arial, system-ui, sans-serif;
-      --mono:       'SF Mono', 'Fira Mono', 'Consolas', monospace;
       --transition: .22s cubic-bezier(.4,0,.2,1);
 
-      /* Licenciatura palette */
+      /* Paleta licenciaturas */
       --c-ambiental:   #2E7D32;
       --c-civil:       #BF360C;
       --c-computacion: #1565C0;
@@ -36,7 +41,7 @@
       --c-quimica:     #558B2F;
     }
 
-    /* ── Reset & base ────────────────────────────────────────────────────── */
+    /* ── Reset ───────────────────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; font-size: 16px; }
     body {
@@ -64,7 +69,7 @@
     }
     .nav-brand {
       font-size: .78rem; font-weight: 700; letter-spacing: .08em;
-      text-transform: uppercase; color: var(--red);
+      text-transform: uppercase; color: var(--red); white-space: nowrap;
     }
     .nav-links {
       display: flex; gap: 0; list-style: none;
@@ -77,234 +82,6 @@
       transition: background var(--transition), color var(--transition);
     }
     .nav-links a:hover { background: var(--red-light); color: var(--red); }
-
-    /* ── Hero ─────────────────────────────────────────────────────────────── */
-    .hero {
-      background: var(--ink);
-      color: #fff;
-      padding: 4rem 2rem 3.5rem;
-    }
-    .hero-inner {
-      max-width: 1440px; margin: 0 auto;
-      display: grid; grid-template-columns: 1fr auto;
-      gap: 2rem; align-items: end;
-    }
-    .hero-label {
-      font-size: .72rem; font-weight: 700; letter-spacing: .14em;
-      text-transform: uppercase; color: var(--red);
-      margin-bottom: .6rem;
-    }
-    .hero h1 {
-      font-size: clamp(1.6rem, 3vw, 2.6rem);
-      font-weight: 300; line-height: 1.2;
-      letter-spacing: -.02em;
-    }
-    .hero h1 strong { font-weight: 700; }
-    .hero-sub {
-      margin-top: .75rem;
-      font-size: .92rem; color: rgba(255,255,255,.55);
-    }
-    .hero-bar {
-      width: 48px; height: 3px;
-      background: var(--red); margin: 1.5rem 0;
-    }
-
-    /* Stats strip */
-    .stats {
-      display: flex; flex-wrap: wrap; gap: .5rem 1.5rem;
-    }
-    .stat {
-      display: flex; flex-direction: column;
-      padding: .75rem 1.1rem;
-      background: rgba(255,255,255,.07);
-      border: 1px solid rgba(255,255,255,.1);
-      border-radius: 8px;
-      min-width: 100px;
-    }
-    .stat-val {
-      font-size: 1.5rem; font-weight: 700;
-      color: #fff; line-height: 1;
-    }
-    .stat-lbl {
-      font-size: .7rem; color: rgba(255,255,255,.45);
-      margin-top: .25rem; text-transform: uppercase; letter-spacing: .06em;
-    }
-
-    /* Palette legend */
-    .palette {
-      display: flex; flex-direction: column; gap: .4rem;
-    }
-    .palette-title {
-      font-size: .66rem; color: rgba(255,255,255,.4);
-      text-transform: uppercase; letter-spacing: .1em; margin-bottom: .2rem;
-    }
-    .palette-chips {
-      display: flex; flex-direction: column; gap: .28rem;
-    }
-    .chip {
-      display: flex; align-items: center; gap: .5rem;
-      font-size: .72rem; color: rgba(255,255,255,.65);
-    }
-    .chip-dot {
-      width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
-    }
-
-    /* ── Main container ──────────────────────────────────────────────────── */
-    .main { max-width: 1440px; margin: 0 auto; padding: 0 2rem 4rem; }
-
-    /* ── Section ─────────────────────────────────────────────────────────── */
-    .section { margin-top: 3.5rem; }
-    .section-header {
-      display: flex; align-items: baseline; gap: 1rem;
-      padding-bottom: .75rem;
-      border-bottom: 2px solid var(--border);
-      margin-bottom: 1.75rem;
-    }
-    .section-header h2 {
-      font-size: 1.2rem; font-weight: 700; letter-spacing: -.01em;
-    }
-    .section-count {
-      font-size: .78rem; color: var(--muted);
-      background: var(--bg); border: 1px solid var(--border);
-      padding: .15rem .55rem; border-radius: 20px;
-    }
-    .section-desc {
-      font-size: .87rem; color: var(--muted);
-      margin-bottom: 1.5rem; max-width: 740px; line-height: 1.7;
-    }
-
-    /* ── Card grid ───────────────────────────────────────────────────────── */
-    .grid { display: grid; gap: 1.25rem; }
-    .grid-3 { grid-template-columns: repeat(3, 1fr); }
-    .grid-4 { grid-template-columns: repeat(4, 1fr); }
-    .grid-5 { grid-template-columns: repeat(5, 1fr); }
-
-    /* ── Card ────────────────────────────────────────────────────────────── */
-    .card {
-      background: var(--card);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow-sm);
-      border: 1px solid var(--border);
-      overflow: hidden;
-      display: flex; flex-direction: column;
-      transition: transform var(--transition), box-shadow var(--transition);
-      cursor: pointer;
-    }
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-md);
-    }
-
-    /* Thumbnail */
-    .card-thumb {
-      position: relative;
-      aspect-ratio: 16/10;
-      overflow: hidden;
-      background: #fafafa;
-    }
-    .card-thumb img {
-      width: 100%; height: 100%;
-      object-fit: cover; object-position: top left;
-      transition: transform .4s ease;
-    }
-    .card:hover .card-thumb img { transform: scale(1.03); }
-
-    .card-badge {
-      position: absolute; top: .6rem; right: .6rem;
-      font-size: .62rem; font-weight: 700;
-      text-transform: uppercase; letter-spacing: .07em;
-      padding: .2rem .55rem; border-radius: 20px;
-    }
-    .badge-interactive {
-      background: rgba(0,131,143,.15);
-      color: #006064;
-      border: 1px solid rgba(0,131,143,.3);
-    }
-    .badge-static {
-      background: rgba(0,0,0,.06);
-      color: var(--muted);
-      border: 1px solid rgba(0,0,0,.1);
-    }
-
-    /* Lic color bar on intraplan cards */
-    .card-lic-bar {
-      height: 4px;
-    }
-
-    /* Card body */
-    .card-body { padding: .9rem 1rem 1rem; flex: 1; display: flex; flex-direction: column; }
-    .card-title {
-      font-size: .88rem; font-weight: 700;
-      line-height: 1.3; margin-bottom: .3rem;
-    }
-    .card-desc {
-      font-size: .76rem; color: var(--muted);
-      line-height: 1.55; flex: 1;
-    }
-    .card-footer {
-      display: flex; align-items: center; justify-content: space-between;
-      margin-top: .75rem; padding-top: .65rem;
-      border-top: 1px solid var(--border);
-    }
-    .card-meta { font-size: .7rem; color: var(--muted); font-family: var(--mono); }
-    .card-btn {
-      font-size: .72rem; font-weight: 700;
-      color: var(--red); letter-spacing: .04em;
-      text-transform: uppercase;
-      display: flex; align-items: center; gap: .3rem;
-    }
-    .card-btn svg { width: 12px; height: 12px; }
-
-    /* ── Modal (for static images) ───────────────────────────────────────── */
-    .modal-overlay {
-      display: none;
-      position: fixed; inset: 0; z-index: 1000;
-      background: rgba(0,0,0,.82);
-      backdrop-filter: blur(6px);
-      align-items: center; justify-content: center;
-      padding: 2rem;
-    }
-    .modal-overlay.open { display: flex; }
-    .modal-box {
-      position: relative;
-      max-width: min(95vw, 1200px);
-      max-height: 92vh;
-      background: var(--card);
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 24px 64px rgba(0,0,0,.4);
-      display: flex; flex-direction: column;
-    }
-    .modal-header {
-      display: flex; align-items: center;
-      padding: .85rem 1.2rem;
-      border-bottom: 1px solid var(--border);
-    }
-    .modal-title { font-size: .9rem; font-weight: 700; flex: 1; }
-    .modal-close {
-      width: 32px; height: 32px;
-      border: none; background: none; cursor: pointer;
-      border-radius: 6px; font-size: 1.3rem; color: var(--muted);
-      display: flex; align-items: center; justify-content: center;
-      transition: background var(--transition);
-    }
-    .modal-close:hover { background: var(--bg); color: var(--ink); }
-    .modal-img { overflow: auto; }
-    .modal-img img { width: 100%; display: block; }
-
-    /* ── Divider ─────────────────────────────────────────────────────────── */
-    .divider {
-      margin: 3rem 0 0; border: none;
-      border-top: 1px solid var(--border);
-    }
-
-    /* ── Footer ──────────────────────────────────────────────────────────── */
-    .footer {
-      background: var(--ink); color: rgba(255,255,255,.4);
-      text-align: center; padding: 1.5rem 2rem;
-      font-size: .75rem; line-height: 1.8;
-    }
-    .footer strong { color: rgba(255,255,255,.75); }
 
     /* ── Hamburger ───────────────────────────────────────────────────────── */
     .nav-hamburger {
@@ -325,12 +102,322 @@
     .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
     .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
+    /* ── Hero ─────────────────────────────────────────────────────────────── */
+    .hero {
+      background: var(--ink); color: #fff;
+      padding: 4rem 2rem 3.5rem;
+    }
+    .hero-inner {
+      max-width: 1440px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 2rem; align-items: end;
+    }
+    .hero-label {
+      font-size: .72rem; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--red); margin-bottom: .6rem;
+    }
+    .hero h1 {
+      font-size: clamp(1.6rem, 3vw, 2.6rem);
+      font-weight: 300; line-height: 1.2; letter-spacing: -.02em;
+    }
+    .hero h1 strong { font-weight: 700; }
+    .hero-sub {
+      margin-top: .75rem;
+      font-size: .92rem; color: rgba(255,255,255,.55);
+      max-width: 580px;
+    }
+    .hero-bar { width: 48px; height: 3px; background: var(--red); margin: 1.5rem 0; }
+
+    /* Stats strip */
+    .stats { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; }
+    .stat {
+      display: flex; flex-direction: column;
+      padding: .75rem 1.1rem;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 8px; min-width: 100px;
+    }
+    .stat-val { font-size: 1.5rem; font-weight: 700; color: #fff; line-height: 1; }
+    .stat-lbl { font-size: .7rem; color: rgba(255,255,255,.45); margin-top: .25rem; letter-spacing: .04em; }
+
+    /* Paleta */
+    .palette { display: flex; flex-direction: column; gap: .4rem; }
+    .palette-title {
+      font-size: .66rem; color: rgba(255,255,255,.4);
+      text-transform: uppercase; letter-spacing: .1em; margin-bottom: .2rem;
+    }
+    .palette-chips { display: flex; flex-direction: column; gap: .28rem; }
+    .chip { display: flex; align-items: center; gap: .5rem; font-size: .72rem; color: rgba(255,255,255,.65); }
+    .chip-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+    /* ── Main ────────────────────────────────────────────────────────────── */
+    .main { max-width: 1440px; margin: 0 auto; padding: 0 2rem 4rem; }
+
+    /* ── Section ─────────────────────────────────────────────────────────── */
+    .section { margin-top: 3.5rem; }
+    .section-header {
+      display: flex; align-items: baseline; gap: 1rem;
+      padding-bottom: .75rem;
+      border-bottom: 2px solid var(--border);
+      margin-bottom: 1.5rem;
+    }
+    .section-header h2 { font-size: 1.2rem; font-weight: 700; letter-spacing: -.01em; }
+    .section-count {
+      font-size: .78rem; color: var(--muted);
+      background: var(--bg); border: 1px solid var(--border);
+      padding: .15rem .55rem; border-radius: 20px;
+    }
+    .section-desc {
+      font-size: .87rem; color: var(--mid);
+      margin-bottom: 1.5rem; max-width: 740px; line-height: 1.7;
+    }
+
+    /* ── Callout (cómo leer) ─────────────────────────────────────────────── */
+    .read-callout {
+      background: var(--teal-light);
+      border-left: 4px solid var(--teal);
+      border-radius: 0 8px 8px 0;
+      padding: .9rem 1.1rem;
+      margin-bottom: 1.4rem;
+      font-size: .84rem; line-height: 1.65;
+    }
+    .read-callout strong { color: var(--teal); }
+
+    /* ── Tabs (guía) ─────────────────────────────────────────────────────── */
+    .tab-bar {
+      display: flex; gap: .5rem;
+      border-bottom: 2px solid var(--border);
+      margin-bottom: 1.75rem;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      padding: .55rem 1.2rem;
+      font-size: .84rem; font-weight: 600;
+      border: none; background: none; cursor: pointer;
+      color: var(--muted); border-radius: 6px 6px 0 0;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      transition: color var(--transition), border-color var(--transition), background var(--transition);
+    }
+    .tab-btn:hover { color: var(--ink); background: var(--bg); }
+    .tab-btn.active { color: var(--red); border-bottom-color: var(--red); background: #fff; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ── Similarity scale ────────────────────────────────────────────────── */
+    .sim-scale { margin: 1.5rem 0 2rem; }
+    .sim-bar {
+      height: 20px; border-radius: 4px;
+      background: linear-gradient(to right,
+        #ffffcc 0%, #fed976 30%, #fd8d3c 55%, #e31a1c 80%, #800026 100%);
+    }
+    .sim-ticks {
+      display: flex; justify-content: space-between;
+      margin-top: .3rem;
+      font-size: .72rem; color: var(--muted); font-family: monospace;
+    }
+    .sim-zones {
+      display: flex; margin-top: .6rem; gap: 2px;
+    }
+    .sim-zone {
+      flex: 1; text-align: center; padding: .45rem .3rem;
+      font-size: .72rem; font-weight: 600; border-radius: 4px;
+      line-height: 1.3;
+    }
+    .sz-0 { background: #fffde7; color: #795500; flex: 30%; }
+    .sz-1 { background: #fff3e0; color: #bf360c; flex: 20%; }
+    .sz-2 { background: #fce4ec; color: #c62828; flex: 20%; }
+    .sz-3 { background: #ffebee; color: #b71c1c; flex: 15%; }
+    .sz-4 { background: #f3e5f5; color: #6a1b9a; flex: 15%; }
+
+    /* ── Comparison demo ─────────────────────────────────────────────────── */
+    .compare-demo {
+      display: flex; align-items: center; gap: 1rem;
+      margin: 1.5rem 0;
+      flex-wrap: wrap;
+    }
+    .demo-uea {
+      flex: 1; min-width: 180px;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 8px; padding: .85rem 1rem;
+    }
+    .demo-uea-title {
+      font-size: .75rem; font-weight: 700; color: var(--muted);
+      text-transform: uppercase; letter-spacing: .05em; margin-bottom: .4rem;
+    }
+    .demo-uea-name {
+      font-size: .88rem; font-weight: 700; color: var(--ink); margin-bottom: .5rem;
+    }
+    .demo-keywords {
+      display: flex; flex-wrap: wrap; gap: .25rem;
+    }
+    .kw {
+      font-size: .7rem; background: var(--bg);
+      border: 1px solid var(--border);
+      padding: .1rem .4rem; border-radius: 20px; color: var(--mid);
+    }
+    .kw.match { background: #e8f5e9; border-color: #a5d6a7; color: #2e7d32; font-weight: 600; }
+    .demo-arrow {
+      display: flex; flex-direction: column; align-items: center;
+      gap: .3rem; flex-shrink: 0;
+    }
+    .demo-arrow-line {
+      font-size: 1.5rem; color: var(--muted); line-height: 1;
+    }
+    .demo-score-badge {
+      background: var(--red); color: #fff;
+      font-size: .82rem; font-weight: 700;
+      padding: .3rem .75rem; border-radius: 20px; white-space: nowrap;
+    }
+    .demo-score-label {
+      font-size: .7rem; color: var(--muted); text-align: center;
+    }
+
+    /* ── Step list (proceso) ─────────────────────────────────────────────── */
+    .step-list { display: flex; flex-direction: column; gap: 1rem; margin: 1.2rem 0; }
+    .step {
+      display: flex; gap: 1rem; align-items: flex-start;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 8px; padding: 1rem;
+    }
+    .step-num {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--red); color: #fff;
+      font-size: .88rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .step-body { flex: 1; }
+    .step-title { font-size: .9rem; font-weight: 700; margin-bottom: .25rem; }
+    .step-text { font-size: .83rem; color: var(--mid); line-height: 1.6; }
+
+    /* ── How-to read panel ───────────────────────────────────────────────── */
+    .howto-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .howto-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1.25rem;
+    }
+    .howto-card h3 {
+      font-size: .95rem; font-weight: 700; margin-bottom: .75rem;
+      padding-bottom: .5rem; border-bottom: 1px solid var(--border);
+    }
+    .howto-step {
+      display: flex; gap: .6rem; margin-bottom: .6rem; align-items: flex-start;
+    }
+    .howto-icon {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: var(--red-light); color: var(--red);
+      font-size: .72rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: .1rem;
+    }
+    .howto-text { font-size: .82rem; color: var(--mid); line-height: 1.55; }
+
+    /* Color leyend */
+    .color-legend { display: flex; flex-direction: column; gap: .4rem; margin: .75rem 0; }
+    .cl-row { display: flex; align-items: center; gap: .65rem; font-size: .78rem; }
+    .cl-dot {
+      width: 14px; height: 14px; border-radius: 3px; flex-shrink: 0;
+    }
+
+    /* ── Card grid ───────────────────────────────────────────────────────── */
+    .grid { display: grid; gap: 1.25rem; }
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid-5 { grid-template-columns: repeat(5, 1fr); }
+
+    /* ── Card ────────────────────────────────────────────────────────────── */
+    .card {
+      background: var(--card); border-radius: var(--radius);
+      box-shadow: var(--shadow-sm); border: 1px solid var(--border);
+      overflow: hidden; display: flex; flex-direction: column;
+      transition: transform var(--transition), box-shadow var(--transition);
+      cursor: pointer;
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+    .card-thumb {
+      position: relative; aspect-ratio: 16/10; overflow: hidden; background: #fafafa;
+    }
+    .card-thumb img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: top left;
+      transition: transform .4s ease;
+    }
+    .card:hover .card-thumb img { transform: scale(1.03); }
+    .card-badge {
+      position: absolute; top: .6rem; right: .6rem;
+      font-size: .62rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .07em;
+      padding: .2rem .55rem; border-radius: 20px;
+    }
+    .badge-interactive { background: rgba(0,131,143,.15); color: #006064; border: 1px solid rgba(0,131,143,.3); }
+    .badge-static { background: rgba(0,0,0,.06); color: var(--muted); border: 1px solid rgba(0,0,0,.1); }
+    .card-lic-bar { height: 4px; }
+    .card-body { padding: .9rem 1rem 1rem; flex: 1; display: flex; flex-direction: column; }
+    .card-title { font-size: .88rem; font-weight: 700; line-height: 1.3; margin-bottom: .3rem; }
+    .card-desc { font-size: .76rem; color: var(--muted); line-height: 1.55; flex: 1; }
+    .card-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: .75rem; padding-top: .65rem; border-top: 1px solid var(--border);
+    }
+    .card-meta { font-size: .7rem; color: var(--muted); font-family: monospace; }
+    .card-btn {
+      font-size: .72rem; font-weight: 700; color: var(--red);
+      letter-spacing: .04em; text-transform: uppercase;
+      display: flex; align-items: center; gap: .3rem;
+    }
+    .card-btn svg { width: 12px; height: 12px; }
+
+    /* ── Nota recuadro (adaptado del reporte) ────────────────────────────── */
+    .recuadro {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--red);
+      border-radius: 0 8px 8px 0;
+      padding: 1.1rem 1.3rem;
+      margin: 1.5rem 0;
+    }
+    .recuadro-title {
+      font-size: .85rem; font-weight: 700; color: var(--red);
+      margin-bottom: .6rem;
+    }
+    .recuadro p {
+      font-size: .84rem; color: var(--mid); line-height: 1.7;
+      margin-bottom: .5rem;
+    }
+    .recuadro p:last-child { margin-bottom: 0; }
+
+    /* ── Modal ───────────────────────────────────────────────────────────── */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,.82); backdrop-filter: blur(6px);
+      align-items: center; justify-content: center; padding: 2rem;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      position: relative; max-width: min(95vw, 1200px); max-height: 92vh;
+      background: var(--card); border-radius: 12px;
+      overflow: hidden; box-shadow: 0 24px 64px rgba(0,0,0,.4);
+      display: flex; flex-direction: column;
+    }
+    .modal-header {
+      display: flex; align-items: center;
+      padding: .85rem 1.2rem; border-bottom: 1px solid var(--border);
+    }
+    .modal-title { font-size: .9rem; font-weight: 700; flex: 1; }
+    .modal-close {
+      width: 32px; height: 32px; border: none; background: none; cursor: pointer;
+      border-radius: 6px; font-size: 1.3rem; color: var(--muted);
+      display: flex; align-items: center; justify-content: center;
+      transition: background var(--transition);
+    }
+    .modal-close:hover { background: var(--bg); color: var(--ink); }
+    .modal-img { overflow: auto; }
+    .modal-img img { width: 100%; display: block; }
+
     /* ── Bottom mobile nav ───────────────────────────────────────────────── */
     .bottom-nav {
-      display: none;
-      position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
-      background: rgba(255,255,255,.96);
-      backdrop-filter: blur(12px);
+      display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
+      background: rgba(255,255,255,.96); backdrop-filter: blur(12px);
       border-top: 1px solid var(--border);
       padding: .3rem .5rem calc(.3rem + env(safe-area-inset-bottom));
     }
@@ -340,107 +427,82 @@
     }
     .bottom-nav-item {
       display: flex; flex-direction: column; align-items: center;
-      gap: 2px; padding: .4rem .7rem;
-      border-radius: 8px; cursor: pointer;
-      font-size: .65rem; font-weight: 600; color: var(--muted);
+      gap: 2px; padding: .4rem .7rem; border-radius: 8px; cursor: pointer;
+      font-size: .62rem; font-weight: 600; color: var(--muted);
       text-transform: uppercase; letter-spacing: .05em;
       transition: color var(--transition), background var(--transition);
       text-decoration: none;
     }
-    .bottom-nav-item:hover,
-    .bottom-nav-item.active { color: var(--red); background: var(--red-light); }
+    .bottom-nav-item:hover, .bottom-nav-item.active { color: var(--red); background: var(--red-light); }
     .bottom-nav-icon { font-size: 1.1rem; line-height: 1; }
+
+    /* ── Footer ──────────────────────────────────────────────────────────── */
+    .footer {
+      background: var(--ink); color: rgba(255,255,255,.4);
+      text-align: center; padding: 1.5rem 2rem;
+      font-size: .75rem; line-height: 1.8;
+    }
+    .footer strong { color: rgba(255,255,255,.75); }
+    .divider { margin: 3rem 0 0; border: none; border-top: 1px solid var(--border); }
 
     /* ── Responsive ──────────────────────────────────────────────────────── */
     @media (max-width: 1200px) {
       .grid-5 { grid-template-columns: repeat(4, 1fr); }
     }
     @media (max-width: 960px) {
-      .grid-3, .grid-4 { grid-template-columns: repeat(2, 1fr); }
+      .grid-3 { grid-template-columns: repeat(2, 1fr); }
       .grid-5 { grid-template-columns: repeat(3, 1fr); }
       .hero-inner { grid-template-columns: 1fr; }
       .palette { display: none; }
+      .howto-grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 640px) {
-      /* Nav */
       .nav { padding: 0 1rem; position: fixed; width: 100%; }
       .nav-inner { gap: 0; position: relative; }
       .nav-hamburger { display: flex; }
       .nav-links {
-        display: none;
-        position: absolute; top: 52px; left: -1rem; right: -1rem;
-        background: rgba(255,255,255,.98);
-        backdrop-filter: blur(16px);
+        display: none; position: absolute; top: 52px; left: -1rem; right: -1rem;
+        background: rgba(255,255,255,.98); backdrop-filter: blur(16px);
         border-bottom: 1px solid var(--border);
         box-shadow: 0 8px 24px rgba(0,0,0,.1);
         padding: .5rem .75rem .75rem;
-        flex-direction: column; gap: 0;
-        margin-left: 0;
+        flex-direction: column; gap: 0; margin-left: 0;
       }
       .nav-links.open { display: flex; }
       .nav-links li { width: 100%; }
-      .nav-links a {
-        display: block; padding: .75rem 1rem;
-        font-size: .9rem; border-radius: 8px;
-      }
-
-      /* Hero offset for fixed nav */
+      .nav-links a { display: block; padding: .75rem 1rem; font-size: .9rem; border-radius: 8px; }
       .hero { padding: calc(52px + 2rem) 1.25rem 2rem; }
       .hero h1 { font-size: clamp(1.4rem, 6vw, 1.9rem); }
       .hero-sub { font-size: .82rem; }
       .hero-bar { margin: 1rem 0; }
       .hero-label { font-size: .65rem; }
-
-      /* Stats: 2-column grid */
-      .stats {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: .4rem;
-      }
+      .stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: .4rem; }
       .stat { min-width: 0; }
-
-      /* Main */
       .main { padding: 0 1.25rem calc(3rem + 56px); }
       .section { margin-top: 2rem; }
       .section-header { margin-bottom: .85rem; padding-bottom: .6rem; }
       .section-header h2 { font-size: 1.05rem; }
       .section-desc { font-size: .82rem; margin-bottom: 1rem; }
-
-      /* Grids */
       .grid { gap: .7rem; }
-      .grid-3, .grid-4 { grid-template-columns: 1fr; }
+      .grid-3 { grid-template-columns: 1fr; }
       .grid-5 { grid-template-columns: repeat(2, 1fr); }
-
-      /* Cards */
       .card:hover { transform: none; box-shadow: var(--shadow-sm); }
-      @media (pointer: coarse) {
-        .card:active { opacity: .88; transition: opacity .1s; }
-      }
       .card-body { padding: .75rem .85rem .85rem; }
       .card-title { font-size: .84rem; }
       .card-desc { font-size: .73rem; }
-
-      /* Modal → bottom sheet */
-      .modal-overlay {
-        padding: 0; align-items: flex-end; background: rgba(0,0,0,.6);
-      }
-      .modal-box {
-        max-width: 100vw; width: 100%;
-        max-height: 88vh;
-        border-radius: 18px 18px 0 0;
-      }
+      .compare-demo { flex-direction: column; }
+      .demo-arrow { flex-direction: row; }
+      .demo-arrow-line { font-size: 1.2rem; }
+      .modal-overlay { padding: 0; align-items: flex-end; background: rgba(0,0,0,.6); }
+      .modal-box { max-width: 100vw; width: 100%; max-height: 88vh; border-radius: 18px 18px 0 0; }
       .modal-header { padding: .75rem 1rem; }
-
-      /* Bottom nav */
       .bottom-nav { display: block; }
-
-      /* Divider */
       .divider { margin: 2rem 0 0; }
+      .sim-zones { flex-wrap: wrap; }
+      .sim-zone { flex: none !important; width: calc(50% - 1px); }
     }
-
     @media (max-width: 380px) {
       .grid-5 { grid-template-columns: 1fr; }
-      .stats { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 </head>
@@ -451,10 +513,11 @@
   <div class="nav-inner">
     <span class="nav-brand">DCBI 2026</span>
     <ul class="nav-links" id="navLinks">
-      <li><a href="#inter" onclick="closeNav()">Inter-plan</a></li>
-      <li><a href="#exploracion" onclick="closeNav()">Exploración</a></li>
-      <li><a href="#intra" onclick="closeNav()">Intra-plan</a></li>
-      <li><a href="Reporte_Similitud_DCBI_2026.pdf" target="_blank" rel="noopener" onclick="closeNav()" style="color:var(--red);font-weight:700;">↓ Reporte PDF</a></li>
+      <li><a href="#guia"  onclick="closeNav()">¿Cómo interpretar?</a></li>
+      <li><a href="#inter" onclick="closeNav()">Entre licenciaturas</a></li>
+      <li><a href="#intra" onclick="closeNav()">Por licenciatura</a></li>
+      <li><a href="Reporte_Similitud_DCBI_2026.pdf" target="_blank" rel="noopener"
+             onclick="closeNav()" style="color:var(--red);font-weight:700;">↓ Reporte completo</a></li>
     </ul>
     <button class="nav-hamburger" id="hamburger" aria-label="Menú" onclick="toggleNav()">
       <span></span><span></span><span></span>
@@ -467,15 +530,17 @@
   <div class="hero-inner">
     <div>
       <p class="hero-label">Universidad Autónoma Metropolitana · Azcapotzalco · División de Ciencias Básicas e Ingeniería</p>
-      <h1><strong>Análisis de Similitud</strong><br>de Contenidos 2026</h1>
-      <p class="hero-sub">Proceso de modificación curricular · Matriz híbrida TF-IDF + LLM</p>
+      <h1><strong>Revisión de Contenidos</strong><br>de Programas de UEA 2026</h1>
+      <p class="hero-sub">
+        Comparación automática de los programas de todas las Unidades de Enseñanza-Aprendizaje
+        entre las diez licenciaturas, para identificar contenidos compartidos y posibles duplicados.
+      </p>
       <div class="hero-bar"></div>
       <div class="stats">
-        <div class="stat"><span class="stat-val">626</span><span class="stat-lbl">UEAs corpus</span></div>
+        <div class="stat"><span class="stat-val">626</span><span class="stat-lbl">Programas analizados</span></div>
         <div class="stat"><span class="stat-val">10</span><span class="stat-lbl">Licenciaturas</span></div>
-        <div class="stat"><span class="stat-val">1 505</span><span class="stat-lbl">Pares evaluados</span></div>
-        <div class="stat"><span class="stat-val">391</span><span class="stat-lbl">Pares inter-plan</span></div>
-        <div class="stat"><span class="stat-val">217</span><span class="stat-lbl">Pares intra-plan</span></div>
+        <div class="stat"><span class="stat-val">391</span><span class="stat-lbl">Pares similares entre licenciaturas</span></div>
+        <div class="stat"><span class="stat-val">217</span><span class="stat-lbl">Pares similares dentro de cada plan</span></div>
       </div>
     </div>
     <div class="palette">
@@ -499,183 +564,331 @@
 <!-- ── Main ─────────────────────────────────────────────────────────────────── -->
 <main class="main">
 
-  <!-- ── Section 1: Inter-plan ─────────────────────────────────────────────── -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- SECCIÓN 0 — GUÍA DE LECTURA                                           -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <section class="section" id="guia">
+    <div class="section-header">
+      <h2>¿Cómo interpretar los resultados?</h2>
+    </div>
+
+    <div class="tab-bar">
+      <button class="tab-btn active" data-target="tab-que">¿Qué mide la similitud?</button>
+      <button class="tab-btn"        data-target="tab-leer">Cómo leer los mapas de calor</button>
+    </div>
+
+    <!-- ── Pestaña 1: Infografía de similitud ─────────────────────────────── -->
+    <div class="tab-panel active" id="tab-que">
+
+      <div class="recuadro">
+        <div class="recuadro-title">¿Cómo sabe el sistema si dos programas son parecidos?</div>
+        <p>
+          El sistema lee los objetivos y contenidos de cada programa de Unidad de Enseñanza-Aprendizaje
+          y extrae sus palabras clave. Dos programas que enseñan los mismos temas usarán las mismas
+          palabras técnicas y obtendrán una puntuación alta. Dos programas de disciplinas distintas
+          usarán vocabularios diferentes y obtendrán una puntuación baja.
+        </p>
+        <p>
+          La puntuación va de <strong>0</strong> (sin ninguna palabra en común) a <strong>1</strong>
+          (contenido textualmente idéntico). A veces, dos programas enseñan lo mismo pero con palabras
+          distintas —por ejemplo, <em>«Liderazgo organizacional»</em> y <em>«Gestión de equipos de
+          trabajo»</em>. En esos casos, la comparación de palabras falla. Para corregir esto, una
+          inteligencia artificial revisó los pares candidatos y confirmó si realmente tratan los mismos
+          contenidos, aunque usen vocabularios diferentes.
+        </p>
+      </div>
+
+      <!-- Ejemplo visual de comparación -->
+      <p style="font-size:.84rem;font-weight:700;margin-bottom:.75rem;">Ejemplo de cómo se comparan dos programas</p>
+      <div class="compare-demo">
+        <div class="demo-uea">
+          <div class="demo-uea-title">UEA — Licenciatura A</div>
+          <div class="demo-uea-name">Cálculo Diferencial e Integral</div>
+          <div class="demo-keywords">
+            <span class="kw match">cálculo</span>
+            <span class="kw match">derivadas</span>
+            <span class="kw">funciones</span>
+            <span class="kw match">límites</span>
+            <span class="kw match">continuidad</span>
+            <span class="kw">aplicaciones</span>
+          </div>
+        </div>
+        <div class="demo-arrow">
+          <div class="demo-arrow-line">↔</div>
+          <div class="demo-score-badge">s = 0.94</div>
+          <div class="demo-score-label">Contenido<br>casi idéntico</div>
+        </div>
+        <div class="demo-uea">
+          <div class="demo-uea-title">UEA — Licenciatura B</div>
+          <div class="demo-uea-name">Cálculo para Ingeniería</div>
+          <div class="demo-keywords">
+            <span class="kw match">cálculo</span>
+            <span class="kw match">derivadas</span>
+            <span class="kw match">límites</span>
+            <span class="kw match">continuidad</span>
+            <span class="kw">integrales</span>
+            <span class="kw">series</span>
+          </div>
+        </div>
+      </div>
+      <p style="font-size:.76rem;color:var(--muted);margin-bottom:1.5rem;">
+        Las palabras <span style="color:var(--green);font-weight:600;">en verde</span>
+        son las que ambos programas comparten. A mayor coincidencia, mayor puntuación.
+      </p>
+
+      <!-- Escala de similitud -->
+      <p style="font-size:.84rem;font-weight:700;margin-bottom:.75rem;">Escala de similitud</p>
+      <div class="sim-scale">
+        <div class="sim-bar"></div>
+        <div class="sim-ticks">
+          <span>0.00</span><span>0.30</span><span>0.50</span><span>0.70</span><span>0.85</span><span>1.00</span>
+        </div>
+        <div class="sim-zones">
+          <div class="sim-zone sz-0">Sin traslape<br>relevante</div>
+          <div class="sim-zone sz-1">Temas<br>comunes</div>
+          <div class="sim-zone sz-2">Contenido<br>similar</div>
+          <div class="sim-zone sz-3">Muy<br>similar</div>
+          <div class="sim-zone sz-4">Casi o exactamente<br>idéntico</div>
+        </div>
+      </div>
+
+      <!-- Proceso de dos fases -->
+      <p style="font-size:.84rem;font-weight:700;margin:.75rem 0 .6rem;">El análisis se hace en dos pasos</p>
+      <div class="step-list">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Comparación de palabras</div>
+            <div class="step-text">
+              El sistema compara las palabras de los 626 programas entre sí —las 195,375 combinaciones
+              posibles— y asigna a cada par una puntuación entre 0 y 1. Los pares con puntuación
+              mayor a 0.20 pasan al siguiente paso.
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Verificación por inteligencia artificial</div>
+            <div class="step-text">
+              Una inteligencia artificial revisó los 1,505 pares candidatos y confirmó si realmente
+              tratan los mismos contenidos —incluso cuando usan vocabularios distintos. Este paso
+              descubrió 455 pares adicionales que la comparación de palabras había pasado por alto,
+              e identificó 24 falsos positivos en el plan de Computación.
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /tab-que -->
+
+    <!-- ── Pestaña 2: Cómo leer los mapas ────────────────────────────────── -->
+    <div class="tab-panel" id="tab-leer">
+
+      <div class="howto-grid">
+
+        <div class="howto-card">
+          <h3>🗺 Mapa de comparación entre licenciaturas</h3>
+          <div class="howto-step">
+            <div class="howto-icon">1</div>
+            <div class="howto-text">
+              <strong>Qué muestra:</strong> cada celda indica qué tan parecidos son, en promedio,
+              los programas de una licenciatura (fila) con los de otra (columna).
+            </div>
+          </div>
+          <div class="howto-step">
+            <div class="howto-icon">2</div>
+            <div class="howto-text">
+              <strong>La diagonal siempre es rojo intenso</strong> — es cada licenciatura comparada
+              consigo misma (similitud = 1.0). Ignórala.
+            </div>
+          </div>
+          <div class="howto-step">
+            <div class="howto-icon">3</div>
+            <div class="howto-text">
+              <strong>Busca las celdas más oscuras fuera de la diagonal.</strong> Ahí están los
+              pares de licenciaturas que comparten más contenidos. Por ejemplo, la celda
+              Industrial–Mecánica es de las más rojas.
+            </div>
+          </div>
+          <div class="howto-step">
+            <div class="howto-icon">4</div>
+            <div class="howto-text">
+              <strong>Pasa el cursor sobre cualquier celda</strong> para ver el valor exacto y
+              los nombres de las licenciaturas.
+            </div>
+          </div>
+          <div class="color-legend">
+            <div class="cl-row"><div class="cl-dot" style="background:#ffffcc;border:1px solid #ccc"></div>Amarillo claro — sin traslape relevante</div>
+            <div class="cl-row"><div class="cl-dot" style="background:#fd8d3c"></div>Naranja — traslape moderado</div>
+            <div class="cl-row"><div class="cl-dot" style="background:#bd0026"></div>Rojo intenso — contenido muy similar o idéntico</div>
+          </div>
+        </div>
+
+        <div class="howto-card">
+          <h3>🔲 Mapa de revisión dentro de un plan</h3>
+          <div class="howto-step">
+            <div class="howto-icon">1</div>
+            <div class="howto-text">
+              <strong>Qué muestra:</strong> cada celda compara dos programas de UEA
+              <em>del mismo plan de estudios</em>. El objetivo es detectar contenidos
+              duplicados o muy similares dentro de una misma licenciatura.
+            </div>
+          </div>
+          <div class="howto-step">
+            <div class="howto-icon">2</div>
+            <div class="howto-text">
+              <strong>La diagonal es siempre rojo intenso</strong> — es cada UEA comparada
+              consigo misma. Ignórala.
+            </div>
+          </div>
+          <div class="howto-step">
+            <div class="howto-icon">3</div>
+            <div class="howto-text">
+              <strong>Busca puntos brillantes fuera de la diagonal.</strong> Un punto rojo
+              fuera de la diagonal puede indicar dos UEAs con contenido idéntico o muy
+              parecido —posibles duplicados que vale la pena revisar.
+            </div>
+          </div>
+          <div class="howto-step">
+            <div class="howto-icon">4</div>
+            <div class="howto-text">
+              <strong>Pasa el cursor</strong> para ver qué UEAs se están comparando
+              y su puntuación de similitud.
+            </div>
+          </div>
+          <div class="color-legend">
+            <div class="cl-row"><div class="cl-dot" style="background:#ffffcc;border:1px solid #ccc"></div>Amarillo — sin traslape</div>
+            <div class="cl-row"><div class="cl-dot" style="background:#fd8d3c"></div>Naranja — contenido parcialmente similar</div>
+            <div class="cl-row"><div class="cl-dot" style="background:#bd0026"></div>Rojo — posible duplicado — revisar</div>
+          </div>
+        </div>
+
+      </div><!-- /howto-grid -->
+    </div><!-- /tab-leer -->
+
+  </section><!-- /guia -->
+
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- SECCIÓN 1 — COMPARACIÓN ENTRE LICENCIATURAS                           -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
   <section class="section" id="inter">
     <div class="section-header">
-      <h2>Análisis inter-plan</h2>
-      <span class="section-count">3 visualizaciones</span>
+      <h2>Comparación entre licenciaturas</h2>
+      <span class="section-count">3 gráficas</span>
     </div>
     <p class="section-desc">
-      Comparación de contenidos entre las diez licenciaturas: similitud media-máxima agregada,
-      conteo de UEAs equivalentes en los 45 pares posibles, y red de traslape filtrada.
-      El par Industrial–Mecánica domina con 38 UEAs equivalentes a <i>s</i> ≥ 0.70.
+      Estas tres gráficas muestran qué tan parecidos son los contenidos de las UEAs
+      entre los diez planes de estudio. El par con mayor similitud es
+      Industrial–Mecánica, con 38 programas equivalentes.
     </p>
+
+    <div class="read-callout">
+      <strong>Cómo usar estas gráficas:</strong> haz clic en cualquier tarjeta para
+      abrir la gráfica interactiva. Dentro de ella, pasa el cursor (o toca en móvil)
+      sobre las celdas para ver el valor exacto y los nombres de las licenciaturas o
+      programas. Puedes acercar y alejar con los controles de la esquina superior derecha.
+    </div>
+
     <div class="grid grid-3">
 
-      <!-- Heatmap licenciaturas -->
       <div class="card" onclick="openLink('Figuras/heatmap_licenciaturas.html')">
         <div class="card-thumb">
-          <img src="Figuras/heatmap_licenciaturas.png" alt="Heatmap similitud media-máxima">
+          <img src="Figuras/heatmap_licenciaturas.png" alt="Mapa de similitud entre licenciaturas">
           <span class="card-badge badge-interactive">Interactivo</span>
         </div>
         <div class="card-body">
-          <p class="card-title">Similitud media-máxima entre licenciaturas</p>
+          <p class="card-title">Similitud promedio entre los diez planes</p>
           <p class="card-desc">
-            Métrica <em>mean-max</em>: para cada UEA del plan fila, la similitud máxima con
-            alguna UEA del plan columna, promediada sobre todas las UEAs del plan fila.
-            La diagonal es 1 por definición.
+            Vista general de qué tan parecidos son los contenidos de cada licenciatura
+            respecto a las demás. El rojo intenso indica mayor similitud.
+            La diagonal (de arriba a abajo) siempre es roja — es cada licenciatura
+            comparada consigo misma.
           </p>
           <div class="card-footer">
-            <span class="card-meta">10 × 10 · s media-máxima</span>
-            <span class="card-btn">Explorar <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+            <span class="card-meta">10 × 10 licenciaturas</span>
+            <span class="card-btn">Abrir <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
           </div>
         </div>
       </div>
 
-      <!-- Conteo interplan (solo PNG) -->
-      <div class="card" onclick="openModal('Figuras/heatmap_interplan_conteo.png', 'Conteo de UEAs equivalentes — 45 pares')">
+      <div class="card" onclick="openModal('Figuras/heatmap_interplan_conteo.png', 'Número de programas equivalentes entre cada par de licenciaturas')">
         <div class="card-thumb">
-          <img src="Figuras/heatmap_interplan_conteo.png" alt="Conteo UEAs equivalentes">
-          <span class="card-badge badge-static">Estático</span>
+          <img src="Figuras/heatmap_interplan_conteo.png" alt="Conteo de programas equivalentes">
+          <span class="card-badge badge-static">Imagen</span>
         </div>
         <div class="card-body">
-          <p class="card-title">Conteo de UEAs equivalentes — los 45 pares</p>
+          <p class="card-title">¿Cuántos programas equivalentes hay entre cada par?</p>
           <p class="card-desc">
-            Número de UEAs equivalentes entre cada par de licenciaturas a dos umbrales:
-            <em>s</em> ≥ 0.85 (panel izquierdo) y <em>s</em> ≥ 0.70 (panel derecho).
-            Escala compartida: máximo 38 (Industrial–Mecánica).
+            Número concreto de UEAs con contenido equivalente entre cada par de
+            licenciaturas. El panel izquierdo usa un criterio más estricto
+            (casi idéntico); el derecho, un criterio más amplio (muy similar).
+            Industrial–Mecánica encabeza con 38 programas.
           </p>
           <div class="card-footer">
-            <span class="card-meta">45 pares · 2 umbrales</span>
+            <span class="card-meta">45 pares · dos criterios</span>
             <span class="card-btn">Ver <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
           </div>
         </div>
       </div>
 
-      <!-- Red de traslape (PNG) -->
-      <div class="card" onclick="openModal('Figuras/grafo_licenciaturas_variante_B.png', 'Red de traslape entre licenciaturas')">
+      <div class="card" onclick="openLink('Figuras/grafo_licenciaturas_30.html')">
         <div class="card-thumb">
-          <img src="Figuras/grafo_licenciaturas_variante_B.png" alt="Red de traslape">
-          <span class="card-badge badge-static">Estático</span>
+          <img src="Figuras/grafo_licenciaturas_variante_B.png" alt="Red de conexiones entre licenciaturas">
+          <span class="card-badge badge-interactive">Interactivo</span>
         </div>
         <div class="card-body">
-          <p class="card-title">Red de traslape entre licenciaturas</p>
+          <p class="card-title">Red de conexiones entre licenciaturas</p>
           <p class="card-desc">
-            Pares con ≥ 5 UEAs equivalentes (29 de 45). Layout Kamada-Kawai:
-            las licenciaturas con mayor traslape convergen espacialmente.
-            Grosor ∝ conteo; el "38" marca el par dominante.
+            Cada licenciatura es un nodo. Las líneas conectan pares que comparten
+            al menos 5 programas equivalentes; las líneas más gruesas indican mayor
+            similitud. Las licenciaturas más conectadas son las que más contenidos
+            comparten con el resto.
           </p>
           <div class="card-footer">
-            <span class="card-meta">umbral ≥ 5 UEAs · 29 aristas</span>
+            <span class="card-meta">29 conexiones · al menos 5 UEAs comunes</span>
             <span class="card-btn">Ver <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
           </div>
         </div>
       </div>
 
-    </div><!-- /grid -->
-  </section>
-
-  <!-- ── Section 2: Exploración ─────────────────────────────────────────────── -->
-  <section class="section" id="exploracion">
-    <div class="section-header">
-      <h2>Exploración del corpus</h2>
-      <span class="section-count">3 visualizaciones</span>
     </div>
-    <p class="section-desc">
-      Vistas de conjunto del corpus completo (626 UEAs). El mapa agrupado revela comunidades
-      temáticas; la proyección t-SNE muestra la distribución espacial de contenidos;
-      el grafo UEA–UEA expone pares individuales similares al pasar el cursor.
-    </p>
-    <div class="grid grid-3">
-
-      <!-- Heatmap clustered -->
-      <div class="card" onclick="openLink('Figuras/heatmap_clustered.html')">
-        <div class="card-thumb">
-          <img src="Figuras/heatmap_clustered.png" alt="Mapa de calor agrupado">
-          <span class="card-badge badge-interactive">Interactivo</span>
-        </div>
-        <div class="card-body">
-          <p class="card-title">Mapa de calor agrupado — 120 UEAs</p>
-          <p class="card-desc">
-            Las 120 UEAs con mayor conectividad, reordenadas por agrupamiento jerárquico
-            de Ward. Los bloques diagonales rojos son comunidades de contenido.
-            La barra lateral codifica la licenciatura de origen.
-          </p>
-          <div class="card-footer">
-            <span class="card-meta">120 UEAs · Ward clustering</span>
-            <span class="card-btn">Explorar <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
-          </div>
-        </div>
-      </div>
-
-      <!-- t-SNE -->
-      <div class="card" onclick="openLink('Figuras/scatter_tsne.html')">
-        <div class="card-thumb">
-          <img src="Figuras/scatter_tsne.png" alt="Proyección t-SNE">
-          <span class="card-badge badge-interactive">Interactivo</span>
-        </div>
-        <div class="card-body">
-          <p class="card-title">Proyección t-SNE — corpus completo</p>
-          <p class="card-desc">
-            Un punto por UEA, coloreado por licenciatura. La proximidad indica similitud
-            de contenidos. Las líneas grises conectan pares inter-plan con <em>s</em> ≥ 0.70.
-            Pasar el cursor sobre un punto revela el nombre de la UEA.
-          </p>
-          <div class="card-footer">
-            <span class="card-meta">626 UEAs · perplexity 30</span>
-            <span class="card-btn">Explorar <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Grafo similitud UEA-UEA -->
-      <div class="card" onclick="openLink('Figuras/grafo_similitud_45.html')">
-        <div class="card-thumb">
-          <img src="Figuras/heatmap_clustered.png" alt="Grafo similitud UEA-UEA" style="object-position:center center; filter:hue-rotate(20deg) saturate(.7)">
-          <span class="card-badge badge-interactive">Interactivo</span>
-        </div>
-        <div class="card-body">
-          <p class="card-title">Grafo de similitud UEA–UEA</p>
-          <p class="card-desc">
-            Red de UEAs individuales con <em>s</em> ≥ 0.45. Cada nodo es una UEA;
-            las aristas conectan pares similares. Permite identificar clusters
-            temáticos y pares específicos al hacer hover.
-          </p>
-          <div class="card-footer">
-            <span class="card-meta">umbral s ≥ 0.45 · fuerza dirigida</span>
-            <span class="card-btn">Explorar <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
-          </div>
-        </div>
-      </div>
-
-    </div><!-- /grid -->
   </section>
 
-  <!-- ── Section 3: Intra-plan ──────────────────────────────────────────────── -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- SECCIÓN 2 — REVISIÓN POR LICENCIATURA                                 -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
   <section class="section" id="intra">
     <div class="section-header">
-      <h2>Análisis intra-plan</h2>
+      <h2>Revisión dentro de cada licenciatura</h2>
       <span class="section-count">10 licenciaturas</span>
     </div>
     <p class="section-desc">
-      Similitud entre pares de UEAs <em>dentro del mismo plan</em>, reordenadas por
-      agrupamiento de Ward. Los bloques rojos cerca de la diagonal revelan áreas temáticas
-      afines; puntos brillantes fuera de la diagonal indican duplicados potenciales.
-      Pasa el cursor sobre cualquier celda para ver el nombre de ambas UEAs.
+      Cada mapa muestra las similitudes entre los programas de UEA de un mismo plan
+      de estudios. Los puntos brillantes fuera de la diagonal pueden indicar contenidos
+      duplicados o muy parecidos que conviene revisar.
     </p>
+
+    <div class="read-callout">
+      <strong>Cómo usar estos mapas:</strong> selecciona la licenciatura que te interesa.
+      Dentro del mapa, pasa el cursor sobre cualquier celda para ver qué dos UEAs se
+      están comparando y su nivel de similitud. Los puntos rojizos fuera de la diagonal
+      merecen atención especial.
+    </div>
+
     <div class="grid grid-5">
 
       <div class="card" onclick="openLink('Figuras/intraplan_Ambiental.html')">
         <div class="card-lic-bar" style="background:var(--c-ambiental)"></div>
         <div class="card-thumb" style="aspect-ratio:1">
-          <img src="Figuras/intraplan_Ambiental.png" alt="Intra-plan Ambiental">
+          <img src="Figuras/intraplan_Ambiental.png" alt="Revisión interna — Ambiental">
           <span class="card-badge badge-interactive">Interactivo</span>
         </div>
         <div class="card-body">
           <p class="card-title" style="color:var(--c-ambiental)">Ambiental</p>
-          <p class="card-desc">40 UEAs · 7 pares con <em>s</em> ≥ 0.40</p>
+          <p class="card-desc">40 programas · 7 pares similares</p>
           <div class="card-footer">
-            <span class="card-meta">máx. s = 0.750</span>
+            <span class="card-meta">similitud máx. 0.75</span>
             <span class="card-btn">Ver <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
           </div>
         </div>
@@ -684,14 +897,14 @@
       <div class="card" onclick="openLink('Figuras/intraplan_Civil.html')">
         <div class="card-lic-bar" style="background:var(--c-civil)"></div>
         <div class="card-thumb" style="aspect-ratio:1">
-          <img src="Figuras/intraplan_Civil.png" alt="Intra-plan Civil">
+          <img src="Figuras/intraplan_Civil.png" alt="Revisión interna — Civil">
           <span class="card-badge badge-interactive">Interactivo</span>
         </div>
         <div class="card-body">
           <p class="card-title" style="color:var(--c-civil)">Civil</p>
-          <p class="card-desc">88 UEAs · <strong>61 pares</strong> con <em>s</em> ≥ 0.40</p>
+          <p class="card-desc">88 programas · <strong>61 pares similares</strong> — el mayor del corpus</p>
           <div class="card-footer">
-            <span class="card-meta">máx. s = 0.880</span>
+            <span class="card-meta">similitud máx. 0.88</span>
             <span class="card-btn">Ver <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
           </div>
         </div>
@@ -700,14 +913,14 @@
       <div class="card" onclick="openLink('Figuras/intraplan_Computacion.html')">
         <div class="card-lic-bar" style="background:var(--c-computacion)"></div>
         <div class="card-thumb" style="aspect-ratio:1">
-          <img src="Figuras/intraplan_Computacion.png" alt="Intra-plan Computación">
+          <img src="Figuras/intraplan_Computacion.png" alt="Revisión interna — Computación">
           <span class="card-badge badge-interactive">Interactivo</span>
         </div>
         <div class="card-body">
           <p class="card-title" style="color:var(--c-computacion)">Computación</p>
-          <p class="card-desc">60 UEAs · 33 pares con <em>s</em> ≥ 0.40</p>
+          <p class="card-desc">60 programas · 33 pares similares confirmados</p>
           <div class="card-footer">
-            <span class="card-meta">máx. s = 0.720</span>
+            <span class="card-meta">similitud máx. 0.72</span>
             <span class="card-btn">Ver <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
           </div>
         </div>
@@ -716,14 +929,14 @@
       <div class="card" onclick="openLink('Figuras/intraplan_Electrica.html')">
         <div class="card-lic-bar" style="background:var(--c-electrica)"></div>
         <div class="card-thumb" style="aspect-ratio:1">
-          <img src="Figuras/intraplan_Electrica.png" alt="Intra-plan Eléctrica">
+          <img src="Figuras/intraplan_Electrica.png" alt="Revisión interna — Eléctrica">
           <span class="card-badge badge-interactive">Interactivo</span>
         </div>
         <div class="card-body">
           <p class="card-title" style="color:#b07900">Eléctrica</p>
-          <p class="card-desc">39 UEAs · 14 pares con <em>s</em> ≥ 0.40</p>
+          <p class="card-desc">39 programas · 14 pares similares</p>
           <div class="card-footer">
-            <span class="card-meta">máx. s = 0.750</span>
+            <span class="card-meta">similitud máx. 0.75</span>
             <span class="card-btn">Ver <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
           </div>
         </div>
@@ -732,14 +945,14 @@
       <div class="card" onclick="openLink('Figuras/intraplan_Electronica.html')">
         <div class="card-lic-bar" style="background:var(--c-electronica)"></div>
         <div class="card-thumb" style="aspect-ratio:1">
-          <img src="Figuras/intraplan_Electronica.png" alt="Intra-plan Electrónica">
+          <img src="Figuras/intraplan_Electronica.png" alt="Revisión interna — Electrónica">
           <span class="card-badge badge-interactive">Interactivo</span>
         </div>
         <div class="card-body">
           <p class="card-title" style="color:var(--c-electronica)">Electrónica</p>
-          <p class="card-desc">56 UEAs · 8 pares con <em>s</em> ≥ 0.40</p>
+          <p class="card-desc">56 programas · 8 pares similares</p>
           <div class="card-footer">
-            <span class="card-meta">máx. s = 0.650</span>
+            <span class="card-meta">similitud máx. 0.65</span>
             <span class="card-btn">Ver <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
           </div>
         </div>
@@ -748,14 +961,14 @@
       <div class="card" onclick="openLink('Figuras/intraplan_Fisica.html')">
         <div class="card-lic-bar" style="background:var(--c-fisica)"></div>
         <div class="card-thumb" style="aspect-ratio:1">
-          <img src="Figuras/intraplan_Fisica.png" alt="Intra-plan Física">
+          <img src="Figuras/intraplan_Fisica.png" alt="Revisión interna — Física">
           <span class="card-badge badge-interactive">Interactivo</span>
         </div>
         <div class="card-body">
           <p class="card-title" style="color:var(--c-fisica)">Física</p>
-          <p class="card-desc">60 UEAs · 11 pares con <em>s</em> ≥ 0.40</p>
+          <p class="card-desc">60 programas · 11 pares similares</p>
           <div class="card-footer">
-            <span class="card-meta">máx. s = 0.950</span>
+            <span class="card-meta">similitud máx. 0.95 — revisar</span>
             <span class="card-btn">Ver <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
           </div>
         </div>
@@ -764,14 +977,14 @@
       <div class="card" onclick="openLink('Figuras/intraplan_Industrial.html')">
         <div class="card-lic-bar" style="background:var(--c-industrial)"></div>
         <div class="card-thumb" style="aspect-ratio:1">
-          <img src="Figuras/intraplan_Industrial.png" alt="Intra-plan Industrial">
+          <img src="Figuras/intraplan_Industrial.png" alt="Revisión interna — Industrial">
           <span class="card-badge badge-interactive">Interactivo</span>
         </div>
         <div class="card-body">
           <p class="card-title" style="color:var(--c-industrial)">Industrial</p>
-          <p class="card-desc">78 UEAs · 18 pares con <em>s</em> ≥ 0.40</p>
+          <p class="card-desc">78 programas · 18 pares similares</p>
           <div class="card-footer">
-            <span class="card-meta">máx. s = 0.850</span>
+            <span class="card-meta">similitud máx. 0.85</span>
             <span class="card-btn">Ver <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
           </div>
         </div>
@@ -780,14 +993,14 @@
       <div class="card" onclick="openLink('Figuras/intraplan_Mecanica.html')">
         <div class="card-lic-bar" style="background:var(--c-mecanica)"></div>
         <div class="card-thumb" style="aspect-ratio:1">
-          <img src="Figuras/intraplan_Mecanica.png" alt="Intra-plan Mecánica">
+          <img src="Figuras/intraplan_Mecanica.png" alt="Revisión interna — Mecánica">
           <span class="card-badge badge-interactive">Interactivo</span>
         </div>
         <div class="card-body">
           <p class="card-title" style="color:var(--c-mecanica)">Mecánica</p>
-          <p class="card-desc">108 UEAs · 25 pares con <em>s</em> ≥ 0.40</p>
+          <p class="card-desc">108 programas · 25 pares similares</p>
           <div class="card-footer">
-            <span class="card-meta">máx. s = 0.850</span>
+            <span class="card-meta">similitud máx. 0.85</span>
             <span class="card-btn">Ver <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
           </div>
         </div>
@@ -796,14 +1009,14 @@
       <div class="card" onclick="openLink('Figuras/intraplan_Metalurgica.html')">
         <div class="card-lic-bar" style="background:var(--c-metalurgica)"></div>
         <div class="card-thumb" style="aspect-ratio:1">
-          <img src="Figuras/intraplan_Metalurgica.png" alt="Intra-plan Metalúrgica">
+          <img src="Figuras/intraplan_Metalurgica.png" alt="Revisión interna — Metalúrgica">
           <span class="card-badge badge-interactive">Interactivo</span>
         </div>
         <div class="card-body">
           <p class="card-title" style="color:var(--c-metalurgica)">Metalúrgica</p>
-          <p class="card-desc">42 UEAs · 29 pares con <em>s</em> ≥ 0.40</p>
+          <p class="card-desc">42 programas · 29 pares similares</p>
           <div class="card-footer">
-            <span class="card-meta">máx. s = 0.780</span>
+            <span class="card-meta">similitud máx. 0.78</span>
             <span class="card-btn">Ver <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
           </div>
         </div>
@@ -812,35 +1025,35 @@
       <div class="card" onclick="openLink('Figuras/intraplan_Quimica.html')">
         <div class="card-lic-bar" style="background:var(--c-quimica)"></div>
         <div class="card-thumb" style="aspect-ratio:1">
-          <img src="Figuras/intraplan_Quimica.png" alt="Intra-plan Química">
+          <img src="Figuras/intraplan_Quimica.png" alt="Revisión interna — Química">
           <span class="card-badge badge-interactive">Interactivo</span>
         </div>
         <div class="card-body">
           <p class="card-title" style="color:var(--c-quimica)">Química</p>
-          <p class="card-desc">55 UEAs · 11 pares con <em>s</em> ≥ 0.40</p>
+          <p class="card-desc">55 programas · 11 pares similares</p>
           <div class="card-footer">
-            <span class="card-meta">máx. s = 0.990</span>
+            <span class="card-meta">similitud máx. 0.99 — revisar</span>
             <span class="card-btn">Ver <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
           </div>
         </div>
       </div>
 
-    </div><!-- /grid intra -->
+    </div>
   </section>
 
-</main><!-- /main -->
+</main>
 
-<!-- ── Bottom navigation (mobile) ────────────────────────────────────────────── -->
+<!-- ── Bottom navigation (móvil) ─────────────────────────────────────────────── -->
 <nav class="bottom-nav" aria-label="Navegación rápida">
   <div class="bottom-nav-inner">
-    <a class="bottom-nav-item" href="#inter">
-      <span class="bottom-nav-icon">⊞</span>Inter-plan
+    <a class="bottom-nav-item" href="#guia">
+      <span class="bottom-nav-icon">❓</span>Guía
     </a>
-    <a class="bottom-nav-item" href="#exploracion">
-      <span class="bottom-nav-icon">◎</span>Exploración
+    <a class="bottom-nav-item" href="#inter">
+      <span class="bottom-nav-icon">⊞</span>Entre lics.
     </a>
     <a class="bottom-nav-item" href="#intra">
-      <span class="bottom-nav-icon">▦</span>Intra-plan
+      <span class="bottom-nav-icon">▦</span>Por lic.
     </a>
     <a class="bottom-nav-item" href="Reporte_Similitud_DCBI_2026.pdf" target="_blank" rel="noopener">
       <span class="bottom-nav-icon">↓</span>PDF
@@ -864,16 +1077,16 @@
 <!-- ── Footer ────────────────────────────────────────────────────────────────── -->
 <footer class="footer">
   <strong>División de Ciencias Básicas e Ingeniería · UAM-Azcapotzalco</strong><br>
-  Análisis de similitud de contenidos · Proceso de modificación curricular 2026<br>
-  Matriz híbrida TF-IDF + LLM (<em>claude-haiku-4-5</em>) · 626 UEAs · 10 licenciaturas
+  Revisión de contenidos de programas de Unidades de Enseñanza-Aprendizaje · Modificación curricular 2026<br>
+  Los detalles técnicos del análisis se encuentran en el
+  <a href="Reporte_Similitud_DCBI_2026.pdf" target="_blank"
+     style="color:rgba(255,255,255,.6);text-decoration:underline;">Reporte técnico completo</a>.
 </footer>
 
 <!-- ── JS ─────────────────────────────────────────────────────────────────────── -->
 <script>
   /* ── Links & modal ─────────────────────────────────────────────────────── */
-  function openLink(url) {
-    window.open(url, '_blank', 'noopener');
-  }
+  function openLink(url) { window.open(url, '_blank', 'noopener'); }
 
   function openModal(imgSrc, title) {
     document.getElementById('modalImg').src = imgSrc;
@@ -881,21 +1094,16 @@
     document.getElementById('modalOverlay').classList.add('open');
     document.body.style.overflow = 'hidden';
   }
-
   function closeModal() {
     document.getElementById('modalOverlay').classList.remove('open');
     document.body.style.overflow = '';
   }
-
   function closeModalOutside(e) {
     if (e.target === document.getElementById('modalOverlay')) closeModal();
   }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeModal();
-  });
-
-  /* ── Hamburger menu ────────────────────────────────────────────────────── */
+  /* ── Hamburger ──────────────────────────────────────────────────────────── */
   function toggleNav() {
     const btn  = document.getElementById('hamburger');
     const menu = document.getElementById('navLinks');
@@ -903,50 +1111,49 @@
     menu.classList.toggle('open', open);
     document.body.style.overflow = open ? 'hidden' : '';
   }
-
   function closeNav() {
     document.getElementById('hamburger').classList.remove('open');
     document.getElementById('navLinks').classList.remove('open');
     document.body.style.overflow = '';
   }
-
-  /* Close nav when clicking outside */
   document.addEventListener('click', e => {
-    const nav = document.getElementById('mainNav');
-    if (!nav.contains(e.target)) closeNav();
+    if (!document.getElementById('mainNav').contains(e.target)) closeNav();
   });
 
-  /* ── Bottom nav active section highlight ───────────────────────────────── */
-  (function () {
-    const sections = ['inter', 'exploracion', 'intra'];
-    const items = document.querySelectorAll('.bottom-nav-item');
-    const sectionEls = sections.map(id => document.getElementById(id));
+  /* ── Tabs ───────────────────────────────────────────────────────────────── */
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const container = btn.closest('.section');
+      container.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      container.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.target).classList.add('active');
+    });
+  });
 
+  /* ── Bottom nav active section ─────────────────────────────────────────── */
+  (function () {
+    const ids   = ['guia', 'inter', 'intra'];
+    const items = document.querySelectorAll('.bottom-nav-item');
+    const els   = ids.map(id => document.getElementById(id));
     function onScroll() {
-      let activeIdx = 0;
-      const scrollY = window.scrollY + window.innerHeight * 0.35;
-      sectionEls.forEach((el, i) => {
-        if (el && el.offsetTop <= scrollY) activeIdx = i;
-      });
+      let ai = 0;
+      const y = window.scrollY + window.innerHeight * 0.35;
+      els.forEach((el, i) => { if (el && el.offsetTop <= y) ai = i; });
       items.forEach((item, i) => {
-        item.classList.toggle('active', i === activeIdx && item.href && item.href.includes('#'));
+        item.classList.toggle('active', i === ai && item.getAttribute('href')?.startsWith('#'));
       });
     }
-
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
   })();
 
-  /* ── Swipe-to-close bottom sheet modal on mobile ───────────────────────── */
+  /* ── Swipe-to-close modal ───────────────────────────────────────────────── */
   (function () {
-    const overlay = document.getElementById('modalOverlay');
-    const box     = overlay.querySelector('.modal-box');
-    let startY = 0;
-
-    box.addEventListener('touchstart', e => { startY = e.touches[0].clientY; }, { passive: true });
-    box.addEventListener('touchend', e => {
-      if (e.changedTouches[0].clientY - startY > 60) closeModal();
-    }, { passive: true });
+    const box = document.querySelector('.modal-box');
+    let sy = 0;
+    box.addEventListener('touchstart', e => { sy = e.touches[0].clientY; }, { passive: true });
+    box.addEventListener('touchend',   e => { if (e.changedTouches[0].clientY - sy > 60) closeModal(); }, { passive: true });
   })();
 </script>
 
