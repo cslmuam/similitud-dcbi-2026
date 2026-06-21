@@ -115,11 +115,11 @@ Una de las tareas centrales es identificar si distintos programas de diferentes 
 
 El presente reporte documenta el análisis cuantitativo de similitud de contenidos sobre el corpus de 626 UEAs resultante tras excluir el Tronco General.
 El análisis opera en dos fases.
-En la primera, los campos \textit{Objetivo General} y \textit{Contenido Sintético} de cada programa se representan como vectores TF-IDF en un espacio de 8\,000 dimensiones y se calcula la similitud coseno entre cada par, produciendo una matriz inicial de $626 \times 626$ entradas.
-En la segunda, todos los pares con $s_{\mathrm{TF\text{-}IDF}} \geq 0.20$ (1\,505 pares candidatos) son evaluados por el modelo de lenguaje \textit{claude-haiku-4-5}, que devuelve una puntuación semántica revisada $s_{\mathrm{LLM}} \in [0,1]$ y una justificación en español.
+En la primera, los campos \textit{Objetivo General} y \textit{Contenido Sintético} de cada programa se representan como vectores TF-IDF (frecuencia de término--frecuencia inversa de documento) en un espacio de 8\,000 dimensiones y se calcula la similitud coseno entre cada par, produciendo una matriz inicial de $626 \times 626$ entradas.
+En la segunda, todos los pares con $s_{\mathrm{TF\text{-}IDF}} \geq 0.20$ (1\,505 pares candidatos) son evaluados por el modelo de lenguaje grande (LLM) \textit{claude-haiku-4-5}, que devuelve una puntuación semántica revisada $s_{\mathrm{LLM}} \in [0,1]$ y una justificación en español.
 El resultado es la \textit{matriz híbrida}: más precisa que TF-IDF solo porque corrige falsos positivos (vocabulario genérico compartido sin equivalencia real de contenidos) y falsos negativos (programas idénticos con redacciones léxicamente distintas).
 
-Todos los resultados de este reporte---tablas, mapas de calor, grafo, proyección t-SNE---provienen de la matriz híbrida.
+Todos los resultados de este reporte---tablas, mapas de calor, grafo, proyección t-SNE (\textit{t-distributed Stochastic Neighbor Embedding})---provienen de la matriz híbrida.
 Las figuras interactivas están disponibles en el sitio web del proyecto:
 \begin{center}
   \url{https://cslmuam.github.io/similitud-dcbi-2026/}
@@ -504,7 +504,7 @@ Abreviaturas: \textsf{Amb}=Ambiental, \textsf{Civ}=Civil, \textsf{Cmp}=Computaci
 \centering
 \caption{UEAs presentes en tres o más licenciaturas con $s \geq 0.70$ (matriz híbrida).
   ${}^{*}$ Familia de UEAs con el mismo contenido pero distintas claves en cada plan;
-  no excluida como TG por el algoritmo de exclusión basado en clave.
+  no excluida como Tronco General (TG) por el algoritmo de exclusión basado en clave.
   ${}^{\dagger}$ Invisible a TF-IDF ($s_{\mathrm{TF}} \approx 0.21$--$0.25$);
   detectada como equivalente exclusivamente por el LLM.}
 \label{tab:transversal}
@@ -715,7 +715,7 @@ El par más alto es Lab.\@ de Tratamientos Térmicos/Tratamientos Térmicos de l
 \paragraph{Computación (60 UEAs, 33 pares con $s \geq 0.40$).}
 El LLM redujo los pares de 57 (TF-IDF) a 33, descartando 24 artefactos léxicos del vocabulario genérico de software.
 Se distinguen dos bloques de traslape genuino: el área de \textit{bases de datos} (Relacional, No Relacional, Distribuida) y el área de \textit{redes} (Redes de Computadoras, Administración, Seguridad, Automatización).
-El par Programación Orientada a Objetos I vs.\ II permanece como el par no-taller más preocupante.
+El par Programación Orientada a Objetos (POO) I vs.\ II permanece como el par no-taller más preocupante.
 
 \begin{figure}[H]
   \centering
@@ -735,7 +735,7 @@ El par Programación Orientada a Objetos I vs.\ II permanece como el par no-tall
 \paragraph{Mecánica (108 UEAs, 25 pares con $s \geq 0.40$).}
 El plan más extenso del corpus.
 La mayor parte del mapa es de color frío, indicando que los 108 contenidos están bien diferenciados para un plan de esta magnitud.
-Los 25 pares son todos parejas taller/laboratorio esperadas: Lab.\@ de Mecanismos/Mecanismos ($s = 0.85$), Lab.\@ de Eficiencia Operativa/Medición del Trabajo ($s = 0.85$), Lab.\@ Estructura y Prop./Estructura y Prop.\@ de Mat.\@ ($s = 0.78$), Taller de CVAA/CVAA ($s = 0.78$).
+Los 25 pares son todos parejas taller/laboratorio esperadas: Lab.\@ de Mecanismos/Mecanismos ($s = 0.85$), Lab.\@ de Eficiencia Operativa/Medición del Trabajo ($s = 0.85$), Lab.\@ Estructura y Prop./Estructura y Prop.\@ de Mat.\@ ($s = 0.78$), Taller de Calefacción, Ventilación y Aire Acondicionado (CVAA)/CVAA ($s = 0.78$).
 
 \begin{figure}[H]
   \centering
