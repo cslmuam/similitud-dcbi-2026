@@ -306,6 +306,51 @@
     }
     .footer strong { color: rgba(255,255,255,.75); }
 
+    /* ── Hamburger ───────────────────────────────────────────────────────── */
+    .nav-hamburger {
+      display: none;
+      background: none; border: none; cursor: pointer;
+      padding: 8px; margin-left: auto;
+      flex-direction: column; justify-content: center; gap: 5px;
+      width: 36px; height: 36px; border-radius: 6px;
+      transition: background var(--transition);
+    }
+    .nav-hamburger:hover { background: var(--red-light); }
+    .nav-hamburger span {
+      display: block; width: 20px; height: 2px;
+      background: var(--ink); border-radius: 2px;
+      transition: transform .22s ease, opacity .22s ease;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ── Bottom mobile nav ───────────────────────────────────────────────── */
+    .bottom-nav {
+      display: none;
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
+      background: rgba(255,255,255,.96);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--border);
+      padding: .3rem .5rem calc(.3rem + env(safe-area-inset-bottom));
+    }
+    .bottom-nav-inner {
+      display: flex; justify-content: space-around; align-items: center;
+      max-width: 480px; margin: 0 auto;
+    }
+    .bottom-nav-item {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 2px; padding: .4rem .7rem;
+      border-radius: 8px; cursor: pointer;
+      font-size: .65rem; font-weight: 600; color: var(--muted);
+      text-transform: uppercase; letter-spacing: .05em;
+      transition: color var(--transition), background var(--transition);
+      text-decoration: none;
+    }
+    .bottom-nav-item:hover,
+    .bottom-nav-item.active { color: var(--red); background: var(--red-light); }
+    .bottom-nav-icon { font-size: 1.1rem; line-height: 1; }
+
     /* ── Responsive ──────────────────────────────────────────────────────── */
     @media (max-width: 1200px) {
       .grid-5 { grid-template-columns: repeat(4, 1fr); }
@@ -316,25 +361,104 @@
       .hero-inner { grid-template-columns: 1fr; }
       .palette { display: none; }
     }
-    @media (max-width: 600px) {
-      .grid-3, .grid-4, .grid-5 { grid-template-columns: 1fr; }
-      .stats { gap: .5rem; }
-      .stat { min-width: 80px; }
+    @media (max-width: 640px) {
+      /* Nav */
+      .nav { padding: 0 1rem; position: fixed; width: 100%; }
+      .nav-inner { gap: 0; position: relative; }
+      .nav-hamburger { display: flex; }
+      .nav-links {
+        display: none;
+        position: absolute; top: 52px; left: -1rem; right: -1rem;
+        background: rgba(255,255,255,.98);
+        backdrop-filter: blur(16px);
+        border-bottom: 1px solid var(--border);
+        box-shadow: 0 8px 24px rgba(0,0,0,.1);
+        padding: .5rem .75rem .75rem;
+        flex-direction: column; gap: 0;
+        margin-left: 0;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links li { width: 100%; }
+      .nav-links a {
+        display: block; padding: .75rem 1rem;
+        font-size: .9rem; border-radius: 8px;
+      }
+
+      /* Hero offset for fixed nav */
+      .hero { padding: calc(52px + 2rem) 1.25rem 2rem; }
+      .hero h1 { font-size: clamp(1.4rem, 6vw, 1.9rem); }
+      .hero-sub { font-size: .82rem; }
+      .hero-bar { margin: 1rem 0; }
+      .hero-label { font-size: .65rem; }
+
+      /* Stats: 2-column grid */
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: .4rem;
+      }
+      .stat { min-width: 0; }
+
+      /* Main */
+      .main { padding: 0 1.25rem calc(3rem + 56px); }
+      .section { margin-top: 2rem; }
+      .section-header { margin-bottom: .85rem; padding-bottom: .6rem; }
+      .section-header h2 { font-size: 1.05rem; }
+      .section-desc { font-size: .82rem; margin-bottom: 1rem; }
+
+      /* Grids */
+      .grid { gap: .7rem; }
+      .grid-3, .grid-4 { grid-template-columns: 1fr; }
+      .grid-5 { grid-template-columns: repeat(2, 1fr); }
+
+      /* Cards */
+      .card:hover { transform: none; box-shadow: var(--shadow-sm); }
+      @media (pointer: coarse) {
+        .card:active { opacity: .88; transition: opacity .1s; }
+      }
+      .card-body { padding: .75rem .85rem .85rem; }
+      .card-title { font-size: .84rem; }
+      .card-desc { font-size: .73rem; }
+
+      /* Modal → bottom sheet */
+      .modal-overlay {
+        padding: 0; align-items: flex-end; background: rgba(0,0,0,.6);
+      }
+      .modal-box {
+        max-width: 100vw; width: 100%;
+        max-height: 88vh;
+        border-radius: 18px 18px 0 0;
+      }
+      .modal-header { padding: .75rem 1rem; }
+
+      /* Bottom nav */
+      .bottom-nav { display: block; }
+
+      /* Divider */
+      .divider { margin: 2rem 0 0; }
+    }
+
+    @media (max-width: 380px) {
+      .grid-5 { grid-template-columns: 1fr; }
+      .stats { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 </head>
 <body>
 
 <!-- ── Navigation ──────────────────────────────────────────────────────────── -->
-<nav class="nav">
+<nav class="nav" id="mainNav">
   <div class="nav-inner">
     <span class="nav-brand">DCBI 2026</span>
-    <ul class="nav-links">
-      <li><a href="#inter">Inter-plan</a></li>
-      <li><a href="#exploracion">Exploración</a></li>
-      <li><a href="#intra">Intra-plan</a></li>
-      <li><a href="Reporte_Similitud_DCBI_2026.pdf" target="_blank" rel="noopener" style="color:var(--red);font-weight:700;">↓ Reporte PDF</a></li>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#inter" onclick="closeNav()">Inter-plan</a></li>
+      <li><a href="#exploracion" onclick="closeNav()">Exploración</a></li>
+      <li><a href="#intra" onclick="closeNav()">Intra-plan</a></li>
+      <li><a href="Reporte_Similitud_DCBI_2026.pdf" target="_blank" rel="noopener" onclick="closeNav()" style="color:var(--red);font-weight:700;">↓ Reporte PDF</a></li>
     </ul>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menú" onclick="toggleNav()">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
 
@@ -706,6 +830,24 @@
 
 </main><!-- /main -->
 
+<!-- ── Bottom navigation (mobile) ────────────────────────────────────────────── -->
+<nav class="bottom-nav" aria-label="Navegación rápida">
+  <div class="bottom-nav-inner">
+    <a class="bottom-nav-item" href="#inter">
+      <span class="bottom-nav-icon">⊞</span>Inter-plan
+    </a>
+    <a class="bottom-nav-item" href="#exploracion">
+      <span class="bottom-nav-icon">◎</span>Exploración
+    </a>
+    <a class="bottom-nav-item" href="#intra">
+      <span class="bottom-nav-icon">▦</span>Intra-plan
+    </a>
+    <a class="bottom-nav-item" href="Reporte_Similitud_DCBI_2026.pdf" target="_blank" rel="noopener">
+      <span class="bottom-nav-icon">↓</span>PDF
+    </a>
+  </div>
+</nav>
+
 <!-- ── Modal ────────────────────────────────────────────────────────────────── -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
   <div class="modal-box">
@@ -728,6 +870,7 @@
 
 <!-- ── JS ─────────────────────────────────────────────────────────────────────── -->
 <script>
+  /* ── Links & modal ─────────────────────────────────────────────────────── */
   function openLink(url) {
     window.open(url, '_blank', 'noopener');
   }
@@ -751,6 +894,60 @@
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeModal();
   });
+
+  /* ── Hamburger menu ────────────────────────────────────────────────────── */
+  function toggleNav() {
+    const btn  = document.getElementById('hamburger');
+    const menu = document.getElementById('navLinks');
+    const open = btn.classList.toggle('open');
+    menu.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+
+  function closeNav() {
+    document.getElementById('hamburger').classList.remove('open');
+    document.getElementById('navLinks').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  /* Close nav when clicking outside */
+  document.addEventListener('click', e => {
+    const nav = document.getElementById('mainNav');
+    if (!nav.contains(e.target)) closeNav();
+  });
+
+  /* ── Bottom nav active section highlight ───────────────────────────────── */
+  (function () {
+    const sections = ['inter', 'exploracion', 'intra'];
+    const items = document.querySelectorAll('.bottom-nav-item');
+    const sectionEls = sections.map(id => document.getElementById(id));
+
+    function onScroll() {
+      let activeIdx = 0;
+      const scrollY = window.scrollY + window.innerHeight * 0.35;
+      sectionEls.forEach((el, i) => {
+        if (el && el.offsetTop <= scrollY) activeIdx = i;
+      });
+      items.forEach((item, i) => {
+        item.classList.toggle('active', i === activeIdx && item.href && item.href.includes('#'));
+      });
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+
+  /* ── Swipe-to-close bottom sheet modal on mobile ───────────────────────── */
+  (function () {
+    const overlay = document.getElementById('modalOverlay');
+    const box     = overlay.querySelector('.modal-box');
+    let startY = 0;
+
+    box.addEventListener('touchstart', e => { startY = e.touches[0].clientY; }, { passive: true });
+    box.addEventListener('touchend', e => {
+      if (e.changedTouches[0].clientY - startY > 60) closeModal();
+    }, { passive: true });
+  })();
 </script>
 
 </body>
