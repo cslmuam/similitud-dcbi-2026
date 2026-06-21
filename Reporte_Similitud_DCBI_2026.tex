@@ -113,6 +113,31 @@ Proceso de modificación curricular 2026 --- DCBI}\\[0.3em]
 El proceso de modificación curricular 2026 de la División de Ciencias Básicas e Ingeniería implica la revisión simultánea de 773 programas de Unidades de Enseñanza-Aprendizaje (UEA) distribuidos en las diez licenciaturas de la División.
 Una de las tareas centrales consiste en identificar si distintos programas de diferentes licenciaturas cubren contenido equivalente o sustancialmente solapado, y si existen duplicaciones implícitas dentro de un mismo plan de estudios---información de apoyo para las decisiones de revisión curricular que corresponden a las instancias académicas competentes.
 
+\begin{recuadro}{¿Cómo se mide la similitud entre programas?}
+Cada programa de UEA se convierte en un vector numérico: a cada término técnico se le asigna un peso que crece con su frecuencia en ese programa y decrece con la fracción del corpus en que aparece---los términos comunes a casi todos los planes aportan poca información discriminativa; los propios de una disciplina, mucha.
+La similitud entre dos programas es el coseno del ángulo entre sus vectores, un número $s \in [0,1]$: vale $s = 1$ si ambos programas comparten exactamente el mismo perfil de términos relevantes, y $s = 0$ si no tienen ningún término significativo en común.
+
+\smallskip
+\begin{center}
+\small
+\begin{tabular}{cl}
+\toprule
+\textbf{Rango de }$s$ & \textbf{Interpretación operacional} \\
+\midrule
+$[0.85,\;1.00]$ & Equivalencia muy alta o textual \\
+$[0.65,\;0.85)$ & Contenidos ampliamente solapados \\
+$[0.45,\;0.65)$ & Traslape de contenidos significativo \\
+$[0.30,\;0.45)$ & Vocabulario técnico parcialmente compartido \\
+$[0.00,\;0.30)$ & Sin traslape significativo \\
+\bottomrule
+\end{tabular}
+\end{center}
+\smallskip
+
+Esta medida léxica subestima la similitud cuando dos programas cubren el mismo contenido con vocabulario distinto: ``Liderazgo organizacional'' y ``Gestión de equipos de trabajo'' obtienen $s$ baja aunque sean equivalentes.
+Para corregir este sesgo, un modelo de lenguaje grande re-evalúa directamente los pares candidatos y emite una puntuación semántica revisada que reemplaza la puntuación léxica.
+\end{recuadro}
+
 El presente reporte documenta el análisis cuantitativo de similitud de contenidos sobre el corpus de 626 UEAs resultante tras excluir el Tronco General.
 El análisis opera en dos fases.
 En la primera, los campos \textit{Objetivo General} y \textit{Contenido Sintético} de cada programa se representan como vectores TF-IDF (frecuencia de término--frecuencia inversa de documento) en un espacio de 8\,000 dimensiones, y se calcula la similitud coseno entre cada par, produciendo una matriz inicial de $626 \times 626$ entradas.
