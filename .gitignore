@@ -1,4 +1,4 @@
-# LaTeX auxiliary
+# LaTeX auxiliary files
 *.aux
 *.bbl
 *.blg
@@ -14,7 +14,10 @@ __pycache__/
 *.pyc
 *.pyo
 
-# Oficios institucionales (documentos internos)
+# Matriz de similitud binaria (regenerable desde el JSON)
+Datos/similitud_llm_dcbi_2026.npz
+
+# Documentos internos (no publicados)
 Oficios/
 
 # macOS

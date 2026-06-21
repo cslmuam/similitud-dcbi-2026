@@ -112,7 +112,7 @@ def cargar_datos():
     corpus, _, _ = extraer_corpus(inventarios, umbral_tg=7)
     print(f"  Corpus: {len(corpus)} UEAs", flush=True)
 
-    base = REVISIONES / "similitud_llm_dcbi_2026"
+    base = REVISIONES / "Datos" / "similitud_llm_dcbi_2026"
     print("  Cargando MatrizHibrida...", flush=True)
     mh = MatrizHibrida.cargar(corpus, base)
     print(f"  Matriz: {mh.matriz.shape}  ({mh.n_evaluados} pares LLM)", flush=True)
