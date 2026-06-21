@@ -119,6 +119,19 @@ En la primera, los campos \textit{Objetivo General} y \textit{Contenido Sintéti
 En la segunda, todos los pares con $s_{\mathrm{TF\text{-}IDF}} \geq 0.20$ (1\,505 pares candidatos) son evaluados por el modelo de lenguaje grande (LLM) \textit{claude-haiku-4-5}, que devuelve una puntuación semántica revisada $s_{\mathrm{LLM}} \in [0,1]$ y una justificación en español.
 El resultado es la \textit{matriz híbrida}: más precisa que TF-IDF solo porque corrige falsos positivos (vocabulario genérico compartido sin equivalencia real de contenidos) y falsos negativos (programas idénticos con redacciones léxicamente distintas).
 
+El análisis produce tres clases de medida.
+La primera es la \textit{similitud par a par}: la matriz híbrida asigna a cada uno de los $\binom{626}{2} = 195\,375$ pares posibles de UEAs un puntaje $s \in [0,1]$, donde $s = 1$ indica equivalencia textual y $s < 0.30$ indica ausencia de traslape significativo.
+La segunda es el \textit{recuento de pares equivalentes} entre licenciaturas a dos umbrales operacionales: $s \geq 0.30$ para pares inter-plan y $s \geq 0.40$ para pares intra-plan---umbral más estricto en el segundo caso, dado que la afinidad disciplinar entre UEAs del mismo plan es estructuralmente mayor que entre licenciaturas distintas.
+La tercera es la \textit{similitud media-máxima} $\bar{s}(A,B)$ entre planes completos: para cada UEA del plan $A$ se identifica la UEA más similar que existe en $B$ y se promedia esa similitud máxima sobre todo $A$; el indicador es asimétrico por diseño---$\bar{s}(A,B)$ puede diferir de $\bar{s}(B,A)$ cuando los planes difieren en tamaño o diversidad---y cuantifica el grado de cobertura que $B$ ofrece para los contenidos de $A$.
+
+Los hallazgos revelan un traslape más extenso y estructuralmente más complejo que el detectable por análisis léxico.
+El par Industrial--Mecánica concentra la mayor densidad del corpus: 38~UEAs equivalentes a $s \geq 0.70$, seis veces más que el segundo par de mayor traslape, cubriendo manufactura, materiales, termodinámica, métodos numéricos y UEAs de formación amplia; la magnitud sugiere que ambos planes comparten implícitamente más de un tercio de sus contenidos fuera del Tronco General.
+La Licenciatura en Física actúa como nodo transversal: comparte UEAs con las diez licenciaturas y acumula 100~pares inter-plan a $s \geq 0.30$, la mayor conectividad del corpus.
+El bloque Ambiental--Química aporta la segunda densidad más alta (14~UEAs a $s \geq 0.70$), con contenidos de ingeniería ambiental compartidos que superan lo atribuible a vocabulario disciplinar común.
+Cuatro familias de contenido cruzan entre cinco y nueve planes con alta similitud sin coordinación formal entre licenciaturas: Ecuaciones Diferenciales (9 planes, $s = 1.00$), Liderazgo y Emprendimiento (9 planes, detectable solo por el LLM porque TF-IDF le asignaba $s \approx 0.21$--$0.25$), Educación Ambiental y Cambio Climático (6~o más planes, $s \geq 0.95$), y un núcleo matemático de cuatro UEAs presentes en 5~planes cada una con $s \geq 0.98$.
+En el análisis intra-plan se identificaron tres duplicados documentales---en Química, Física e Industrial---y el plan de Civil registra la mayor densidad del corpus con 61~pares a $s \geq 0.40$, resultado de objetivos convergentes redactados independientemente por distintos departamentos.
+El enriquecimiento semántico con LLM fue determinante: incrementó los pares inter-plan detectados en 154\,\% y los intra-plan en 75\,\%, descubriendo 455~pares con equivalencia semántica real que el análisis léxico habría descartado.
+
 Todos los resultados de este reporte---tablas, mapas de calor, grafo, proyección t-SNE (\textit{t-distributed Stochastic Neighbor Embedding})---provienen de la matriz híbrida.
 Las figuras interactivas están disponibles en el sitio web del proyecto:
 \begin{center}
