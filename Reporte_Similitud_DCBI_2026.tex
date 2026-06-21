@@ -111,33 +111,33 @@ Proceso de modificación curricular 2026 --- DCBI}\\[0.3em]
 %% ════════════════════════════════════════════════════════════════════════════
 
 El proceso de modificación curricular 2026 de la División de Ciencias Básicas e Ingeniería implica la revisión simultánea de 773 programas de Unidades de Enseñanza-Aprendizaje (UEA) distribuidos en las diez licenciaturas de la División.
-Una de las tareas centrales es identificar si distintos programas de diferentes licenciaturas cubren contenido equivalente o sustancialmente solapado, y si existen duplicaciones implícitas dentro de un mismo plan de estudios---información de apoyo para las decisiones de revisión curricular que corresponden a las instancias académicas competentes.
+Una de las tareas centrales consiste en identificar si distintos programas de diferentes licenciaturas cubren contenido equivalente o sustancialmente solapado, y si existen duplicaciones implícitas dentro de un mismo plan de estudios---información de apoyo para las decisiones de revisión curricular que corresponden a las instancias académicas competentes.
 
 El presente reporte documenta el análisis cuantitativo de similitud de contenidos sobre el corpus de 626 UEAs resultante tras excluir el Tronco General.
 El análisis opera en dos fases.
-En la primera, los campos \textit{Objetivo General} y \textit{Contenido Sintético} de cada programa se representan como vectores TF-IDF (frecuencia de término--frecuencia inversa de documento) en un espacio de 8\,000 dimensiones y se calcula la similitud coseno entre cada par, produciendo una matriz inicial de $626 \times 626$ entradas.
+En la primera, los campos \textit{Objetivo General} y \textit{Contenido Sintético} de cada programa se representan como vectores TF-IDF (frecuencia de término--frecuencia inversa de documento) en un espacio de 8\,000 dimensiones, y se calcula la similitud coseno entre cada par, produciendo una matriz inicial de $626 \times 626$ entradas.
 En la segunda, todos los pares con $s_{\mathrm{TF\text{-}IDF}} \geq 0.20$ (1\,505 pares candidatos) son evaluados por el modelo de lenguaje grande (LLM) \textit{claude-haiku-4-5}, que devuelve una puntuación semántica revisada $s_{\mathrm{LLM}} \in [0,1]$ y una justificación en español.
-El resultado es la \textit{matriz híbrida}: más precisa que TF-IDF solo porque corrige falsos positivos (vocabulario genérico compartido sin equivalencia real de contenidos) y falsos negativos (programas idénticos con redacciones léxicamente distintas).
+El resultado es la \textit{matriz híbrida}: más precisa que el análisis TF-IDF solo porque corrige falsos positivos (vocabulario genérico compartido sin equivalencia real de contenidos) y falsos negativos (programas idénticos con redacciones léxicamente distintas).
 
 El análisis produce tres clases de medida.
 La primera es la \textit{similitud par a par}: la matriz híbrida asigna a cada uno de los $\binom{626}{2} = 195\,375$ pares posibles de UEAs un puntaje $s \in [0,1]$, donde $s = 1$ indica equivalencia textual y $s < 0.30$ indica ausencia de traslape significativo.
-La segunda es el \textit{recuento de pares equivalentes} entre licenciaturas a dos umbrales operacionales: $s \geq 0.30$ para pares inter-plan y $s \geq 0.40$ para pares intra-plan---umbral más estricto en el segundo caso, dado que la afinidad disciplinar entre UEAs del mismo plan es estructuralmente mayor que entre licenciaturas distintas.
-La tercera es la \textit{similitud media-máxima} $\bar{s}(A,B)$ entre planes completos: para cada UEA del plan $A$ se identifica la UEA más similar que existe en $B$ y se promedia esa similitud máxima sobre todo $A$; el indicador es asimétrico por diseño---$\bar{s}(A,B)$ puede diferir de $\bar{s}(B,A)$ cuando los planes difieren en tamaño o diversidad---y cuantifica el grado de cobertura que $B$ ofrece para los contenidos de $A$.
+La segunda es el \textit{recuento de pares equivalentes} entre licenciaturas a dos umbrales operacionales: $s \geq 0.30$ para pares inter-plan y $s \geq 0.40$ para pares intra-plan---umbral más estricto en el segundo caso, dado que la afinidad disciplinar entre UEAs de un mismo plan es estructuralmente mayor que entre licenciaturas distintas.
+La tercera es la \textit{similitud media-máxima} $\bar{s}(A,B)$ entre planes completos: para cada UEA del plan $A$ se identifica la UEA más similar existente en $B$, y se promedia esa similitud máxima sobre todas las UEAs de $A$; el indicador es asimétrico por diseño---$\bar{s}(A,B)$ puede diferir de $\bar{s}(B,A)$ cuando los planes difieren en tamaño o diversidad---y cuantifica el grado de cobertura que $B$ ofrece para los contenidos de $A$.
 
-Los hallazgos revelan un traslape más extenso y estructuralmente más complejo que el detectable por análisis léxico.
-El par Industrial--Mecánica concentra la mayor densidad del corpus: 38~UEAs equivalentes a $s \geq 0.70$, seis veces más que el segundo par de mayor traslape, cubriendo manufactura, materiales, termodinámica, métodos numéricos y UEAs de formación amplia; la magnitud sugiere que ambos planes comparten implícitamente más de un tercio de sus contenidos fuera del Tronco General.
+Los hallazgos revelan un traslape más extenso y estructuralmente más complejo que el detectable mediante análisis léxico.
+El par Industrial--Mecánica concentra la mayor densidad del corpus: 38~UEAs equivalentes a $s \geq 0.70$---seis veces más que el segundo par de mayor traslape---en áreas de manufactura, materiales, termodinámica, métodos numéricos y UEAs de formación amplia; la magnitud sugiere que ambos planes comparten implícitamente más de un tercio de sus contenidos fuera del Tronco General (TG).
 La Licenciatura en Física actúa como nodo transversal: comparte UEAs con las diez licenciaturas y acumula 100~pares inter-plan a $s \geq 0.30$, la mayor conectividad del corpus.
-El bloque Ambiental--Química aporta la segunda densidad más alta (14~UEAs a $s \geq 0.70$), con contenidos de ingeniería ambiental compartidos que superan lo atribuible a vocabulario disciplinar común.
-Cuatro familias de contenido cruzan entre cinco y nueve planes con alta similitud sin coordinación formal entre licenciaturas: Ecuaciones Diferenciales (9 planes, $s = 1.00$), Liderazgo y Emprendimiento (9 planes, detectable solo por el LLM porque TF-IDF le asignaba $s \approx 0.21$--$0.25$), Educación Ambiental y Cambio Climático (6~o más planes, $s \geq 0.95$), y un núcleo matemático de cuatro UEAs presentes en 5~planes cada una con $s \geq 0.98$.
+El bloque Ambiental--Química aporta la segunda densidad más alta (14~UEAs a $s \geq 0.70$), con contenidos de ingeniería ambiental compartidos en una medida que supera lo atribuible a vocabulario disciplinar común.
+Cuatro familias de contenido cruzan entre cinco y nueve planes con alta similitud sin coordinación formal entre licenciaturas: Ecuaciones Diferenciales (9 planes, $s = 1.00$), Liderazgo y Emprendimiento (9 planes, detectable solo mediante el LLM porque TF-IDF le asignaba $s \approx 0.21$--$0.25$), Educación Ambiental y Cambio Climático (6~o más planes, $s \geq 0.95$), y un núcleo matemático de cuatro UEAs presentes en 5~planes cada una con $s \geq 0.98$.
 En el análisis intra-plan se identificaron tres duplicados documentales---en Química, Física e Industrial---y el plan de Civil registra la mayor densidad del corpus con 61~pares a $s \geq 0.40$, resultado de objetivos convergentes redactados independientemente por distintos departamentos.
-El enriquecimiento semántico con LLM fue determinante: incrementó los pares inter-plan detectados en 154\,\% y los intra-plan en 75\,\%, descubriendo 455~pares con equivalencia semántica real que el análisis léxico habría descartado.
+El enriquecimiento semántico con LLM fue determinante: incrementó los pares inter-plan detectados en 154\,\% y los intra-plan en 75\,\%, identificando 455~pares con equivalencia semántica real que el análisis léxico habría descartado.
 
-Todos los resultados de este reporte---tablas, mapas de calor, grafo, proyección t-SNE (\textit{t-distributed Stochastic Neighbor Embedding})---provienen de la matriz híbrida.
+Todos los resultados de este reporte---tablas, mapas de calor, grafo y proyección t-SNE (\textit{t-distributed Stochastic Neighbor Embedding})---provienen de la matriz híbrida.
 Las figuras interactivas están disponibles en el sitio web del proyecto:
 \begin{center}
   \url{https://cslmuam.github.io/similitud-dcbi-2026/}
 \end{center}
-donde cada visualización puede consultarse en el navegador, con identificación de UEAs individuales al pasar el cursor.
+donde cada visualización puede consultarse en el navegador con identificación de UEAs individuales al pasar el cursor.
 
 %% ════════════════════════════════════════════════════════════════════════════
 \section{Metodología}
@@ -149,9 +149,9 @@ donde cada visualización puede consultarse en el navegador, con identificación
 
 Cada programa de UEA consiste en 150 a 500 palabras distribuidas entre los campos \textit{Objetivo General} y \textit{Contenido Sintético}.
 La tarea es detectar, entre los $\binom{626}{2} = 195\,375$ pares posibles, aquellos cuyo contenido declarado es sustancialmente equivalente.
-La comparación manual es inviable a esa escala; se requiere una medida cuantitativa de similitud que sea calculable automáticamente, interpretable sin conocimiento previo del sistema, y robusta frente a la heterogeneidad de estilos de redacción entre programas.
+La comparación manual es inviable a esa escala; se requiere una medida cuantitativa de similitud que sea calculable automáticamente, interpretable sin conocimiento previo del sistema y robusta frente a la heterogeneidad de estilos de redacción entre programas.
 
-Los programas presentan tres características que determinan las elecciones metodológicas: son \textit{cortos} (representaciones esparsas), están escritos en \textit{español técnico} (vocabulario especializado, bigramas informativos), y provienen de un corpus de tamaño \textit{pequeño a mediano} (626 documentos) sin ningún tipo de anotación previa.
+Los programas presentan tres características que determinan las elecciones metodológicas: son \textit{cortos} (representaciones esparsas), están escritos en \textit{español técnico} (vocabulario especializado, bigramas informativos) y provienen de un corpus de tamaño \textit{pequeño a mediano} (626 documentos) sin ningún tipo de anotación previa.
 
 %%──────────────────────────────────────────────────────────────────────────
 \subsection{El modelo del espacio vectorial}
@@ -169,9 +169,8 @@ El VSM es la base de la recuperación de información moderna \citep{Manning2008
 
 La elección más simple para las coordenadas sería la frecuencia bruta $f_{t,d}$ de cada término $t$ en el documento $d$.
 Esta elección es inadecuada por dos razones.
-Primero, viola la ley de Zipf: en cualquier corpus natural, unos pocos términos son extremadamente frecuentes y poco discriminativos (``ecuaciones'', ``análisis'', ``sistemas''), mientras que los términos técnicamente específicos son raros.
-Un vector de frecuencias brutas estará dominado por términos genéricos.
-Segundo, documentos más largos producen coordenadas sistemáticamente más grandes, sesgando la comparación.
+Primera: viola la ley de Zipf; en cualquier corpus natural, unos pocos términos son extremadamente frecuentes y poco discriminativos (``ecuaciones'', ``análisis'', ``sistemas''), mientras que los términos técnicamente específicos son raros, de modo que un vector de frecuencias brutas queda dominado por términos genéricos.
+Segunda: los documentos más largos producen coordenadas sistemáticamente mayores, sesgando la comparación.
 
 La ponderación TF-IDF (\textit{Term Frequency--Inverse Document Frequency}) corrige ambos problemas.
 El peso del término $t$ en el documento $d$ es \citep{Salton1988}
@@ -184,15 +183,15 @@ El peso del término $t$ en el documento $d$ es \citep{Salton1988}
 donde $f_{t,d}$ es la frecuencia del término en el documento, $N = 626$ es el tamaño total del corpus y $n_t$ es el número de documentos en que $t$ aparece.
 
 El factor $1 + \log f_{t,d}$ en la ecuación~\eqref{eq:tfidf} comprime la escala de frecuencias mediante un logaritmo: la diferencia de relevancia entre una aparición y diez es mucho menor que la diferencia entre cero y una.
-El factor $\log(N/n_t)$ es la \textit{frecuencia inversa de documento} (IDF), introducido por \citet{SparkJones1972}.
+El factor $\log(N/n_t)$ es la \textit{frecuencia inversa de documento} (IDF), introducida por \citet{SparkJones1972}.
 Su motivación es directamente probabilística: si un término aparece en casi todos los documentos, es informativamente vacío; si aparece en pocos, es altamente discriminativo.
-\citet{Robertson2004} provee la justificación bayesiana formal de esta intuición: el IDF puede derivarse como logaritmo de la razón de verosimilitudes de encontrar el término en un documento relevante versus uno irrelevante.
+\citet{Robertson2004} proporciona la justificación bayesiana formal de esta intuición: el IDF puede derivarse como logaritmo de la razón de verosimilitudes de encontrar el término en un documento relevante frente a uno irrelevante.
 
 Se excluyen del vocabulario los términos genéricos (\textit{stopwords} académicas: ``objetivo'', ``contenido'', ``estudiante'', etc.) y los términos que aparecen en menos de dos documentos o en más del 85\,\% del corpus, y se incluyen bigramas---secuencias de dos palabras contiguas como ``ecuaciones diferenciales'' o ``transferencia de calor''---para capturar frases técnicas compuestas \citep[cap.~2]{Manning2008}.
 El vocabulario resultante comprende hasta 8\,000 términos y bigramas.
 
-La razón para preferir TF-IDF sobre las representaciones neurales densas (BERT, modelos de lenguaje) en esta primera fase es triple.
-\textit{Interpretabilidad}: cada coordenada de un vector TF-IDF corresponde a un término específico, de modo que la similitud entre dos programas es explicable en términos del vocabulario técnico que comparten.
+La preferencia por TF-IDF sobre las representaciones neurales densas (BERT, modelos de lenguaje) en esta primera fase obedece a tres razones.
+\textit{Interpretabilidad}: cada coordenada de un vector TF-IDF corresponde a un término específico, de modo que la similitud entre dos programas resulta explicable en términos del vocabulario técnico que comparten.
 \textit{Robustez para corpus pequeños}: los modelos neuronales requieren ajuste fino en el dominio específico; con 626 documentos y vocabulario técnico en español, TF-IDF produce representaciones más estables \citep{Turney2010}.
 \textit{Ausencia de datos etiquetados}: no existe un conjunto de pares de UEAs etiquetados manualmente como ``equivalentes'', lo que impide el aprendizaje supervisado.
 
@@ -202,7 +201,7 @@ La razón para preferir TF-IDF sobre las representaciones neurales densas (BERT,
 %%──────────────────────────────────────────────────────────────────────────
 
 Dada la representación vectorial, se necesita una métrica de comparación.
-La distancia euclidiana $\|\mathbf{v}_{d_i} - \mathbf{v}_{d_j}\|$ depende de la magnitud de los vectores: un programa de 500 palabras tendrá coordenadas más grandes que uno de 150 palabras sobre el mismo tema, y su distancia euclidiana a cualquier otro programa será sistemáticamente mayor---un sesgo indeseable.
+La distancia euclidiana $\|\mathbf{v}_{d_i} - \mathbf{v}_{d_j}\|$ depende de la magnitud de los vectores: un programa de 500 palabras tendrá coordenadas mayores que uno de 150 palabras sobre el mismo tema, y su distancia euclidiana a cualquier otro programa será sistemáticamente mayor---un sesgo indeseable.
 
 La similitud coseno elimina este sesgo midiendo el ángulo entre vectores en lugar de la distancia entre sus extremos:
 
@@ -237,7 +236,7 @@ $[0.85,\;1.00]$ & Muy alto & Programas casi idénticos o idénticos \\
 \subsection{Exclusión del Tronco General}
 %%──────────────────────────────────────────────────────────────────────────
 
-Las UEAs del Tronco General comparten programa por definición, por lo que incluirlas en el análisis produciría pares trivialmente idénticos que contaminarían las métricas de traslape entre licenciaturas.
+Las UEAs del Tronco General comparten programa por definición; incluirlas en el análisis produciría pares trivialmente idénticos que contaminarían las métricas de traslape entre licenciaturas.
 Se excluyen del corpus mediante tres criterios independientes.
 
 \textbf{Criterio I (frecuencia de clave).}
@@ -259,10 +258,10 @@ El corpus resultante tras las exclusiones comprende \textbf{626 programas de UEA
 %%──────────────────────────────────────────────────────────────────────────
 
 La matriz de similitud $626 \times 626$ resultante contiene información sobre todos los pares.
-Para visualizarla como mapa de calor es necesario reordenar filas y columnas de modo que las UEAs de contenido similar queden adyacentes---de lo contrario el mapa es ruido visual.
+Para visualizarla como mapa de calor es necesario reordenar filas y columnas de modo que las UEAs de contenido similar queden adyacentes; de lo contrario, el mapa se reduce a ruido visual.
 Este reordenamiento se obtiene mediante el \textit{agrupamiento jerárquico aglomerativo de Ward} \citep{Ward1963}.
 
-El método parte del conjunto donde cada UEA forma su propio grupo y fusiona iterativamente los dos grupos cuya unión incrementa mínimamente la varianza intra-cluster total.
+El método parte de la configuración en que cada UEA forma su propio grupo y fusiona iterativamente los dos grupos cuya unión incrementa mínimamente la varianza intra-cluster total.
 El criterio de fusión de Ward entre dos grupos $C_i$ y $C_j$ es:
 
 \begin{equation}
@@ -275,8 +274,8 @@ El criterio de fusión de Ward entre dos grupos $C_i$ y $C_j$ es:
 donde $n_i$, $n_j$ son los tamaños y $\boldsymbol{\mu}_i$, $\boldsymbol{\mu}_j$ son los centroides de cada grupo.
 Minimizar $\Delta E$ en la ecuación~\eqref{eq:ward} equivale a minimizar la suma total de cuadrados intra-cluster \citep{Murtagh2014}, criterio que produce grupos compactos y bien separados.
 
-La razón para elegir Ward frente a otros criterios de enlace (completo, promedio, simple) es que estos últimos presentan el \textit{efecto de encadenamiento}: un único par de UEAs con alta similitud puede conectar artificialmente dos grupos temáticamente distintos.
-Ward penaliza las fusiones que aumentan la heterogeneidad interna, produciendo un dendrograma cuya estructura refleja mejor la organización temática del corpus.
+La ventaja de Ward frente a otros criterios de enlace (completo, promedio, simple) es que estos últimos presentan el \textit{efecto de encadenamiento}: un único par de UEAs con alta similitud puede conectar artificialmente dos grupos temáticamente distintos.
+Ward penaliza las fusiones que incrementan la heterogeneidad interna, produciendo un dendrograma cuya estructura refleja con mayor fidelidad la organización temática del corpus.
 \citet{Murtagh2014} demuestran que el criterio de Ward es el único de los métodos aglomerativos clásicos que minimiza una función objetivo global bien definida.
 
 El algoritmo se aplica a la matriz de \textit{distancias} $1 - s(d_i, d_j)$, derivada de la similitud coseno; el orden de las hojas del dendrograma resultante se usa como permutación de filas y columnas del mapa de calor.
@@ -286,17 +285,17 @@ El algoritmo se aplica a la matriz de \textit{distancias} $1 - s(d_i, d_j)$, der
 %%──────────────────────────────────────────────────────────────────────────
 
 El espacio TF-IDF de 8\,000 dimensiones no puede visualizarse directamente.
-El análisis de componentes principales (PCA) produciría una proyección lineal que captura la varianza global pero no la estructura de grupos locales: en espacios de alta dimensión, los datos viven frecuentemente en variedades no lineales que PCA no puede desplegar.
+El análisis de componentes principales (PCA) produciría una proyección lineal que captura la varianza global pero no la estructura de grupos locales: en espacios de alta dimensión, los datos residen frecuentemente en variedades no lineales que PCA no puede desplegar.
 
 El método t-SNE (\textit{t-distributed Stochastic Neighbor Embedding}) de \citet{Maaten2008} resuelve este problema modelando explícitamente la estructura de \textit{vecindades locales}.
 En el espacio de alta dimensión, define la probabilidad $p_{ij}$ de que dos documentos sean vecinos mediante una distribución gaussiana centrada en cada punto.
-En la proyección bidimensional, define las probabilidades análogas $q_{ij}$ mediante una distribución de Student con un grado de libertad---cola más pesada que la gaussiana.
-El algoritmo minimiza la divergencia de Kullback--Leibler $\mathrm{KL}(P\,\|\,Q)$ entre ambas distribuciones de probabilidad, forzando que los vecinos en el espacio original lo sean también en el plano.
+En la proyección bidimensional, define las probabilidades análogas $q_{ij}$ mediante una distribución de Student con un grado de libertad---de cola más pesada que la gaussiana.
+El algoritmo minimiza la divergencia de Kullback--Leibler $\mathrm{KL}(P\,\|\,Q)$ entre ambas distribuciones, forzando que los vecinos en el espacio original lo sean también en el plano.
 
-La cola pesada de la distribución de Student en la proyección resuelve el \textit{problema de aglomeración} (\textit{crowding problem}): en alta dimensión, muchos puntos pueden estar a distancia moderada de un punto central; en dos dimensiones no hay espacio suficiente para todos ellos si se usan distribuciones de colas ligeras, lo que produce mapas comprimidos e ilegibles \citep{Maaten2008}.
+La cola pesada de la distribución de Student en la proyección resuelve el \textit{problema de aglomeración} (\textit{crowding problem}): en alta dimensión, numerosos puntos pueden situarse a distancia moderada de un punto central; en dos dimensiones no hay espacio suficiente para todos ellos si se emplean distribuciones de colas ligeras, lo que produce mapas comprimidos e ilegibles \citep{Maaten2008}.
 La distribución de Student permite que los puntos alejados en alta dimensión se separen ampliamente en el plano, produciendo proyecciones con grupos bien diferenciados \citep{Wattenberg2016}.
 
-Por recomendación explícita de \citet{Maaten2008}, la proyección se aplica en dos etapas: primero se reduce el espacio a 50 componentes principales con PCA---eliminando dimensiones de ruido y acelerando el cálculo---y sobre ese espacio de 50 dimensiones se ejecuta t-SNE.
+Siguiendo la recomendación de \citet{Maaten2008}, la proyección se aplica en dos etapas: primero se reduce el espacio a 50 componentes principales con PCA---eliminando dimensiones de ruido y acelerando el cálculo---y sobre ese espacio de 50 dimensiones se ejecuta t-SNE.
 Los parámetros usados son perplexity $= 30$ y $\mathrm{max\_iter} = 1000$, valores estándar para corpus de tamaño comparable.
 
 %%──────────────────────────────────────────────────────────────────────────
@@ -314,11 +313,10 @@ Para resumir la similitud entre dos planes completos $A$ y $B$ en un único núm
 donde la suma recorre todas las UEAs del plan $A$ y el máximo se toma sobre todas las UEAs del plan $B$.
 La interpretación de la ecuación~\eqref{eq:meanmax} es: para la UEA \textit{promedio} del plan $A$, ¿cuán similar es la UEA más parecida que existe en el plan $B$?
 
-La elección del operador \textit{max} frente a un promedio global responde a la naturaleza del problema.
-Un promedio global quedaría dominado por las muchas UEAs sin traslape, diluyendo señales reales de coincidencia.
+La elección del operador \textit{max} frente a un promedio global responde a la naturaleza del problema: un promedio global quedaría dominado por las numerosas UEAs sin traslape, diluyendo las señales reales de coincidencia.
 El operador \textit{max} mide si existe una contraparte en $B$ para cada UEA de $A$---pregunta directamente relevante para la revisión curricular.
 Esta métrica es asimétrica por diseño: en general $\simAB \neq \bar{s}(B,A)$, porque un plan $B$ más grande o diverso ofrece más oportunidades de encontrar contrapartes próximas para las UEAs de $A$.
-La asimetría es informativamente valiosa: un valor alto de $\simAB$ con bajo $\bar{s}(B,A)$ indica que el plan $A$ está cubierto por $B$ pero no a la inversa---una relación de inclusión unilateral de contenidos.
+La asimetría es informativamente valiosa: un valor alto de $\simAB$ con $\bar{s}(B,A)$ bajo indica que el plan $A$ está cubierto por $B$ pero no a la inversa---una relación de inclusión unilateral de contenidos.
 La diagonal se establece en $\simAB = 1$ por convención (auto-similitud exacta).
 
 La implementación de todos los pasos metodológicos utiliza la biblioteca \textit{scikit-learn} \citep{Pedregosa2011}, que proporciona las clases \texttt{TfidfVectorizer} (ecuaciones~\eqref{eq:tfidf} y~\eqref{eq:coseno}), \texttt{cosine\_similarity}, \texttt{AgglomerativeClustering} (ecuación~\eqref{eq:ward}) y \texttt{TSNE}.
@@ -327,14 +325,13 @@ La implementación de todos los pasos metodológicos utiliza la biblioteca \text
 \subsection{Enriquecimiento semántico con LLM}
 %%──────────────────────────────────────────────────────────────────────────
 
-La similitud coseno captura traslape léxico pero es ciega a equivalencias semánticas expresadas con vocabulario distinto.
+La similitud coseno captura el traslape léxico pero es insensible a equivalencias semánticas expresadas con vocabulario distinto.
 Por ejemplo, dos instancias de ``Liderazgo y Emprendimiento'' en planes diferentes pueden recibir una puntuación TF-IDF baja si sus redacciones difieren, aunque sus contenidos sean idénticos.
-Para corregir este sesgo, la matriz TF-IDF se enriquece en una segunda fase con evaluación semántica directa por un modelo de lenguaje grande (LLM).
+Para corregir este sesgo, la matriz TF-IDF se enriquece en una segunda fase mediante evaluación semántica directa por un modelo de lenguaje grande (LLM).
 
-El procedimiento es el siguiente.
-Primero, se identifican todos los pares con $s_{\mathrm{TF\text{-}IDF}} \geq 0.20$ como \textit{candidatos}---un umbral bajo que captura prácticamente todo par con algún vocabulario compartido.
-Segundo, para cada par candidato se envía al LLM el texto completo del \textit{Objetivo General} y el \textit{Contenido Sintético} de ambas UEAs, junto con una rúbrica de cinco niveles (idéntico, muy alto, alto, moderado, bajo).
-El modelo devuelve una puntuación $s_{\mathrm{LLM}} \in [0,1]$ y una breve razón en español.
+El procedimiento comprende tres pasos.
+Primero, se identifican como \textit{candidatos} todos los pares con $s_{\mathrm{TF\text{-}IDF}} \geq 0.20$---umbral bajo que captura prácticamente todo par con algún vocabulario compartido.
+Segundo, para cada par candidato se envían al LLM los textos completos del \textit{Objetivo General} y el \textit{Contenido Sintético} de ambas UEAs, junto con una rúbrica de cinco niveles (idéntico, muy alto, alto, moderado, bajo); el modelo devuelve una puntuación $s_{\mathrm{LLM}} \in [0,1]$ y una breve justificación en español.
 Tercero, la puntuación TF-IDF de cada par candidato se sustituye por $s_{\mathrm{LLM}}$; los pares no evaluados conservan su puntuación TF-IDF.
 
 Para este corpus se evaluaron 1\,505 pares candidatos con 15 llamadas API simultáneas, completando el análisis en 141.6\,s a un costo de \$0.24\,USD (modelo \textit{claude-haiku-4-5}).
@@ -380,16 +377,16 @@ Química        &  55 &  99 & 1.000 &  11 & 0.990 \\
 
 La tabla~\ref{tab:corpus} refleja el impacto del enriquecimiento semántico respecto al análisis TF-IDF previo: los pares inter-plan suman 391 (+154\,\%) y los intra-plan 217 (+75\,\%).
 Tres resultados sobresalen.
-Física encabeza los pares inter-plan con 100, seguida de Mecánica con 116 (que incluye tanto inter como intra) y Química con 99---reflejo de que estas licenciaturas comparten un núcleo de matemáticas, ciencia de materiales y UEAs de formación amplia que TF-IDF infravaloraba.
-Civil presenta el salto más llamativo en pares intra-plan (de 8 a 61): el LLM detectó que muchas UEAs comparten objetivos en el área de estructuras, hidráulica y materiales que las diferencias de redacción ocultaban.
-Computación, en cambio, baja de 57 a 33 pares intra-plan: el LLM corrigió falsos positivos generados por TF-IDF con vocabulario genérico de software.
+Física encabeza los pares inter-plan con 100, seguida de Química con 99---reflejo de que estas licenciaturas comparten un núcleo de matemáticas, ciencia de materiales y UEAs de formación amplia que TF-IDF infravaloraba.
+Civil presenta el salto más notable en pares intra-plan (de 8 a 61): el LLM detectó que numerosas UEAs comparten objetivos en las áreas de estructuras, hidráulica y materiales que las diferencias de redacción ocultaban.
+Computación, en cambio, reduce de 57 a 33 pares intra-plan: el LLM corrigió los falsos positivos generados por TF-IDF a partir de vocabulario genérico de desarrollo de software.
 
 %% ════════════════════════════════════════════════════════════════════════════
 \section{Análisis inter-plan}
 \label{sec:interplan}
 %% ════════════════════════════════════════════════════════════════════════════
 
-Esta sección analiza la similitud entre UEAs de \textit{distintas} licenciaturas mediante cuatro instrumentos complementarios que responden a preguntas diferentes sobre el mismo corpus: ¿cuánto se parece un plan a otro en conjunto? ¿Cuántas UEAs comparten cada par? ¿Qué UEAs específicas son las más ubicuas? ¿Cuáles son los pares individuales más similares?
+Esta sección analiza la similitud entre UEAs de \textit{distintas} licenciaturas mediante cuatro instrumentos complementarios, cada uno orientado a una pregunta diferente sobre el mismo corpus: ¿cuánto se parece un plan a otro en conjunto? ¿Cuántas UEAs comparte cada par? ¿Qué UEAs específicas son las más ubicuas? ¿Cuáles son los pares individuales de mayor similitud?
 
 %%──────────────────────────────────────────────────────────────────────────
 \subsection{Similitud media-máxima entre planes}
@@ -424,8 +421,8 @@ Esta sección analiza la similitud entre UEAs de \textit{distintas} licenciatura
 \label{sec:conteo}
 %%──────────────────────────────────────────────────────────────────────────
 
-La figura~\ref{fig:conteo_interplan} y la tabla~\ref{tab:matriz_interplan} cubren los $\binom{10}{2} = 45$ pares posibles de licenciaturas simultáneamente, mostrando cuántas UEAs comparte cada par a dos umbrales distintos.
-A diferencia del mapa de calor anterior---que agrega la información en una métrica escalar por par---aquí se cuenta directamente el número de UEAs equivalentes, la magnitud más relevante para la revisión curricular.
+La figura~\ref{fig:conteo_interplan} y la tabla~\ref{tab:matriz_interplan} cubren simultáneamente los $\binom{10}{2} = 45$ pares posibles de licenciaturas, mostrando cuántas UEAs comparte cada par a dos umbrales distintos.
+A diferencia del mapa de calor anterior---que agrega la información en una métrica escalar por par---aquí se contabiliza directamente el número de UEAs equivalentes, la magnitud más relevante para la revisión curricular.
 
 \begin{figure}[H]
   \centering
@@ -604,11 +601,11 @@ $s = 1.00$ indica equivalencia textual; $s \geq 0.92$ indica equivalencia semán
 \end{tabular}
 \end{table}
 
-Los veinte pares de la tabla~\ref{tab:inter} concentran cuatro fenómenos distintos.
-El bloque Ambiental--Química domina la parte superior con ocho pares (y una docena adicional con $s \geq 0.70$ no mostrados).
-``Educación Ambiental y Cambio Climático'' aparece en tres instancias en la tabla y está presente en al menos seis planes (tabla~\ref{tab:transversal}).
-La fila Computación--Física agrupa cuatro UEAs de formación amplia (Álgebra Lineal, Ética, Estadística, Liderazgo) con $s = 0.95$.
-El par Civil--Mecánica en Ecuaciones Diferenciales Ordinarias introduce el núcleo matemático transversal documentado en la tabla~\ref{tab:transversal}.
+Los veinte pares de la tabla~\ref{tab:inter} ilustran cuatro fenómenos distintos.
+El bloque Ambiental--Química domina la parte superior con ocho pares, y cuenta con una docena adicional con $s \geq 0.70$ no incluidos en la tabla.
+``Educación Ambiental y Cambio Climático'' aparece en tres instancias y está presente en al menos seis planes (tabla~\ref{tab:transversal}).
+El par Computación--Física agrupa cuatro UEAs de formación amplia (Álgebra Lineal, Ética, Estadística, Liderazgo) con $s = 0.95$.
+El par Civil--Mecánica en Ecuaciones Diferenciales Ordinarias expresa el núcleo matemático transversal documentado en la tabla~\ref{tab:transversal}.
 
 %% ════════════════════════════════════════════════════════════════════════════
 \section{Análisis intra-plan}
@@ -616,7 +613,7 @@ El par Civil--Mecánica en Ecuaciones Diferenciales Ordinarias introduce el núc
 %% ════════════════════════════════════════════════════════════════════════════
 
 Esta sección analiza la similitud entre UEAs \textit{dentro de un mismo plan}.
-Alta similitud intra-plan puede deberse a causas legítimas---una pareja taller/teoría del mismo nombre base es un par esperado---o a causas problemáticas: UEAs de distinto nivel con contenido no diferenciado, o duplicaciones documentales.
+La alta similitud intra-plan puede obedecer a causas legítimas---una pareja taller/teoría con el mismo nombre base constituye un par esperado---o a causas problemáticas: UEAs de distinto nivel con contenido no diferenciado, o duplicaciones documentales.
 
 %%──────────────────────────────────────────────────────────────────────────
 \subsection{Pares y casos más relevantes}
@@ -652,19 +649,19 @@ Alta similitud intra-plan puede deberse a causas legítimas---una pareja taller/
 \end{tabular}
 \end{table}
 
-Los tres primeros pares de la tabla~\ref{tab:intra} son casos problemáticos; los doce restantes son parejas taller/teoría confirmadas como legítimas por el LLM.
+Los tres primeros pares de la tabla~\ref{tab:intra} son casos que requieren atención; los doce restantes son parejas taller/teoría confirmadas como legítimas por el LLM.
 
 \textbf{Caso 1: Química --- duplicado de ``Análisis de Ciclo de Vida'' ($s = 0.990$).}
 El corpus contiene dos documentos con el mismo título y contenido.
 Debe determinarse cuál es el programa vigente y retirarse el duplicado del repositorio.
 
 \textbf{Caso 2: Física --- ``Aplic.\@ Exp.\@ Ing.\@ Física I'' y ``II'' ($s = 0.950$).}
-Dos UEAs consecutivas de laboratorio evaluadas como \textit{idéntico} por el LLM.
+Dos UEAs consecutivas de laboratorio evaluadas como idénticas por el LLM.
 O bien los campos de Objetivo General y Contenido Sintético no han sido diferenciados entre niveles, o bien se trata de una duplicación documental.
 
 \textbf{Caso 3: Civil --- Taller de Investigación I vs.\  II ($s = 0.880$).}
 Dos instancias del mismo tipo de actividad en trimestres consecutivos sin diferenciación de programa.
-Civil concentra 61 pares intra-plan a $s \geq 0.40$ (el mayor del corpus): el LLM detectó que las áreas de estructuras, hidráulica, geotecnia y materiales comparten objetivos convergentes redactados independientemente por departamentos distintos.
+Civil concentra 61 pares intra-plan a $s \geq 0.40$ (el máximo del corpus): el LLM detectó que las áreas de estructuras, hidráulica, geotecnia y materiales comparten objetivos convergentes redactados independientemente por departamentos distintos.
 
 \textbf{Caso adicional --- Industrial: duplicado de ``Herramientas Digitales en Ingeniería'' (clave 1100202).}
 Dos documentos con la misma clave y contenido en el corpus de Industrial.
@@ -674,15 +671,15 @@ No aparece en la tabla~\ref{tab:intra} porque la detección automática excluye 
 \subsection{Mapas de calor intra-plan}
 %%──────────────────────────────────────────────────────────────────────────
 
-Las figuras~\ref{fig:intra_civil}--\ref{fig:intra_elecn} son los mapas de calor intra-plan de las diez licenciaturas, ordenados de mayor a menor densidad de traslape.
+Las figuras~\ref{fig:intra_civil}--\ref{fig:intra_elecn} presentan los mapas de calor intra-plan de las diez licenciaturas, ordenados de mayor a menor densidad de traslape.
 
 \paragraph{Cómo leer los mapas.}
-Filas y columnas corresponden a las UEAs del plan, reordenadas por agrupamiento jerárquico de Ward: las UEAs de contenido similar quedan contiguas.
-\emph{Diagonal}: siempre 1 (auto-similitud); una franja roja continua en la diagonal sin bloques off-diagonal indica plan bien diferenciado.
-\emph{Bloque compacto cerca de la diagonal}: grupo de UEAs temáticamente afines (por ejemplo, un área disciplinar con varias materias relacionadas o una secuencia taller/teoría).
-\emph{Celda brillante aislada fuera de la diagonal}: par puntual de alta similitud---puede ser una pareja taller/teoría legítima o un duplicado problemático.
+Filas y columnas corresponden a las UEAs del plan, reordenadas por agrupamiento jerárquico de Ward, de modo que las UEAs de contenido similar quedan contiguas.
+\emph{Diagonal}: siempre 1 (auto-similitud); una franja roja continua en la diagonal sin bloques fuera de ella indica un plan bien diferenciado.
+\emph{Bloque compacto en la diagonal}: grupo de UEAs temáticamente afines (por ejemplo, un área disciplinar con varias materias relacionadas, o una secuencia taller/teoría).
+\emph{Celda brillante aislada fuera de la diagonal}: par puntual de alta similitud---puede ser una pareja taller/teoría legítima o un duplicado.
 \emph{Escala}: amarillo claro = baja similitud; rojo intenso = alta.
-Los planes con más de 55 UEAs se presentan sin etiquetas de eje (ilegibles a textwidth); la versión interactiva identifica cada UEA al pasar el cursor.
+Los planes con más de 55 UEAs se presentan sin etiquetas de eje (ilegibles al ancho de página); la versión interactiva identifica cada UEA al pasar el cursor.
 
 %%── Civil ────────────────────────────────────────────────────────────────────
 
@@ -708,9 +705,9 @@ La celda más brillante corresponde a Taller de Investigación I vs.\ II ($s = 0
 
 \paragraph{Metalúrgica (42 UEAs, 29 pares con $s \geq 0.40$).}
 El mayor incremento relativo del corpus: de 3 pares (TF-IDF) a 29 (LLM).
-El vocabulario técnico especializado de Metalúrgica es heterogéneo entre versiones del mismo programa, lo que impedía la detección léxica; el LLM reconoció la equivalencia semántica.
-Los 29 pares son en su totalidad parejas taller/teoría o áreas afines; no se identifican duplicados ni pares problemáticos.
-El par más alto es Lab.\@ de Tratamientos Térmicos/Tratamientos Térmicos de los Materiales ($s = 0.780$).
+El vocabulario técnico especializado de Metalúrgica es heterogéneo entre versiones del mismo programa, lo que dificultaba la detección léxica; el LLM reconoció la equivalencia semántica subyacente.
+Los 29 pares son en su totalidad parejas taller/teoría o áreas afines; no se identifican duplicados ni pares que requieran atención.
+El par de mayor similitud es Lab.\@ de Tratamientos Térmicos/Tratamientos Térmicos de los Materiales ($s = 0.780$).
 
 \begin{figure}[H]
   \centering
@@ -726,9 +723,9 @@ El par más alto es Lab.\@ de Tratamientos Térmicos/Tratamientos Térmicos de l
 %%── Computación ─────────────────────────────────────────────────────────────
 
 \paragraph{Computación (60 UEAs, 33 pares con $s \geq 0.40$).}
-El LLM redujo los pares de 57 (TF-IDF) a 33, descartando 24 artefactos léxicos del vocabulario genérico de software.
+El LLM redujo los pares de 57 (TF-IDF) a 33, descartando 24 artefactos léxicos atribuibles al vocabulario genérico de desarrollo de software.
 Se distinguen dos bloques de traslape genuino: el área de \textit{bases de datos} (Relacional, No Relacional, Distribuida) y el área de \textit{redes} (Redes de Computadoras, Administración, Seguridad, Automatización).
-El par Programación Orientada a Objetos (POO) I vs.\ II permanece como el par no-taller más preocupante.
+El par Programación Orientada a Objetos (POO) I vs.\ II es el par no-taller que presenta la diferenciación pedagógica más insuficiente.
 
 \begin{figure}[H]
   \centering
@@ -747,7 +744,7 @@ El par Programación Orientada a Objetos (POO) I vs.\ II permanece como el par n
 
 \paragraph{Mecánica (108 UEAs, 25 pares con $s \geq 0.40$).}
 El plan más extenso del corpus.
-La mayor parte del mapa es de color frío, indicando que los 108 contenidos están bien diferenciados para un plan de esta magnitud.
+La mayor parte del mapa es de color frío, lo que indica que los 108 contenidos están bien diferenciados para un plan de esta magnitud.
 Los 25 pares son todos parejas taller/laboratorio esperadas: Lab.\@ de Mecanismos/Mecanismos ($s = 0.85$), Lab.\@ de Eficiencia Operativa/Medición del Trabajo ($s = 0.85$), Lab.\@ Estructura y Prop./Estructura y Prop.\@ de Mat.\@ ($s = 0.78$), Taller de Calefacción, Ventilación y Aire Acondicionado (CVAA)/CVAA ($s = 0.78$).
 
 \begin{figure}[H]
@@ -766,7 +763,7 @@ Los 25 pares son todos parejas taller/laboratorio esperadas: Lab.\@ de Mecanismo
 %%── Física ───────────────────────────────────────────────────────────────────
 
 \paragraph{Física (60 UEAs, 11 pares con $s \geq 0.40$).}
-La celda más brillante fuera de la diagonal corresponde al duplicado de programas entre Aplicaciones Experimentales de Ingeniería Física I y II ($s = 0.950$, Caso~2).
+La celda más brillante fuera de la diagonal corresponde al par Aplicaciones Experimentales de Ingeniería Física I y II ($s = 0.950$, Caso~2).
 Los 10 pares restantes son principalmente combinaciones de UEAs de cómputo científico y laboratorio experimental.
 
 \begin{figure}[H]
@@ -784,7 +781,7 @@ Los 10 pares restantes son principalmente combinaciones de UEAs de cómputo cien
 %%── Química ──────────────────────────────────────────────────────────────────
 
 \paragraph{Química (55 UEAs, 11 pares con $s \geq 0.40$).}
-El máximo intra-plan de Química ($s = 0.990$) es el más alto de todas las licenciaturas, correspondiente al duplicado documental de Análisis de Ciclo de Vida (Caso~1).
+El máximo intra-plan de Química ($s = 0.990$) es el más alto de todas las licenciaturas; corresponde al duplicado documental de Análisis de Ciclo de Vida (Caso~1).
 Los 10 pares restantes incluyen parejas teoría/laboratorio y secuencias de contenidos afines.
 
 \begin{figure}[H]
@@ -800,8 +797,8 @@ Los 10 pares restantes incluyen parejas teoría/laboratorio y secuencias de cont
 %%── Industrial ───────────────────────────────────────────────────────────────
 
 \paragraph{Industrial (78 UEAs, 18 pares con $s \geq 0.40$).}
-Los 18 pares son en su mayoría parejas taller/teoría confirmadas: Lab.\@ de Metrología ($s = 0.85$), Lab.\@ de Conformado ($s = 0.85$), Lab.\@ de Eficiencia Operativa ($s = 0.85$), Lab.\@ Estructura de Materiales ($s = 0.78$).
-El punto más brillante fuera de las parejas taller/teoría corresponde al duplicado de Herramientas Digitales en Ingeniería (caso adicional).
+Los 18 pares son en su mayoría parejas taller/teoría confirmadas: Lab.\@ de Metrología ($s = 0.85$), Lab.\@ de Conformado ($s = 0.85$), Lab.\@ de Eficiencia Operativa ($s = 0.85$) y Lab.\@ Estructura de Materiales ($s = 0.78$).
+La celda más brillante fuera de las parejas taller/teoría corresponde al duplicado de Herramientas Digitales en Ingeniería (caso adicional).
 
 \begin{figure}[H]
   \centering
@@ -820,7 +817,7 @@ El punto más brillante fuera de las parejas taller/teoría corresponde al dupli
 %%── Eléctrica ────────────────────────────────────────────────────────────────
 
 \paragraph{Eléctrica (39 UEAs, 14 pares con $s \geq 0.40$).}
-El LLM redujo los pares de 27 (TF-IDF) a 14, descartando pares atribuibles al vocabulario electromagnético compartido por Circuitos, Teoría Electromagnética y Cálculo Vectorial.
+El LLM redujo los pares de 27 (TF-IDF) a 14, descartando pares atribuibles al vocabulario electromagnético compartido por Circuitos, Teoría Electromagnética y Cálculo Vectorial sin equivalencia real de contenidos.
 El par más significativo es Estructura de Materiales/Laboratorio de Estructura y Electroquímica ($s = 0.75$, pareja taller/teoría confirmada).
 
 \begin{figure}[H]
@@ -836,8 +833,8 @@ El par más significativo es Estructura de Materiales/Laboratorio de Estructura 
 %%── Ambiental ────────────────────────────────────────────────────────────────
 
 \paragraph{Ambiental (40 UEAs, 7 pares con $s \geq 0.40$).}
-Traslape intra-plan bajo-moderado; los 7 pares corresponden a UEAs del área de gestión ambiental con objetivos semánticamente afines y redacciones heterogéneas.
-Contrasta con el traslape inter-plan intenso con Química (14 UEAs a $s \geq 0.70$): los contenidos de Ambiental están bien diferenciados internamente, pero se solapan significativamente con los de Química.
+Traslape intra-plan bajo; los 7 pares corresponden a UEAs del área de gestión ambiental con objetivos semánticamente afines y redacciones heterogéneas.
+Contrasta con el traslape inter-plan intenso con Química (14 UEAs a $s \geq 0.70$): los contenidos de Ambiental están bien diferenciados internamente, aunque se solapan significativamente con los de Química.
 
 \begin{figure}[H]
   \centering
@@ -853,9 +850,9 @@ Contrasta con el traslape inter-plan intenso con Química (14 UEAs a $s \geq 0.7
 %%── Electrónica ──────────────────────────────────────────────────────────────
 
 \paragraph{Electrónica (56 UEAs, 8 pares con $s \geq 0.40$).}
-Electrónica tiene la menor densidad de traslape intra-plan del corpus, con 8 pares (máximo $s = 0.650$).
+Electrónica presenta la menor densidad de traslape intra-plan del corpus (8 pares, máximo $s = 0.650$).
 Sus contenidos están bien diferenciados internamente.
-Sin embargo, su traslape inter-plan es intenso: 89 pares con otras licenciaturas, incluyendo pares con $s = 1.00$.
+Sin embargo, su traslape inter-plan es intenso: 89 pares con otras licenciaturas, incluidos pares con $s = 1.00$.
 
 \begin{figure}[H]
   \centering
@@ -895,15 +892,15 @@ Sin embargo, su traslape inter-plan es intenso: 89 pares con otras licenciaturas
 Del mapa agrupado se distinguen tres comunidades de contenido.
 
 \textbf{Comunidad~I: ingeniería ambiental compartida.}
-El bloque más compacto e intenso del mapa, con barras de dos colores (Ambiental y Química), confirma el traslape bilateral documentado en la tabla~\ref{tab:matriz_interplan}.
+El bloque más compacto e intenso del mapa, con barras laterales de dos colores (Ambiental y Química), confirma el traslape bilateral documentado en la tabla~\ref{tab:matriz_interplan}.
 
 \textbf{Comunidad~II: fenómenos de transporte y ciencia de materiales.}
 Agrupa UEAs de transferencia de calor, transferencia de masa, mecánica de fluidos y termodinámica de los planes de Mecánica, Química, Ambiental e Industrial.
-La diversidad de colores en la barra lateral evidencia el traslape inter-plan dentro de esta comunidad.
+La diversidad de colores en la barra lateral evidencia el carácter inter-plan del traslape dentro de esta comunidad.
 
 \textbf{Comunidad~III: matemáticas e ingeniería eléctrica/electrónica.}
 Agrupa ecuaciones diferenciales, métodos numéricos y UEAs de circuitos de los planes de Eléctrica, Electrónica y Física.
-Corresponde al núcleo matemático transversal de la tabla~\ref{tab:transversal}.
+Corresponde al núcleo matemático transversal documentado en la tabla~\ref{tab:transversal}.
 
 %% ════════════════════════════════════════════════════════════════════════════
 \section{Proyección t-SNE}
@@ -930,7 +927,7 @@ Corresponde al núcleo matemático transversal de la tabla~\ref{tab:transversal}
   \label{fig:tsne}
 \end{figure}
 
-Los clusters visibles en la figura~\ref{fig:tsne} son coherentes con las comunidades identificadas en el mapa de calor agrupado: un grupo denso en la zona de Ambiental/Química, un bloque de UEAs matemáticas con puntos de múltiples licenciaturas superpuestos, y una región de Electrónica/Eléctrica/Física.
+Los grupos visibles en la figura~\ref{fig:tsne} son coherentes con las comunidades identificadas en el mapa de calor agrupado: un grupo denso en la zona de Ambiental/Química, un bloque de UEAs matemáticas con puntos de múltiples licenciaturas superpuestos, y una región de Electrónica/Eléctrica/Física.
 Las líneas grises cortas confirman que las UEAs con $s \geq 0.70$ son vecinas en el espacio de contenidos.
 
 %% ════════════════════════════════════════════════════════════════════════════
@@ -1049,10 +1046,10 @@ Sobre 1\,505 pares candidatos a un costo de \$0.24\,USD:
 \section{Observaciones y recomendaciones}
 %% ════════════════════════════════════════════════════════════════════════════
 
-De los hallazgos de la sección~\ref{sec:hallazgos} se desprenden cinco líneas de acción para las coordinaciones de licenciatura y las instancias de revisión curricular de la División.
+De los hallazgos de la sección~\ref{sec:hallazgos} se derivan cinco líneas de acción para las coordinaciones de licenciatura y las instancias de revisión curricular de la División.
 
 \textbf{1. Corrección de duplicados documentales (H10).}
-Los tres casos identificados---Análisis de Ciclo de Vida en Química, Aplic.\@ Experimentales I/II en Física, y Herramientas Digitales en Industrial---requieren revisión documental inmediata: determinar cuál es el programa vigente y retirar el duplicado del repositorio.
+Los tres casos identificados---Análisis de Ciclo de Vida en Química, Aplic.\@ Experimentales I/II en Física y Herramientas Digitales en Industrial---requieren revisión documental inmediata: determinar cuál es el programa vigente y retirar el duplicado del repositorio.
 
 \textbf{2. Verificación del alcance de ``Educación Ambiental y Cambio Climático'' (H7).}
 La UEA aparece con $s \geq 0.95$ en seis licenciaturas; debe verificarse su presencia en Ambiental, Industrial y Metalúrgica.
@@ -1068,8 +1065,8 @@ Civil registra 61 pares intra-plan, atribuibles a objetivos convergentes redacta
 En ambos casos se recomienda examinar si el traslape responde a una decisión curricular explícita o es resultado no intencional, y documentarlo a través de los mecanismos que la División considere pertinentes.
 
 \textbf{5. Diferenciación de contenidos en Computación (H12).}
-Los 33 pares intra-plan confirmados incluyen casos de diferenciación pedagógica insuficiente: POO I vs.\  II y los clusters de redes y bases de datos.
-Se recomienda una revisión específica del plan de Computación para establecer diferenciación clara entre UEAs consecutivas y entre UEAs de áreas temáticas próximas.
+Los 33 pares intra-plan confirmados incluyen casos de diferenciación pedagógica insuficiente: POO I vs.\  II y los grupos de redes y bases de datos.
+Se recomienda una revisión específica del plan de Computación para establecer diferenciación explícita entre UEAs consecutivas y entre UEAs de áreas temáticas próximas.
 
 \begin{notabox}
 Las métricas de este reporte se basan exclusivamente en el texto de los campos
