@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Similitud de Contenidos DCBI 2026 · UAM-Azcapotzalco</title>
+  <style>
+    /* ── Variables ───────────────────────────────────────────────────────── */
+    :root {
+      --red:        #C82D23;
+      --red-dark:   #9E1E18;
+      --red-light:  #FBEEED;
+      --ink:        #1A1A1A;
+      --mid:        #444;
+      --muted:      #888;
+      --border:     #E4E2DF;
+      --bg:         #F5F4F1;
+      --card:       #FFFFFF;
+      --shadow-sm:  0 1px 4px rgba(0,0,0,.07), 0 4px 12px rgba(0,0,0,.06);
+      --shadow-md:  0 4px 16px rgba(0,0,0,.10), 0 12px 32px rgba(0,0,0,.08);
+      --radius:     10px;
+      --font:       'Helvetica Neue', Arial, system-ui, sans-serif;
+      --mono:       'SF Mono', 'Fira Mono', 'Consolas', monospace;
+      --transition: .22s cubic-bezier(.4,0,.2,1);
+
+      /* Licenciatura palette */
+      --c-ambiental:   #2E7D32;
+      --c-civil:       #BF360C;
+      --c-computacion: #1565C0;
+      --c-electrica:   #F9A825;
+      --c-electronica: #6A1B9A;
+      --c-fisica:      #00838F;
+      --c-industrial:  #C62828;
+      --c-mecanica:    #37474F;
+      --c-metalurgica: #78909C;
+      --c-quimica:     #558B2F;
+    }
+
+    /* ── Reset & base ────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ── Nav ─────────────────────────────────────────────────────────────── */
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+    }
+    .nav-inner {
+      max-width: 1440px; margin: 0 auto;
+      display: flex; align-items: center; gap: 2rem;
+      height: 52px;
+    }
+    .nav-brand {
+      font-size: .78rem; font-weight: 700; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--red);
+    }
+    .nav-links {
+      display: flex; gap: 0; list-style: none;
+      margin-left: auto;
+    }
+    .nav-links a {
+      display: block; padding: .3rem .9rem;
+      font-size: .82rem; color: var(--mid);
+      border-radius: 6px;
+      transition: background var(--transition), color var(--transition);
+    }
+    .nav-links a:hover { background: var(--red-light); color: var(--red); }
+
+    /* ── Hero ─────────────────────────────────────────────────────────────── */
+    .hero {
+      background: var(--ink);
+      color: #fff;
+      padding: 4rem 2rem 3.5rem;
+    }
+    .hero-inner {
+      max-width: 1440px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 2rem; align-items: end;
+    }
+    .hero-label {
+      font-size: .72rem; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--red);
+      margin-bottom: .6rem;
+    }
+    .hero h1 {
+      font-size: clamp(1.6rem, 3vw, 2.6rem);
+      font-weight: 300; line-height: 1.2;
+      letter-spacing: -.02em;
+    }
+    .hero h1 strong { font-weight: 700; }
+    .hero-sub {
+      margin-top: .75rem;
+      font-size: .92rem; color: rgba(255,255,255,.55);
+    }
+    .hero-bar {
+      width: 48px; height: 3px;
+      background: var(--red); margin: 1.5rem 0;
+    }
+
+    /* Stats strip */
+    .stats {
+      display: flex; flex-wrap: wrap; gap: .5rem 1.5rem;
+    }
+    .stat {
+      display: flex; flex-direction: column;
+      padding: .75rem 1.1rem;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 8px;
+      min-width: 100px;
+    }
+    .stat-val {
+      font-size: 1.5rem; font-weight: 700;
+      color: #fff; line-height: 1;
+    }
+    .stat-lbl {
+      font-size: .7rem; color: rgba(255,255,255,.45);
+      margin-top: .25rem; text-transform: uppercase; letter-spacing: .06em;
+    }
+
+    /* Palette legend */
+    .palette {
+      display: flex; flex-direction: column; gap: .4rem;
+    }
+    .palette-title {
+      font-size: .66rem; color: rgba(255,255,255,.4);
+      text-transform: uppercase; letter-spacing: .1em; margin-bottom: .2rem;
+    }
+    .palette-chips {
+      display: flex; flex-direction: column; gap: .28rem;
+    }
+    .chip {
+      display: flex; align-items: center; gap: .5rem;
+      font-size: .72rem; color: rgba(255,255,255,.65);
+    }
+    .chip-dot {
+      width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+    }
+
+    /* ── Main container ──────────────────────────────────────────────────── */
+    .main { max-width: 1440px; margin: 0 auto; padding: 0 2rem 4rem; }
+
+    /* ── Section ─────────────────────────────────────────────────────────── */
+    .section { margin-top: 3.5rem; }
+    .section-header {
+      display: flex; align-items: baseline; gap: 1rem;
+      padding-bottom: .75rem;
+      border-bottom: 2px solid var(--border);
+      margin-bottom: 1.75rem;
+    }
+    .section-header h2 {
+      font-size: 1.2rem; font-weight: 700; letter-spacing: -.01em;
+    }
+    .section-count {
+      font-size: .78rem; color: var(--muted);
+      background: var(--bg); border: 1px solid var(--border);
+      padding: .15rem .55rem; border-radius: 20px;
+    }
+    .section-desc {
+      font-size: .87rem; color: var(--muted);
+      margin-bottom: 1.5rem; max-width: 740px; line-height: 1.7;
+    }
+
+    /* ── Card grid ───────────────────────────────────────────────────────── */
+    .grid { display: grid; gap: 1.25rem; }
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid-4 { grid-template-columns: repeat(4, 1fr); }
+    .grid-5 { grid-template-columns: repeat(5, 1fr); }
+
+    /* ── Card ────────────────────────────────────────────────────────────── */
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      display: flex; flex-direction: column;
+      transition: transform var(--transition), box-shadow var(--transition);
+      cursor: pointer;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Thumbnail */
+    .card-thumb {
+      position: relative;
+      aspect-ratio: 16/10;
+      overflow: hidden;
+      background: #fafafa;
+    }
+    .card-thumb img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: top left;
+      transition: transform .4s ease;
+    }
+    .card:hover .card-thumb img { transform: scale(1.03); }
+
+    .card-badge {
+      position: absolute; top: .6rem; right: .6rem;
+      font-size: .62rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .07em;
+      padding: .2rem .55rem; border-radius: 20px;
+    }
+    .badge-interactive {
+      background: rgba(0,131,143,.15);
+      color: #006064;
+      border: 1px solid rgba(0,131,143,.3);
+    }
+    .badge-static {
+      background: rgba(0,0,0,.06);
+      color: var(--muted);
+      border: 1px solid rgba(0,0,0,.1);
+    }
+
+    /* Lic color bar on intraplan cards */
+    .card-lic-bar {
+      height: 4px;
+    }
+
+    /* Card body */
+    .card-body { padding: .9rem 1rem 1rem; flex: 1; display: flex; flex-direction: column; }
+    .card-title {
+      font-size: .88rem; font-weight: 700;
+      line-height: 1.3; margin-bottom: .3rem;
+    }
+    .card-desc {
+      font-size: .76rem; color: var(--muted);
+      line-height: 1.55; flex: 1;
+    }
+    .card-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: .75rem; padding-top: .65rem;
+      border-top: 1px solid var(--border);
+    }
+    .card-meta { font-size: .7rem; color: var(--muted); font-family: var(--mono); }
+    .card-btn {
+      font-size: .72rem; font-weight: 700;
+      color: var(--red); letter-spacing: .04em;
+      text-transform: uppercase;
+      display: flex; align-items: center; gap: .3rem;
+    }
+    .card-btn svg { width: 12px; height: 12px; }
+
+    /* ── Modal (for static images) ───────────────────────────────────────── */
+    .modal-overlay {
+      display: none;
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,.82);
+      backdrop-filter: blur(6px);
+      align-items: center; justify-content: center;
+      padding: 2rem;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      position: relative;
+      max-width: min(95vw, 1200px);
+      max-height: 92vh;
+      background: var(--card);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 24px 64px rgba(0,0,0,.4);
+      display: flex; flex-direction: column;
+    }
+    .modal-header {
+      display: flex; align-items: center;
+      padding: .85rem 1.2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .modal-title { font-size: .9rem; font-weight: 700; flex: 1; }
+    .modal-close {
+      width: 32px; height: 32px;
+      border: none; background: none; cursor: pointer;
+      border-radius: 6px; font-size: 1.3rem; color: var(--muted);
+      display: flex; align-items: center; justify-content: center;
+      transition: background var(--transition);
+    }
+    .modal-close:hover { background: var(--bg); color: var(--ink); }
+    .modal-img { overflow: auto; }
+    .modal-img img { width: 100%; display: block; }
+
+    /* ── Divider ─────────────────────────────────────────────────────────── */
+    .divider {
+      margin: 3rem 0 0; border: none;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── Footer ──────────────────────────────────────────────────────────── */
+    .footer {
+      background: var(--ink); color: rgba(255,255,255,.4);
+      text-align: center; padding: 1.5rem 2rem;
+      font-size: .75rem; line-height: 1.8;
+    }
+    .footer strong { color: rgba(255,255,255,.75); }
+
+    /* ── Responsive ──────────────────────────────────────────────────────── */
+    @media (max-width: 1200px) {
+      .grid-5 { grid-template-columns: repeat(4, 1fr); }
+    }
+    @media (max-width: 960px) {
+      .grid-3, .grid-4 { grid-template-columns: repeat(2, 1fr); }
+      .grid-5 { grid-template-columns: repeat(3, 1fr); }
+      .hero-inner { grid-template-columns: 1fr; }
+      .palette { display: none; }
+    }
+    @media (max-width: 600px) {
+      .grid-3, .grid-4, .grid-5 { grid-template-columns: 1fr; }
+      .stats { gap: .5rem; }
+      .stat { min-width: 80px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Navigation ──────────────────────────────────────────────────────────── -->
+<nav class="nav">
+  <div class="nav-inner">
+    <span class="nav-brand">DCBI 2026</span>
+    <ul class="nav-links">
+      <li><a href="#inter">Inter-plan</a></li>
+      <li><a href="#exploracion">Exploración</a></li>
+      <li><a href="#intra">Intra-plan</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ── Hero ────────────────────────────────────────────────────────────────── -->
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <p class="hero-label">Universidad Autónoma Metropolitana · Azcapotzalco · División CBI</p>
+      <h1><strong>Análisis de Similitud</strong><br>de Contenidos 2026</h1>
+      <p class="hero-sub">Proceso de modificación curricular · Matriz híbrida TF-IDF + LLM</p>
+      <div class="hero-bar"></div>
+      <div class="stats">
+        <div class="stat"><span class="stat-val">626</span><span class="stat-lbl">UEAs corpus</span></div>
+        <div class="stat"><span class="stat-val">10</span><span class="stat-lbl">Licenciaturas</span></div>
+        <div class="stat"><span class="stat-val">1 505</span><span class="stat-lbl">Pares evaluados</span></div>
+        <div class="stat"><span class="stat-val">391</span><span class="stat-lbl">Pares inter-plan</span></div>
+        <div class="stat"><span class="stat-val">217</span><span class="stat-lbl">Pares intra-plan</span></div>
+        <div class="stat"><span class="stat-val">$0.24</span><span class="stat-lbl">Costo LLM (USD)</span></div>
+      </div>
+    </div>
+    <div class="palette">
+      <p class="palette-title">Licenciaturas</p>
+      <div class="palette-chips">
+        <div class="chip"><span class="chip-dot" style="background:var(--c-ambiental)"></span>Ambiental</div>
+        <div class="chip"><span class="chip-dot" style="background:var(--c-civil)"></span>Civil</div>
+        <div class="chip"><span class="chip-dot" style="background:var(--c-computacion)"></span>Computación</div>
+        <div class="chip"><span class="chip-dot" style="background:var(--c-electrica)"></span>Eléctrica</div>
+        <div class="chip"><span class="chip-dot" style="background:var(--c-electronica)"></span>Electrónica</div>
+        <div class="chip"><span class="chip-dot" style="background:var(--c-fisica)"></span>Física</div>
+        <div class="chip"><span class="chip-dot" style="background:var(--c-industrial)"></span>Industrial</div>
+        <div class="chip"><span class="chip-dot" style="background:var(--c-mecanica)"></span>Mecánica</div>
+        <div class="chip"><span class="chip-dot" style="background:var(--c-metalurgica)"></span>Metalúrgica</div>
+        <div class="chip"><span class="chip-dot" style="background:var(--c-quimica)"></span>Química</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ── Main ─────────────────────────────────────────────────────────────────── -->
+<main class="main">
+
+  <!-- ── Section 1: Inter-plan ─────────────────────────────────────────────── -->
+  <section class="section" id="inter">
+    <div class="section-header">
+      <h2>Análisis inter-plan</h2>
+      <span class="section-count">3 visualizaciones</span>
+    </div>
+    <p class="section-desc">
+      Comparación de contenidos entre las diez licenciaturas: similitud media-máxima agregada,
+      conteo de UEAs equivalentes en los 45 pares posibles, y red de traslape filtrada.
+      El par Industrial–Mecánica domina con 38 UEAs equivalentes a <i>s</i> ≥ 0.70.
+    </p>
+    <div class="grid grid-3">
+
+      <!-- Heatmap licenciaturas -->
+      <div class="card" onclick="openLink('Figuras/heatmap_licenciaturas.html')">
+        <div class="card-thumb">
+          <img src="Figuras/heatmap_licenciaturas.png" alt="Heatmap similitud media-máxima">
+          <span class="card-badge badge-interactive">Interactivo</span>
+        </div>
+        <div class="card-body">
+          <p class="card-title">Similitud media-máxima entre licenciaturas</p>
+          <p class="card-desc">
+            Métrica <em>mean-max</em>: para cada UEA del plan fila, la similitud máxima con
+            alguna UEA del plan columna, promediada sobre todas las UEAs del plan fila.
+            La diagonal es 1 por definición.
+          </p>
+          <div class="card-footer">
+            <span class="card-meta">10 × 10 · s media-máxima</span>
+            <span class="card-btn">Explorar <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Conteo interplan (solo PNG) -->
+      <div class="card" onclick="openModal('Figuras/heatmap_interplan_conteo.png', 'Conteo de UEAs equivalentes — 45 pares')">
+        <div class="card-thumb">
+          <img src="Figuras/heatmap_interplan_conteo.png" alt="Conteo UEAs equivalentes">
+          <span class="card-badge badge-static">Estático</span>
+        </div>
+        <div class="card-body">
+          <p class="card-title">Conteo de UEAs equivalentes — los 45 pares</p>
+          <p class="card-desc">
+            Número de UEAs equivalentes entre cada par de licenciaturas a dos umbrales:
+            <em>s</em> ≥ 0.85 (panel izquierdo) y <em>s</em> ≥ 0.70 (panel derecho).
+            Escala compartida: máximo 38 (Industrial–Mecánica).
+          </p>
+          <div class="card-footer">
+            <span class="card-meta">45 pares · 2 umbrales</span>
+            <span class="card-btn">Ver <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Red de traslape (PNG) -->
+      <div class="card" onclick="openModal('Figuras/grafo_licenciaturas_variante_B.png', 'Red de traslape entre licenciaturas')">
+        <div class="card-thumb">
+          <img src="Figuras/grafo_licenciaturas_variante_B.png" alt="Red de traslape">
+          <span class="card-badge badge-static">Estático</span>
+        </div>
+        <div class="card-body">
+          <p class="card-title">Red de traslape entre licenciaturas</p>
+          <p class="card-desc">
+            Pares con ≥ 5 UEAs equivalentes (29 de 45). Layout Kamada-Kawai:
+            las licenciaturas con mayor traslape convergen espacialmente.
+            Grosor ∝ conteo; el "38" marca el par dominante.
+          </p>
+          <div class="card-footer">
+            <span class="card-meta">umbral ≥ 5 UEAs · 29 aristas</span>
+            <span class="card-btn">Ver <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /grid -->
+  </section>
+
+  <!-- ── Section 2: Exploración ─────────────────────────────────────────────── -->
+  <section class="section" id="exploracion">
+    <div class="section-header">
+      <h2>Exploración del corpus</h2>
+      <span class="section-count">3 visualizaciones</span>
+    </div>
+    <p class="section-desc">
+      Vistas de conjunto del corpus completo (626 UEAs). El mapa agrupado revela comunidades
+      temáticas; la proyección t-SNE muestra la distribución espacial de contenidos;
+      el grafo UEA–UEA expone pares individuales similares al pasar el cursor.
+    </p>
+    <div class="grid grid-3">
+
+      <!-- Heatmap clustered -->
+      <div class="card" onclick="openLink('Figuras/heatmap_clustered.html')">
+        <div class="card-thumb">
+          <img src="Figuras/heatmap_clustered.png" alt="Mapa de calor agrupado">
+          <span class="card-badge badge-interactive">Interactivo</span>
+        </div>
+        <div class="card-body">
+          <p class="card-title">Mapa de calor agrupado — 120 UEAs</p>
+          <p class="card-desc">
+            Las 120 UEAs con mayor conectividad, reordenadas por agrupamiento jerárquico
+            de Ward. Los bloques diagonales rojos son comunidades de contenido.
+            La barra lateral codifica la licenciatura de origen.
+          </p>
+          <div class="card-footer">
+            <span class="card-meta">120 UEAs · Ward clustering</span>
+            <span class="card-btn">Explorar <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- t-SNE -->
+      <div class="card" onclick="openLink('Figuras/scatter_tsne.html')">
+        <div class="card-thumb">
+          <img src="Figuras/scatter_tsne.png" alt="Proyección t-SNE">
+          <span class="card-badge badge-interactive">Interactivo</span>
+        </div>
+        <div class="card-body">
+          <p class="card-title">Proyección t-SNE — corpus completo</p>
+          <p class="card-desc">
+            Un punto por UEA, coloreado por licenciatura. La proximidad indica similitud
+            de contenidos. Las líneas grises conectan pares inter-plan con <em>s</em> ≥ 0.70.
+            Pasar el cursor sobre un punto revela el nombre de la UEA.
+          </p>
+          <div class="card-footer">
+            <span class="card-meta">626 UEAs · perplexity 30</span>
+            <span class="card-btn">Explorar <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Grafo similitud UEA-UEA -->
+      <div class="card" onclick="openLink('Figuras/grafo_similitud_45.html')">
+        <div class="card-thumb">
+          <img src="Figuras/heatmap_clustered.png" alt="Grafo similitud UEA-UEA" style="object-position:center center; filter:hue-rotate(20deg) saturate(.7)">
+          <span class="card-badge badge-interactive">Interactivo</span>
+        </div>
+        <div class="card-body">
+          <p class="card-title">Grafo de similitud UEA–UEA</p>
+          <p class="card-desc">
+            Red de UEAs individuales con <em>s</em> ≥ 0.45. Cada nodo es una UEA;
+            las aristas conectan pares similares. Permite identificar clusters
+            temáticos y pares específicos al hacer hover.
+          </p>
+          <div class="card-footer">
+            <span class="card-meta">umbral s ≥ 0.45 · fuerza dirigida</span>
+            <span class="card-btn">Explorar <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /grid -->
+  </section>
+
+  <!-- ── Section 3: Intra-plan ──────────────────────────────────────────────── -->
+  <section class="section" id="intra">
+    <div class="section-header">
+      <h2>Análisis intra-plan</h2>
+      <span class="section-count">10 licenciaturas</span>
+    </div>
+    <p class="section-desc">
+      Similitud entre pares de UEAs <em>dentro del mismo plan</em>, reordenadas por
+      agrupamiento de Ward. Los bloques rojos cerca de la diagonal revelan áreas temáticas
+      afines; puntos brillantes fuera de la diagonal indican duplicados potenciales.
+      Pasa el cursor sobre cualquier celda para ver el nombre de ambas UEAs.
+    </p>
+    <div class="grid grid-5">
+
+      <div class="card" onclick="openLink('Figuras/intraplan_Ambiental.html')">
+        <div class="card-lic-bar" style="background:var(--c-ambiental)"></div>
+        <div class="card-thumb" style="aspect-ratio:1">
+          <img src="Figuras/intraplan_Ambiental.png" alt="Intra-plan Ambiental">
+          <span class="card-badge badge-interactive">Interactivo</span>
+        </div>
+        <div class="card-body">
+          <p class="card-title" style="color:var(--c-ambiental)">Ambiental</p>
+          <p class="card-desc">40 UEAs · 7 pares con <em>s</em> ≥ 0.40</p>
+          <div class="card-footer">
+            <span class="card-meta">máx. s = 0.750</span>
+            <span class="card-btn">Ver <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" onclick="openLink('Figuras/intraplan_Civil.html')">
+        <div class="card-lic-bar" style="background:var(--c-civil)"></div>
+        <div class="card-thumb" style="aspect-ratio:1">
+          <img src="Figuras/intraplan_Civil.png" alt="Intra-plan Civil">
+          <span class="card-badge badge-interactive">Interactivo</span>
+        </div>
+        <div class="card-body">
+          <p class="card-title" style="color:var(--c-civil)">Civil</p>
+          <p class="card-desc">88 UEAs · <strong>61 pares</strong> con <em>s</em> ≥ 0.40</p>
+          <div class="card-footer">
+            <span class="card-meta">máx. s = 0.880</span>
+            <span class="card-btn">Ver <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" onclick="openLink('Figuras/intraplan_Computacion.html')">
+        <div class="card-lic-bar" style="background:var(--c-computacion)"></div>
+        <div class="card-thumb" style="aspect-ratio:1">
+          <img src="Figuras/intraplan_Computacion.png" alt="Intra-plan Computación">
+          <span class="card-badge badge-interactive">Interactivo</span>
+        </div>
+        <div class="card-body">
+          <p class="card-title" style="color:var(--c-computacion)">Computación</p>
+          <p class="card-desc">60 UEAs · 33 pares con <em>s</em> ≥ 0.40</p>
+          <div class="card-footer">
+            <span class="card-meta">máx. s = 0.720</span>
+            <span class="card-btn">Ver <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" onclick="openLink('Figuras/intraplan_Electrica.html')">
+        <div class="card-lic-bar" style="background:var(--c-electrica)"></div>
+        <div class="card-thumb" style="aspect-ratio:1">
+          <img src="Figuras/intraplan_Electrica.png" alt="Intra-plan Eléctrica">
+          <span class="card-badge badge-interactive">Interactivo</span>
+        </div>
+        <div class="card-body">
+          <p class="card-title" style="color:#b07900">Eléctrica</p>
+          <p class="card-desc">39 UEAs · 14 pares con <em>s</em> ≥ 0.40</p>
+          <div class="card-footer">
+            <span class="card-meta">máx. s = 0.750</span>
+            <span class="card-btn">Ver <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" onclick="openLink('Figuras/intraplan_Electronica.html')">
+        <div class="card-lic-bar" style="background:var(--c-electronica)"></div>
+        <div class="card-thumb" style="aspect-ratio:1">
+          <img src="Figuras/intraplan_Electronica.png" alt="Intra-plan Electrónica">
+          <span class="card-badge badge-interactive">Interactivo</span>
+        </div>
+        <div class="card-body">
+          <p class="card-title" style="color:var(--c-electronica)">Electrónica</p>
+          <p class="card-desc">56 UEAs · 8 pares con <em>s</em> ≥ 0.40</p>
+          <div class="card-footer">
+            <span class="card-meta">máx. s = 0.650</span>
+            <span class="card-btn">Ver <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" onclick="openLink('Figuras/intraplan_Fisica.html')">
+        <div class="card-lic-bar" style="background:var(--c-fisica)"></div>
+        <div class="card-thumb" style="aspect-ratio:1">
+          <img src="Figuras/intraplan_Fisica.png" alt="Intra-plan Física">
+          <span class="card-badge badge-interactive">Interactivo</span>
+        </div>
+        <div class="card-body">
+          <p class="card-title" style="color:var(--c-fisica)">Física</p>
+          <p class="card-desc">60 UEAs · 11 pares con <em>s</em> ≥ 0.40</p>
+          <div class="card-footer">
+            <span class="card-meta">máx. s = 0.950</span>
+            <span class="card-btn">Ver <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" onclick="openLink('Figuras/intraplan_Industrial.html')">
+        <div class="card-lic-bar" style="background:var(--c-industrial)"></div>
+        <div class="card-thumb" style="aspect-ratio:1">
+          <img src="Figuras/intraplan_Industrial.png" alt="Intra-plan Industrial">
+          <span class="card-badge badge-interactive">Interactivo</span>
+        </div>
+        <div class="card-body">
+          <p class="card-title" style="color:var(--c-industrial)">Industrial</p>
+          <p class="card-desc">78 UEAs · 18 pares con <em>s</em> ≥ 0.40</p>
+          <div class="card-footer">
+            <span class="card-meta">máx. s = 0.850</span>
+            <span class="card-btn">Ver <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" onclick="openLink('Figuras/intraplan_Mecanica.html')">
+        <div class="card-lic-bar" style="background:var(--c-mecanica)"></div>
+        <div class="card-thumb" style="aspect-ratio:1">
+          <img src="Figuras/intraplan_Mecanica.png" alt="Intra-plan Mecánica">
+          <span class="card-badge badge-interactive">Interactivo</span>
+        </div>
+        <div class="card-body">
+          <p class="card-title" style="color:var(--c-mecanica)">Mecánica</p>
+          <p class="card-desc">108 UEAs · 25 pares con <em>s</em> ≥ 0.40</p>
+          <div class="card-footer">
+            <span class="card-meta">máx. s = 0.850</span>
+            <span class="card-btn">Ver <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" onclick="openLink('Figuras/intraplan_Metalurgica.html')">
+        <div class="card-lic-bar" style="background:var(--c-metalurgica)"></div>
+        <div class="card-thumb" style="aspect-ratio:1">
+          <img src="Figuras/intraplan_Metalurgica.png" alt="Intra-plan Metalúrgica">
+          <span class="card-badge badge-interactive">Interactivo</span>
+        </div>
+        <div class="card-body">
+          <p class="card-title" style="color:var(--c-metalurgica)">Metalúrgica</p>
+          <p class="card-desc">42 UEAs · 29 pares con <em>s</em> ≥ 0.40</p>
+          <div class="card-footer">
+            <span class="card-meta">máx. s = 0.780</span>
+            <span class="card-btn">Ver <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" onclick="openLink('Figuras/intraplan_Quimica.html')">
+        <div class="card-lic-bar" style="background:var(--c-quimica)"></div>
+        <div class="card-thumb" style="aspect-ratio:1">
+          <img src="Figuras/intraplan_Quimica.png" alt="Intra-plan Química">
+          <span class="card-badge badge-interactive">Interactivo</span>
+        </div>
+        <div class="card-body">
+          <p class="card-title" style="color:var(--c-quimica)">Química</p>
+          <p class="card-desc">55 UEAs · 11 pares con <em>s</em> ≥ 0.40</p>
+          <div class="card-footer">
+            <span class="card-meta">máx. s = 0.990</span>
+            <span class="card-btn">Ver <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /grid intra -->
+  </section>
+
+</main><!-- /main -->
+
+<!-- ── Modal ────────────────────────────────────────────────────────────────── -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+  <div class="modal-box">
+    <div class="modal-header">
+      <span class="modal-title" id="modalTitle"></span>
+      <button class="modal-close" onclick="closeModal()" aria-label="Cerrar">×</button>
+    </div>
+    <div class="modal-img">
+      <img id="modalImg" src="" alt="">
+    </div>
+  </div>
+</div>
+
+<!-- ── Footer ────────────────────────────────────────────────────────────────── -->
+<footer class="footer">
+  <strong>División de Ciencias Básicas e Ingeniería · UAM-Azcapotzalco</strong><br>
+  Análisis de similitud de contenidos · Proceso de modificación curricular 2026<br>
+  Matriz híbrida TF-IDF + LLM (<em>claude-haiku-4-5</em>) · 626 UEAs · 10 licenciaturas
+</footer>
+
+<!-- ── JS ─────────────────────────────────────────────────────────────────────── -->
+<script>
+  function openLink(url) {
+    window.open(url, '_blank', 'noopener');
+  }
+
+  function openModal(imgSrc, title) {
+    document.getElementById('modalImg').src = imgSrc;
+    document.getElementById('modalTitle').textContent = title;
+    document.getElementById('modalOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function closeModalOutside(e) {
+    if (e.target === document.getElementById('modalOverlay')) closeModal();
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeModal();
+  });
+</script>
+
+</body>
+</html>

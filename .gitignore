@@ -1,0 +1,21 @@
+# LaTeX auxiliary
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.toc
+
+# Office temp files
+~$*
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Oficios institucionales (documentos internos)
+Oficios/
+
+# macOS
+.DS_Store
