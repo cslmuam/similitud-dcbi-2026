@@ -444,11 +444,9 @@ def fig_A3_matriz_transversal(corpus, mat: np.ndarray) -> tuple[Path, Path]:
     ax.set_xticklabels(
         [l[:6] for l in lics], rotation=45, ha="right", fontsize=8
     )
-    if n_rows <= 60:
-        ax.set_yticks(range(n_rows))
-        ax.set_yticklabels(nombres, fontsize=6, fontfamily="monospace")
-    else:
-        ax.set_yticks([])
+    ax.set_yticks(range(n_rows))
+    fs = 6 if n_rows <= 60 else 5
+    ax.set_yticklabels(nombres, fontsize=fs, fontfamily="monospace")
     ax.tick_params(length=0)
     for spine in ax.spines.values():
         spine.set_visible(False)

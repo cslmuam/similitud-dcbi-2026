@@ -364,6 +364,39 @@ Para este corpus se evaluaron 1\,505 pares candidatos con 15 llamadas API simult
 El resultado es la \textit{matriz híbrida}: $626 \times 626$ entradas donde los pares evaluados por LLM tienen puntuación semántica y el resto conserva la puntuación léxica TF-IDF.
 De los 1\,505 pares evaluados, 455 superaron el umbral $s_{\mathrm{LLM}} \geq 0.40$ con $s_{\mathrm{TF\text{-}IDF}} < 0.40$---pares semánticamente significativos que el análisis léxico habría omitido.
 
+La figura~\ref{fig:scatter_llm} muestra la relación entre ambas puntuaciones para los 1\,505 pares candidatos, ilustrando las dos correcciones que el LLM introduce respecto al análisis léxico.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.88\textwidth]{Figuras/scatter_tfidf_llm.png}
+  \caption{Puntuación TF-IDF (eje $x$) frente a puntuación LLM (eje $y$) para los 1\,505 pares
+    candidatos ($s_{\mathrm{TF\text{-}IDF}} \geq 0.20$).
+    \emph{Cómo leer la figura.}
+    Cada punto es un par de UEAs; su posición refleja cómo los dos métodos evalúan ese par.
+    Los puntos \emph{por debajo de la diagonal} ($s_{\mathrm{LLM}} < s_{\mathrm{TF\text{-}IDF}}$)
+    son falsos positivos corregidos: el LLM determinó que el vocabulario compartido no
+    corresponde a equivalencia real de contenidos---corrección especialmente frecuente en pares
+    de Computación y Eléctrica con vocabulario genérico de software o electromagnetismo.
+    Los puntos \emph{por encima de la diagonal} ($s_{\mathrm{LLM}} > s_{\mathrm{TF\text{-}IDF}}$)
+    son falsos negativos recuperados: contenidos equivalentes redactados con vocabulario distinto,
+    invisibles al análisis léxico.
+    La \emph{región sombreada} delimitada por $s_{\mathrm{TF\text{-}IDF}} < 0.40$ y
+    $s_{\mathrm{LLM}} \geq 0.40$ contiene los 455 pares con equivalencia semántica
+    que TF-IDF habría descartado del análisis.
+    El \emph{color} codifica el nivel asignado por el LLM:
+    gris claro = traslape bajo o moderado; gris oscuro = alto;
+    rojo (\textcolor{uamred}{$\bullet$}) = idéntico ($s_{\mathrm{LLM}} \geq 0.90$).
+    La concentración de puntos rojos en la esquina superior derecha
+    ($s_{\mathrm{TF}} \geq 0.40$, $s_{\mathrm{LLM}} \approx 1$) corresponde a los duplicados
+    documentales y a las familias de Ecuaciones Diferenciales, Cálculo Integral y
+    Educación Ambiental y Cambio Climático.
+    La nube de puntos grises en $s_{\mathrm{TF}} \approx 0.21$--$0.25$,
+    $s_{\mathrm{LLM}} \geq 0.70$, dentro de la región sombreada, corresponde a las instancias
+    de Liderazgo y Emprendimiento (hallazgo~H6): vocabulario genérico que TF-IDF penaliza,
+    contenido que el LLM identifica como prácticamente idéntico en nueve planes.}
+  \label{fig:scatter_llm}
+\end{figure}
+
 %% ════════════════════════════════════════════════════════════════════════════
 \section{Corpus analizado}
 %% ════════════════════════════════════════════════════════════════════════════
@@ -452,7 +485,7 @@ A diferencia del mapa de calor anterior---que agrega la información en una mét
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\textwidth]{Figuras/heatmap_interplan_conteo.png}
+  \includegraphics[width=\textwidth,height=0.78\textheight,keepaspectratio]{Figuras/heatmap_interplan_conteo.png}
   \caption{Número de UEAs equivalentes entre cada par de licenciaturas (los 45 pares).
     \emph{Cómo leer la figura.}
     Cada celda $(A,B)$ indica cuántas UEAs del par tienen $s(u_A, u_B) \geq$ umbral;
@@ -497,6 +530,27 @@ A diferencia del mapa de calor anterior---que agrega la información en una mét
 \bottomrule
 \end{tabular}
 \end{table}
+
+La figura~\ref{fig:barras_interplan} presenta los mismos conteos en formato de barras horizontales, haciendo visible la distribución de cola larga: Industrial--Mecánica concentra casi el triple de UEAs equivalentes que cualquier otro par.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth,height=0.78\textheight,keepaspectratio]{Figuras/barras_interplan_top.png}
+  \caption{Número de UEAs equivalentes a $s \geq 0.70$ por par de licenciaturas,
+    ordenado de mayor a menor (44 pares con al menos una UEA equivalente).
+    \emph{Cómo leer la figura.}
+    Cada barra corresponde a un par; su longitud es el conteo de UEAs equivalentes.
+    El par Computación--Metalúrgica, con cero UEAs a $s \geq 0.70$, no aparece en el eje.
+    \emph{Distribución de cola larga}: Industrial--Mecánica (38) casi triplica al segundo par
+    más alto, Civil--Mecánica (16); la mayoría de los 44 pares concentra entre 1 y 9 UEAs
+    equivalentes.
+    La figura complementa la tabla~\ref{tab:matriz_interplan} y el doble panel de la
+    figura~\ref{fig:conteo_interplan}: donde éstos muestran la distribución espacial de los
+    traslapes en la cuadrícula de licenciaturas, las barras hacen visible el peso relativo de
+    cada par en el corpus total, permitiendo identificar de un vistazo qué pares concentran
+    la mayor proporción del traslape inter-plan.}
+  \label{fig:barras_interplan}
+\end{figure}
 
 %%──────────────────────────────────────────────────────────────────────────
 \subsection{Red de traslape}
@@ -584,6 +638,34 @@ Dibujo Asistido por Computadora  & 3 & 1.000 & Civ, Ele, Elc \\
 \end{tabular}
 \end{table}
 
+La figura~\ref{fig:matriz_transversal} convierte la tabla~\ref{tab:transversal} en un mapa de calor que permite comparar visualmente el alcance y la intensidad de cada familia de contenido transversal sobre el conjunto de los diez planes.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth,height=0.72\textheight,keepaspectratio]{Figuras/matriz_transversal.png}
+  \caption{Presencia de las 62 UEAs transversales en los diez planes de licenciatura
+    (UEAs con al menos cinco licenciaturas con par equivalente a $s \geq 0.70$).
+    \emph{Cómo leer la figura.}
+    Las \emph{filas} son las UEAs transversales, ordenadas de mayor a menor número de
+    licenciaturas en que tienen par equivalente.
+    Las \emph{columnas} son las diez licenciaturas.
+    La celda $(u, L)$ indica la similitud máxima $s_{\max}$ de la UEA $u$ hacia la
+    licenciatura $L$: blanco $=$ sin par equivalente a $s \geq 0.30$; rojo intenso $=$ par
+    idéntico o casi idéntico ($s \approx 1$).
+    \emph{Patrones de lectura}:
+    las filas uniformemente rojas de las primeras posiciones corresponden a las familias
+    universales---Ecuaciones Diferenciales y Liderazgo y Emprendimiento presentes en 9 planes;
+    las filas con celdas blancas dispersas son UEAs transversales dentro de un bloque
+    disciplinar específico.
+    Las columnas más oscuras en conjunto revelan qué licenciaturas concentran mayor número
+    de contenidos compartidos con el resto; una columna con muchas celdas blancas indica
+    un perfil de contenidos más diferenciado.
+    La figura extiende visualmente la tabla~\ref{tab:transversal}---que reportaba solo las UEAs
+    con tres o más licenciaturas---al incluir el conjunto completo de familias de contenido
+    presentes en cinco o más planes.}
+  \label{fig:matriz_transversal}
+\end{figure}
+
 %%──────────────────────────────────────────────────────────────────────────
 \subsection{Pares individuales de mayor similitud}
 \label{sec:top_inter}
@@ -640,6 +722,32 @@ El par Civil--Mecánica en Ecuaciones Diferenciales Ordinarias expresa el núcle
 
 Esta sección analiza la similitud entre UEAs \textit{dentro de un mismo plan}.
 La alta similitud intra-plan puede obedecer a causas legítimas---una pareja taller/teoría con el mismo nombre base constituye un par esperado---o a causas problemáticas: UEAs de distinto nivel con contenido no diferenciado, o duplicaciones documentales.
+
+La figura~\ref{fig:histograma_intraplan} ofrece una vista comparativa de las distribuciones de similitud de los diez planes antes de examinar los casos individuales.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{Figuras/histograma_intraplan.png}
+  \caption{Distribución de similitud intra-plan para las diez licenciaturas
+    (pares con $s \geq 0.30$, estimación de densidad por núcleo gaussiano, KDE).
+    \emph{Cómo leer la figura.}
+    Cada panel corresponde a una licenciatura; el color sigue la paleta canónica del análisis.
+    El \emph{eje $x$} es la puntuación de similitud $s$; el \emph{eje $y$} es la densidad
+    relativa (el área bajo cada curva es 1 para facilitar la comparación entre planes
+    con distinto número de pares).
+    La \emph{línea vertical} marca la mediana de los pares de esa licenciatura.
+    \emph{Comparación entre planes}:
+    Civil presenta la distribución más ancha y con mediana más alta, consistente con sus
+    61 pares y la heterogeneidad de sus áreas temáticas (estructuras, hidráulica, materiales);
+    Electrónica muestra la distribución más compacta y desplazada a la izquierda, reflejo
+    de sus 8 pares de similitud baja (máximo $s = 0.650$);
+    Metalúrgica exhibe un pico pronunciado en $s \approx 0.75$--$0.80$, atribuible a las
+    parejas taller/teoría del área de materiales, altamente homogéneas entre sí.
+    La comparación entre paneles permite identificar qué planes concentran su traslape
+    intra-plan en equivalencias de alta magnitud frente a aquéllos con distribuciones difusas
+    de traslapes menores, orientando así la priorización de la revisión por plan.}
+  \label{fig:histograma_intraplan}
+\end{figure}
 
 %%──────────────────────────────────────────────────────────────────────────
 \subsection{Pares y casos más relevantes}
@@ -1066,6 +1174,8 @@ Sobre 1\,505 pares candidatos a un costo de \$0.24\,USD:
   \item Pares inter-plan detectados ($s \geq 0.30$): 154 → 391 (+154\,\%).
   \item Pares intra-plan detectados ($s \geq 0.40$): 124 → 217 (+75\,\%).
 \end{itemize}
+La distribución comparativa de ambas puntuaciones para los 1\,505 pares, con la región de
+detección semántica diferenciada, se muestra en la figura~\ref{fig:scatter_llm}.
 \end{hallazgo}
 
 %% ════════════════════════════════════════════════════════════════════════════
