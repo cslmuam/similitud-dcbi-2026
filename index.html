@@ -775,10 +775,10 @@
   <section class="section" id="inter">
     <div class="section-header">
       <h2>Comparación entre licenciaturas</h2>
-      <span class="section-count">3 gráficas</span>
+      <span class="section-count">7 gráficas</span>
     </div>
     <p class="section-desc">
-      Estas tres gráficas muestran qué tan parecidos son los contenidos de las UEAs
+      Estas gráficas muestran qué tan parecidos son los contenidos de las Unidades de Enseñanza-Aprendizaje
       entre los diez planes de estudio. El par con mayor similitud es
       Industrial–Mecánica, con 38 programas equivalentes.
     </p>
@@ -840,19 +840,133 @@
         <div class="card-body">
           <p class="card-title">Red de conexiones entre licenciaturas</p>
           <p class="card-desc">
-            Cada licenciatura es un nodo. Las líneas conectan pares que comparten
-            al menos 5 programas equivalentes; las líneas más gruesas indican mayor
-            similitud. Las licenciaturas más conectadas son las que más contenidos
-            comparten con el resto.
+            Cada licenciatura es un nodo. Las líneas conectan pares con al menos
+            un programa equivalente (umbral s ≥ 0.30 en la versión interactiva;
+            la imagen previa muestra solo los pares con ≥ 5 programas comunes).
+            Las licenciaturas más conectadas comparten más contenidos con el resto.
           </p>
           <div class="card-footer">
-            <span class="card-meta">29 conexiones · al menos 5 UEAs comunes</span>
+            <span class="card-meta">Inter-licenciaturas · s ≥ 0.30</span>
             <span class="card-btn">Ver <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
           </div>
         </div>
       </div>
 
     </div>
+
+    <!-- Separador de subsección -->
+    <p style="font-size:.84rem;font-weight:700;margin:2rem 0 1rem;color:var(--mid);">Análisis complementario entre licenciaturas</p>
+
+    <div class="grid grid-3" style="margin-bottom:1rem;">
+
+      <!-- B2 — heatmap_clustered -->
+      <div class="card" onclick="openLink('Figuras/heatmap_clustered.html')">
+        <div class="card-thumb">
+          <img src="Figuras/heatmap_clustered.png" alt="Agrupamiento jerárquico de UEAs">
+          <span class="card-badge badge-interactive">Interactivo</span>
+        </div>
+        <div class="card-body">
+          <p class="card-title">Agrupamiento jerárquico de las 120 UEAs más conectadas</p>
+          <p class="card-desc">
+            Las 120 Unidades de Enseñanza-Aprendizaje con mayor número de pares similares se agrupan
+            automáticamente por contenido (método Ward, s ≥ 0.40). La barra lateral de color identifica
+            la licenciatura de cada programa.
+          </p>
+          <div class="card-footer">
+            <span class="card-meta">120 UEAs · clustering Ward · s ≥ 0.40</span>
+            <span class="card-btn">Ver <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- A1 — barras interplan -->
+      <div class="card" onclick="openLink('Figuras/barras_interplan_top.html')">
+        <div class="card-thumb">
+          <img src="Figuras/barras_interplan_top.png" alt="Pares equivalentes entre licenciaturas">
+          <span class="card-badge badge-interactive">Interactivo</span>
+        </div>
+        <div class="card-body">
+          <p class="card-title">Pares equivalentes por par de licenciaturas</p>
+          <p class="card-desc">
+            Cuántos programas de Unidades de Enseñanza-Aprendizaje con contenido equivalente
+            (s ≥ 0.70) existen entre cada par de licenciaturas. El par Industrial–Mecánica
+            encabeza con 38 programas equivalentes.
+          </p>
+          <div class="card-footer">
+            <span class="card-meta">44 pares inter-plan · s ≥ 0.70</span>
+            <span class="card-btn">Ver <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- A2 — scatter TF-IDF vs LLM -->
+      <div class="card" onclick="openLink('Figuras/scatter_tfidf_llm.html')">
+        <div class="card-thumb">
+          <img src="Figuras/scatter_tfidf_llm.png" alt="Comparación de métodos de similitud">
+          <span class="card-badge badge-interactive">Interactivo</span>
+        </div>
+        <div class="card-body">
+          <p class="card-title">Comparación entre similitud léxica y semántica</p>
+          <p class="card-desc">
+            Cada punto es un par de programas candidatos. El eje horizontal mide la similitud
+            de vocabulario (TF-IDF); el eje vertical mide la similitud de significado evaluada
+            por inteligencia artificial. Los puntos en la región inferior-izquierda del cuadro
+            azul son pares detectados solo por semántica.
+          </p>
+          <div class="card-footer">
+            <span class="card-meta">1 505 pares · TF-IDF vs. LLM</span>
+            <span class="card-btn">Ver <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="grid grid-3">
+
+      <!-- A3 — matriz transversal -->
+      <div class="card" onclick="openLink('Figuras/matriz_transversal.html')">
+        <div class="card-thumb">
+          <img src="Figuras/matriz_transversal.png" alt="UEAs con presencia en múltiples licenciaturas">
+          <span class="card-badge badge-interactive">Interactivo</span>
+        </div>
+        <div class="card-body">
+          <p class="card-title">Programas comunes a cinco o más licenciaturas</p>
+          <p class="card-desc">
+            Identifica las Unidades de Enseñanza-Aprendizaje con contenido equivalente
+            en cinco o más planes de estudio al mismo tiempo. Son los candidatos más claros
+            a ser reconocidos como contenidos transversales de la División de Ciencias
+            Básicas e Ingeniería.
+          </p>
+          <div class="card-footer">
+            <span class="card-meta">62 UEAs en ≥ 5 licenciaturas</span>
+            <span class="card-btn">Ver <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- A4 — histograma intraplan -->
+      <div class="card" onclick="openLink('Figuras/histograma_intraplan.html')">
+        <div class="card-thumb">
+          <img src="Figuras/histograma_intraplan.png" alt="Distribución de similitud intra-plan">
+          <span class="card-badge badge-interactive">Interactivo</span>
+        </div>
+        <div class="card-body">
+          <p class="card-title">Distribución de similitud dentro de cada plan</p>
+          <p class="card-desc">
+            Cómo se distribuyen los pares similares al interior de cada licenciatura.
+            Cada curva muestra qué tan frecuentes son los distintos niveles de similitud
+            entre pares de programas del mismo plan. La línea punteada marca la mediana.
+          </p>
+          <div class="card-footer">
+            <span class="card-meta">10 licenciaturas · pares con s ≥ 0.30</span>
+            <span class="card-btn">Ver <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
   </section>
 
   <!-- ══════════════════════════════════════════════════════════════════════ -->
