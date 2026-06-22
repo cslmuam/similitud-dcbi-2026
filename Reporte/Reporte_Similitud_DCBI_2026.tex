@@ -151,7 +151,7 @@ La segunda es el \textit{recuento de pares equivalentes} entre licenciaturas a d
 La tercera es la \textit{similitud media-máxima} $\bar{s}(A,B)$ entre planes completos: para cada UEA del plan $A$ se identifica la UEA más similar existente en $B$, y se promedia esa similitud máxima sobre todas las UEAs de $A$; el indicador es asimétrico por diseño---$\bar{s}(A,B)$ puede diferir de $\bar{s}(B,A)$ cuando los planes difieren en tamaño o diversidad---y cuantifica el grado de cobertura que $B$ ofrece para los contenidos de $A$.
 
 Los hallazgos revelan un traslape más extenso y estructuralmente más complejo que el detectable mediante análisis léxico.
-El par Industrial--Mecánica concentra la mayor densidad del corpus: 38~UEAs equivalentes a $s \geq 0.70$---seis veces más que el segundo par de mayor traslape---en áreas de manufactura, materiales, termodinámica, métodos numéricos y UEAs de formación amplia; la magnitud sugiere que ambos planes comparten implícitamente más de un tercio de sus contenidos fuera del Tronco General (TG).
+El par Industrial--Mecánica concentra la mayor densidad del corpus: 38~UEAs equivalentes a $s \geq 0.70$---seis veces más que el segundo par de mayor traslape---en áreas de manufactura, materiales, termodinámica, métodos numéricos y UEAs de formación amplia; 38 UEAs equivalentes representan el 49\,\% de las UEAs no-TG de Industrial y el 35\,\% de las de Mecánica.
 La Licenciatura en Física actúa como nodo transversal: comparte UEAs con las diez licenciaturas y acumula 100~pares inter-plan a $s \geq 0.30$, la mayor conectividad del corpus.
 El bloque Ambiental--Química aporta la segunda densidad más alta (14~UEAs a $s \geq 0.70$), con contenidos de ingeniería ambiental compartidos en una medida que supera lo atribuible a vocabulario disciplinar común.
 Cuatro familias de contenido cruzan entre cinco y nueve planes con alta similitud sin coordinación formal entre licenciaturas: Ecuaciones Diferenciales (9 planes, $s = 1.00$), Liderazgo y Emprendimiento (9 planes, detectable solo mediante el LLM porque TF-IDF le asignaba $s \approx 0.21$--$0.25$), Educación Ambiental y Cambio Climático (6~o más planes, $s \geq 0.95$), y un núcleo matemático de cuatro UEAs presentes en 5~planes cada una con $s \geq 0.98$.
@@ -1076,7 +1076,7 @@ Las líneas grises cortas confirman que las UEAs con $s \geq 0.70$ son vecinas e
 38 UEAs compartidas a $s \geq 0.70$; 34 a $s \geq 0.85$.
 Ningún otro par supera 16 UEAs a $s \geq 0.70$.
 El traslape cubre manufactura, materiales, termodinámica, diseño de elementos, métodos numéricos, gestión de operaciones y UEAs de formación amplia (ética, liderazgo, comunicación).
-La magnitud sugiere que ambos planes comparten implícitamente al menos un tercio de sus UEAs no-TG.
+Las 38 UEAs equivalentes representan el 49\,\% de las UEAs no-TG de Industrial (78~UEAs) y el 35\,\% de las de Mecánica (108~UEAs).
 \end{hallazgo}
 
 \begin{hallazgo}
@@ -1116,7 +1116,6 @@ Es el ejemplo más claro de equivalencia curricular estructuralmente indetectabl
 \begin{hallazgo}
 \textbf{H7. Educación Ambiental y Cambio Climático: programa idéntico en 6 o más planes.}
 Presente con $s \geq 0.95$ en Civil, Eléctrica, Electrónica, Física, Mecánica y Química.
-La presencia en Ambiental, Industrial y Metalúrgica no ha sido verificada.
 Señal de que existe un contenido transversal no coordinado entre planes.
 \end{hallazgo}
 
@@ -1187,9 +1186,8 @@ De los hallazgos de la sección~\ref{sec:hallazgos} se derivan cinco líneas de 
 \textbf{1. Corrección de duplicados documentales (H10).}
 Los tres casos identificados---Análisis de Ciclo de Vida en Química, Aplic.\@ Experimentales I/II en Física y Herramientas Digitales en Industrial---requieren revisión documental inmediata: determinar cuál es el programa vigente y retirar el duplicado del repositorio.
 
-\textbf{2. Verificación del alcance de ``Educación Ambiental y Cambio Climático'' (H7).}
-La UEA aparece con $s \geq 0.95$ en seis licenciaturas; debe verificarse su presencia en Ambiental, Industrial y Metalúrgica.
-Si se confirma, el hallazgo debe elevarse a las instancias de revisión curricular para determinar el tratamiento institucional correspondiente.
+\textbf{2. Documentar el alcance de ``Educación Ambiental y Cambio Climático'' (H7).}
+La UEA presenta contenido prácticamente idéntico en seis licenciaturas ($s \geq 0.95$); el hallazgo se documenta para conocimiento de las instancias de revisión curricular, que determinarán el tratamiento institucional correspondiente.
 
 \textbf{3. Documentar el traslape transversal de Ecuaciones Diferenciales y Liderazgo y Emprendimiento (H5, H6).}
 Ambas UEAs tienen presencia en 9 de 10 planes con contenido prácticamente idéntico sin coordinación explícita entre licenciaturas.
@@ -1198,7 +1196,7 @@ El hallazgo documenta esta situación para conocimiento de las instancias de rev
 \textbf{4. Revisión del núcleo disciplinar Ambiental--Química y del traslape intra-plan de Civil (H4, H11).}
 El bloque Ambiental--Química concentra más de 14 UEAs equivalentes a $s \geq 0.70$.
 Civil registra 61 pares intra-plan, atribuibles a objetivos convergentes redactados independientemente.
-En ambos casos se recomienda examinar si el traslape responde a una decisión curricular explícita o es resultado no intencional, y documentarlo a través de los mecanismos que la División considere pertinentes.
+En ambos casos el análisis documenta el traslape; la determinación de su origen---decisión curricular explícita o resultado no intencional---corresponde a las instancias académicas competentes.
 
 \textbf{5. Diferenciación de contenidos en Computación (H12).}
 Los 33 pares intra-plan confirmados incluyen casos de diferenciación pedagógica insuficiente: POO I vs.\  II y los grupos de redes y bases de datos.
