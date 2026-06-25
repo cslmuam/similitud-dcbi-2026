@@ -1,0 +1,696 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,mexico]{babel}
+\decimalpoint
+\usepackage{geometry}
+\geometry{margin=2.5cm, top=3cm, bottom=3cm}
+\usepackage{lmodern}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{microtype}
+
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs,tabularx,array,multirow,longtable}
+\usepackage{graphicx,float,caption}
+\captionsetup{font=small, labelfont=bf}
+\usepackage{enumitem,parskip}
+\usepackage{fancyhdr,titlesec}
+\usepackage[most,breakable]{tcolorbox}
+\usepackage{hyperref}
+\usepackage{listings}
+
+%% Paleta UAM-A
+\definecolor{uamred}{RGB}{200,45,35}
+\definecolor{uamlightred}{RGB}{248,232,232}
+\definecolor{uamblue}{RGB}{28,28,28}
+\definecolor{uamgray}{RGB}{100,100,100}
+\definecolor{okgreen}{RGB}{56,142,60}
+\definecolor{codebg}{RGB}{250,250,250}
+
+%% Secciones
+\titleformat{\section}
+  {\large\bfseries\color{uamblue}}
+  {\textcolor{uamred}{\thesection}}{0.8em}{}
+  [\vspace{3pt}\color{uamred}\hrule height 0.5pt\vspace{2pt}]
+\titleformat{\subsection}
+  {\normalsize\bfseries\color{uamblue}}{\thesubsection}{0.8em}{}
+\titleformat{\subsubsection}
+  {\normalsize\itshape\color{uamgray}}{\thesubsubsection}{0.8em}{}
+
+%% Encabezado/pie
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\small\color{uamgray}Modificaciones 2026 --- División de Ciencias Básicas e Ingeniería · UAM-A}
+\fancyhead[R]{\small\color{uamgray}Documentación Técnica}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\setlength{\headheight}{15pt}
+
+%% Cajas
+\tcbuselibrary{skins,breakable}
+\newtcolorbox{notabox}{enhanced,breakable,
+  colback=uamlightred,colframe=uamlightred,
+  borderline west={3pt}{0pt}{uamred},
+  sharp corners,left=10pt,right=8pt,top=5pt,bottom=5pt,
+  before upper={\textbf{\color{uamred}Nota}\enspace}}
+\newtcolorbox{warnbox}{enhanced,breakable,
+  colback=black!4,colframe=black!4,
+  borderline west={3pt}{0pt}{uamgray},
+  sharp corners,left=10pt,right=8pt,top=5pt,bottom=5pt,
+  before upper={\textbf{Advertencia}\enspace}}
+\newtcolorbox{okbox}{enhanced,breakable,
+  colback=green!6,colframe=green!6,
+  borderline west={3pt}{0pt}{okgreen},
+  sharp corners,left=10pt,right=8pt,top=5pt,bottom=5pt}
+
+%% Código fuente
+\lstset{
+  basicstyle=\ttfamily\small,
+  backgroundcolor=\color{codebg},
+  frame=single,
+  framerule=0pt,
+  rulecolor=\color{uamred!30},
+  xleftmargin=1em,
+  xrightmargin=1em,
+  breaklines=true,
+  breakatwhitespace=true,
+  showstringspaces=false,
+  inputencoding=utf8,
+}
+
+\hypersetup{colorlinks=true, linkcolor=uamblue, urlcolor=uamred}
+
+%% Macros locales
+\newcommand{\RES}{\textsc{res}}
+\newcommand{\IA}{\textsc{ia}}
+
+%%============================================================
+\begin{document}
+%%============================================================
+
+%% ── Portada ───────────────────────────────────────────────
+\begin{titlepage}
+\centering
+\includegraphics[width=0.54\textwidth,trim={48bp 64bp 473bp 35bp},clip]%
+  {/Users/nowhere/Claude_Projects/Personal/logo_UAM.png}\\[0.6em]
+{\color{uamgray} División de Ciencias Básicas e Ingeniería}\\[0.3em]
+
+\vfill
+{\color{uamred}\rule{\textwidth}{1pt}}\\[0.8em]
+{\fontsize{22}{26}\selectfont
+Sistema de Revisión Automatizada\\[0.3em]
+de Planes y Programas de Estudio}\\[0.5em]
+{\large\color{uamgray}
+Documentación técnica de agentes y documentos de salida\\
+DCBI --- UAM-Azcapotzalco --- 2026}\\[0.3em]
+{\color{uamred}\rule{\textwidth}{1pt}}
+
+\vfill
+\begin{tabular}{rl}
+  \textbf{Responsable:} & Dr.\ César Simón López-Monsalvo \\
+  \textbf{Departamento:} & Ciencias Básicas \\
+  \textbf{Proceso:} & Actualización curricular 2026 \\
+  \textbf{Versión:} & 1.0 \\
+  \textbf{Fecha:} & junio de 2026 \\
+\end{tabular}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+%%============================================================
+\section{Propósito del sistema}
+%%============================================================
+
+Este sistema automatiza la revisión de las propuestas de modificación a planes y
+programas de estudio de las diez licenciaturas de la División de Ciencias Básicas e
+Ingeniería (DCBI) de la UAM-Azcapotzalco, correspondientes al proceso de actualización
+curricular 2026.
+
+El objetivo es verificar que cada propuesta cumpla con los requisitos establecidos en el
+Reglamento de Estudios Superiores (\RES{}) de la UAM, en particular los artículos 34, 44,
+45 y 56, y que la información contenida en los documentos entregados por los coordinadores
+sea coherente e íntegra. Los resultados se exportan a archivos Excel en el formato del
+\textit{Formato de Revisión de Planes y Programas} institucional.
+
+%%──────────────────────────────────────────────────────────
+\subsection{Licenciaturas cubiertas}
+%%──────────────────────────────────────────────────────────
+
+\begin{center}
+\begin{tabular}{clp{6cm}}
+\toprule
+\textbf{\#} & \textbf{Licenciatura} & \textbf{Carpeta de entrada} \\
+\midrule
+1  & Ing. Ambiental              & \texttt{Ing.\ Ambiental/} \\
+2  & Ing. Civil                  & \texttt{Ing.\ Civil/} \\
+3  & Ing. en Computación         & \texttt{Ing.\ Computacion/} \\
+4  & Ing. Eléctrica (LIETS)      & \texttt{Ing.\ Electrica/Ing.\ Electrica/} \\
+5  & Ing. Electrónica            & \texttt{Ing.\ Electronica/} \\
+6  & Ing. Física                 & \texttt{Ing.\ Fisica/} \\
+7  & Ing. Industrial             & \texttt{Ing.\ Industrial/Ing.\ Industrial/} \\
+8  & Ing. Mecánica               & \texttt{Ing.\ Mecanica/Ing.\ Mecanica/} \\
+9  & Ing. en Metalurgia y Mat.   & \texttt{Ing.\ Metalurgica/Ing.\ Metalurgica/} \\
+10 & Ing. Química                & \texttt{Ing.\ Quimica/} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+%%============================================================
+\section{Arquitectura general}
+%%============================================================
+
+El sistema se ejecuta desde \texttt{revisor/main\_v2.py} e instancia una cadena de agentes
+especializados que procesan los documentos de cada licenciatura en secuencia.
+El flujo completo es el siguiente:
+
+\begin{lstlisting}[language={}]
+main_v2.py
+  |
+  +-- Agente 1: inventario.py
+  |     `-- Por cada licenciatura: localiza y clasifica todos los documentos
+  |
+  +-- Agente 2: extractor_plan.py  (pertinencia y plan de estudios)
+  |     `-- Extrae texto completo y tabla de UEAs de .docx / .pdf
+  |
+  +-- Agente 3: revisor_ia.py  (Claude API -- claude-sonnet-4-6)
+  |     +-- Seccion I:  analiza pertinencia contra Art. 34 RES
+  |     `-- Seccion II: analiza plan de estudios contra Art. 44 RES
+  |
+  +-- Agente 4: extractor_uea.py
+  |     `-- Por cada UEA: extrae encabezado y verifica secciones requeridas
+  |
+  +-- Agente 5: correspondencia_v2.py
+  |     `-- Cruza tabla de UEAs del plan contra archivos de programa
+  |
+  `-- Agente Excel: excel_v2.py
+        +-- Revision_DCBI_2026_Planes_<fecha>.xlsx    (Secciones I y II)
+        `-- Revision_DCBI_2026_Programas_<fecha>.xlsx (Secciones III y IV)
+\end{lstlisting}
+
+Los agentes 2--5 se ejecutan por licenciatura; el Agente Excel consolida la totalidad de
+los resultados al final.
+
+%%============================================================
+\section{Descripción de los agentes}
+%%============================================================
+
+%%──────────────────────────────────────────────────────────
+\subsection{Agente~1 --- Inventario (\texttt{inventario.py})}
+%%──────────────────────────────────────────────────────────
+
+\subsubsection{Función}
+
+Recorre de forma recursiva la carpeta de cada licenciatura y clasifica cada archivo
+encontrado según el tipo de documento que representa. Esta clasificación alimenta a
+todos los demás agentes: sin un inventario correcto, los agentes de extracción no saben
+qué archivo procesar.
+
+\subsubsection{Lógica de clasificación}
+
+La clasificación se realiza en dos pasos:
+
+\begin{enumerate}[nosep]
+  \item \textbf{Nombre del archivo}: se buscan palabras clave en el nombre del archivo
+        (sin extensión, normalizado a minúsculas con guiones y subrayados reemplazados
+        por espacios).
+  \item \textbf{Nombre de la carpeta padre}: si el nombre del archivo no contiene las
+        palabras clave, se revisa el nombre de la carpeta inmediatamente superior.
+        Este segundo paso es necesario para casos como Ing.\ en Computación, cuyo
+        documento de pertinencia tiene un nombre genérico pero reside en la carpeta
+        \texttt{1.\ Documento de pertinencia y justificacion de la modificacion del PE}.
+\end{enumerate}
+
+\begin{center}
+\begin{tabular}{lp{8cm}}
+\toprule
+\textbf{Tipo} & \textbf{Palabras clave} \\
+\midrule
+\texttt{pertinencia}      & \texttt{pertinencia}, \texttt{justificaci} \\
+\texttt{plan\_estudios}   & \texttt{plan de estudio}, \texttt{plan\_estudio}, \texttt{plan estudio} \\
+\texttt{mapa\_curricular} & \texttt{mapa}, \texttt{malla}, \texttt{curricular}, \texttt{boligrama} \\
+\texttt{equivalencias}    & \texttt{equivalencia} \\
+\texttt{oficio}           & \texttt{oficio} \\
+\texttt{otro}             & (no coincide con ninguna categoría) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{notabox}
+Los archivos con la cadena \texttt{anexo} en el nombre se clasifican siempre como
+\texttt{otro} para evitar que los documentos de anexos de pertinencia se confundan
+con el documento principal. Los archivos dentro de subcarpetas denominadas
+\texttt{old}, \texttt{antiguo}, \texttt{archivo} u \texttt{observaciones} se ignoran
+completamente. Los archivos \texttt{.docx} que no caen en ninguna categoría y no
+comienzan con \texttt{\textasciitilde\$} se tratan como programas de unidad de
+enseñanza-aprendizaje (UEA).
+\end{notabox}
+
+\subsubsection{Salida}
+
+Un objeto \texttt{InventarioLicenciatura} por licenciatura con las listas:
+\texttt{pertinencia}, \texttt{plan\_estudios}, \texttt{mapa\_curricular},
+\texttt{equivalencias}, \texttt{oficio}, \texttt{ueas}, \texttt{otros}.
+
+%%──────────────────────────────────────────────────────────
+\subsection{Agente~2 --- Extractor de plan (\texttt{extractor\_plan.py})}
+%%──────────────────────────────────────────────────────────
+
+\subsubsection{Función}
+
+Extrae el contenido de los documentos de pertinencia y de plan de estudios
+(archivos \texttt{.docx} o \texttt{.pdf}). Cumple dos propósitos:
+
+\begin{itemize}[nosep]
+  \item Proporcionar el texto completo del documento al Agente~3 (revisión con \IA{}).
+  \item Extraer la tabla estructurada de UEAs del plan para la correspondencia (Agente~5).
+\end{itemize}
+
+\subsubsection{Extracción de texto}
+
+Para archivos \texttt{.docx} utiliza \texttt{python-docx}: recorre todos los párrafos y
+celdas de tabla y los concatena. Para archivos \texttt{.pdf} utiliza \texttt{pdfplumber}:
+extrae el texto página a página.
+
+\subsubsection{Extracción de la tabla de UEAs}
+
+Busca dentro del documento tablas cuya primera fila contenga encabezados como
+\texttt{clave}, \texttt{nombre de UEA} u \texttt{OBL./OPT.} y mapea las columnas por
+nombre. Por cada fila posterior extrae: clave, nombre, tipo (OBL./OPT.),
+horas teoría, horas práctica, créditos declarados y seriación.
+
+\subsubsection{Salida}
+
+Un objeto \texttt{DatosPlan} con los campos \texttt{texto} (cadena completa) y
+\texttt{ueas} (lista de \texttt{RegistroUEA}).
+
+%%──────────────────────────────────────────────────────────
+\subsection{Agente~3 --- Revisor \IA{} (\texttt{revisor\_ia.py})}
+%%──────────────────────────────────────────────────────────
+
+\subsubsection{Función}
+
+Realiza la revisión legislativa de fondo mediante la \textsc{api} de Claude
+(\texttt{claude-sonnet-4-6}). Evalúa dos conjuntos de requisitos:
+
+\begin{itemize}[nosep]
+  \item \textbf{Sección~I}: el documento de pertinencia y justificación contra las
+        fracciones I--X del Art.\ 34 \RES{}.
+  \item \textbf{Sección~II}: el plan de estudios contra las fracciones I--XVI del
+        Art.\ 44 \RES{}.
+\end{itemize}
+
+\subsubsection{Construcción del prompt}
+
+Para cada sección se construye un prompt que incluye: (a)~el rol del revisor
+(Consejo Divisional DCBI, UAM-Azcapotzalco), (b)~el texto del documento truncado a
+12\,000 caracteres, (c)~la lista de fracciones a verificar con su texto normativo,
+e (d)~instrucciones de evaluación. El modelo devuelve un arreglo JSON con una
+entrada por fracción.
+
+\subsubsection{Campos por fracción}
+
+\begin{center}
+\begin{tabular}{lp{9cm}}
+\toprule
+\textbf{Campo} & \textbf{Descripción} \\
+\midrule
+\texttt{cumple}      & Veredicto: \texttt{Sí} / \texttt{Parcial} / \texttt{No} / \texttt{N/A} \\
+\texttt{evidencia}   & Cita textual o referencia de sección que respalda el veredicto
+                       (máx.\ 120~car.) \\
+\texttt{observacion} & Descripción de lo que falta o debe corregirse cuando el
+                       veredicto es \texttt{No} o \texttt{Parcial} (máx.\ 160~car.) \\
+\texttt{detalle}     & Análisis narrativo de una oración (máx.\ 180~car.) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{notabox}
+La fracción~X del Art.\ 34 (residencias clínicas) está marcada como opcional:
+el modelo puede asignarle \texttt{N/A} para las licenciaturas de ingeniería.
+\end{notabox}
+
+\subsubsection{Salida}
+
+Una lista de objetos \texttt{ResultadoFraccion} con los campos \texttt{fraccion},
+\texttt{fundamento}, \texttt{elemento}, \texttt{cumple}, \texttt{evidencia},
+\texttt{observaciones} y \texttt{detalle}.
+
+%%──────────────────────────────────────────────────────────
+\subsection{Agente~4 --- Extractor de UEA (\texttt{extractor\_uea.py})}
+%%──────────────────────────────────────────────────────────
+
+\subsubsection{Función}
+
+Procesa individualmente cada archivo de programa de UEA (\texttt{.docx}).
+Extrae los datos del encabezado institucional y verifica la presencia de las secciones
+requeridas por el Art.\ 45 \RES{}.
+
+\subsubsection{Encabezado}
+
+Lee la tabla de encabezado institucional (formato UAM) para obtener: clave de UEA,
+nombre, tipo (OBL./OPT.), horas teoría, horas práctica, créditos declarados
+y seriación.
+
+\subsubsection{Verificación de secciones}
+
+Busca en el texto completo del documento palabras clave asociadas a cada sección
+requerida:
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+\textbf{Sección} & \textbf{Palabras clave buscadas} \\
+\midrule
+Objetivos             & \texttt{objetivo}, \texttt{objetivos} \\
+Contenido sintético   & \texttt{contenido}, \texttt{temario}, \texttt{contenido sintético} \\
+Conducción            & \texttt{conducción}, \texttt{modalidades de conducción} \\
+Evaluación            & \texttt{evaluación}, \texttt{modalidades de evaluación} \\
+Bibliografía          & \texttt{bibliografía}, \texttt{referencias}, \texttt{bibliography} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsubsection{Validación de créditos}
+
+Calcula los créditos esperados según la fórmula del Art.\ 56 \RES{}:
+\[
+  \text{créditos} = 2 \times h_{\text{teoría}} + 1 \times h_{\text{práctica}}
+\]
+y los compara con el valor declarado en el encabezado del programa.
+
+\subsubsection{Salida}
+
+Un objeto \texttt{DatosUEA} por archivo, con todos los campos extraídos, los
+indicadores booleanos de presencia de secciones, el campo \texttt{creditos\_ok}
+y una lista de \texttt{advertencias} (texto libre para anomalías menores).
+
+%%──────────────────────────────────────────────────────────
+\subsection{Agente~5 --- Correspondencia (\texttt{correspondencia\_v2.py})}
+%%──────────────────────────────────────────────────────────
+
+\subsubsection{Función}
+
+Cruza la lista de UEAs declaradas en el plan de estudios (extraída por el Agente~2)
+con los archivos de programa procesados por el Agente~4.
+Detecta tres tipos de problemas:
+
+\begin{enumerate}[nosep]
+  \item \textbf{Sin archivo en programas}: la UEA aparece en el plan pero no existe
+        un archivo de programa correspondiente.
+  \item \textbf{Sin UEA en plan}: existe un archivo de programa pero la UEA no
+        aparece en la tabla del plan.
+  \item \textbf{Discrepancias de campos}: la UEA existe en ambos lados pero hay
+        diferencias en clave, nombre, tipo, horas o créditos.
+\end{enumerate}
+
+La correspondencia se establece por coincidencia de clave numérica y/o nombre
+normalizado (minúsculas, sin tildes, sin signos de puntuación).
+
+\subsubsection{Salida}
+
+Una lista de objetos \texttt{ResultadoCorrespondencia} con los campos \texttt{clave},
+\texttt{nombre\_plan}, \texttt{archivo}, \texttt{sin\_archivo}, \texttt{sin\_en\_plan},
+\texttt{discrepancias} (lista de objetos \texttt{Discrepancia} con \texttt{campo},
+\texttt{en\_plan} y \texttt{en\_programa}) y \texttt{ok}.
+
+%%──────────────────────────────────────────────────────────
+\subsection{Agente Excel (\texttt{excel\_v2.py})}
+%%──────────────────────────────────────────────────────────
+
+\subsubsection{Función}
+
+Consolida todos los resultados y genera dos archivos Excel en la carpeta de salida
+\texttt{Revisiones/}. Los archivos siguen la estructura del \textit{Formato de Revisión
+de Planes y Programas} institucional y emplean la paleta de colores corporativa de
+la UAM.
+
+\subsubsection{Estructura de cada archivo}
+
+Ambos archivos contienen una hoja de \textbf{RESUMEN} (índice cero del libro)
+con la tabla consolidada de las diez licenciaturas, seguida de una hoja por
+licenciatura con el detalle completo.
+
+%%============================================================
+\section{Documentos de salida}
+%%============================================================
+
+%%──────────────────────────────────────────────────────────
+\subsection{Archivo 1: \texttt{Revision\_DCBI\_2026\_Planes\_<fecha>.xlsx}}
+%%──────────────────────────────────────────────────────────
+
+Contiene la revisión legislativa de los documentos principales (Secciones~I y~II).
+
+\subsubsection{Hoja RESUMEN}
+
+Tabla de siete columnas con una fila por licenciatura:
+
+\begin{center}
+\begin{tabular}{cl}
+\toprule
+\textbf{Col.} & \textbf{Contenido} \\
+\midrule
+A & Nombre de la licenciatura \\
+B & Conteo de fracciones Art.\ 34 con veredicto \texttt{Sí} \\
+C & Conteo de fracciones Art.\ 34 con veredicto \texttt{Parcial} \\
+D & Conteo de fracciones Art.\ 34 con veredicto \texttt{No} \\
+E & Conteo de fracciones Art.\ 44 con veredicto \texttt{Sí} \\
+F & Conteo de fracciones Art.\ 44 con veredicto \texttt{Parcial} \\
+G & Conteo de fracciones Art.\ 44 con veredicto \texttt{No} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsubsection{Hojas por licenciatura}
+
+Cada hoja contiene dos bloques con encabezado coloreado (azul UAM).
+
+\paragraph{Bloque Sección~I --- Documentación General (Art.\ 34 \RES{})}
+
+Una fila por cada fracción (I--X). Las diez fracciones evaluadas son:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{longtable}{cp{10.5cm}}
+\toprule
+\textbf{Fracc.} & \textbf{Elemento del Art.\ 34 \RES{}} \\
+\midrule
+\endhead
+I    & Relevancia social y académica, pertinencia teórico-práctica, objetivos generales
+       y estructura del plan; mapa curricular con perspectiva de género e inclusión;
+       atención a necesidades y demandas de la sociedad; contribución al desarrollo
+       científico, tecnológico, humanístico y cultural. \\[4pt]
+II   & El alumnado a atender y el egreso previsible. \\[4pt]
+III  & El perfil profesional de quienes egresen y su posible ocupación. \\[4pt]
+IV   & La oferta de planes similares en otras instituciones de educación superior de
+       la zona de influencia y la situación de sus egresados. \\[4pt]
+V    & La población con prerrequisitos curriculares para demandar los estudios. \\[4pt]
+VI   & Estimación de recursos necesarios: perfil docente y programa de formación;
+       personal administrativo; infraestructura (instalaciones, laboratorios, acervo);
+       impacto presupuestal. \\[4pt]
+VII  & Las posibilidades de financiamiento, en su caso. \\[4pt]
+VIII & Participación de órganos responsables si el plan es impartido por más de una
+       división/unidad o en corresponsabilidad con otra institución. \\[4pt]
+IX   & Información adicional a juicio del Consejo Divisional. \\[4pt]
+X    & \textit{(N/A para ingenierías)} Instituciones para residencias clínicas. \\
+\bottomrule
+\end{longtable}
+\end{center}
+
+\paragraph{Bloque Sección~II --- Plan de Estudios Actualizado (Art.\ 44 \RES{})}
+
+Una fila por cada fracción (I--XVI). Evalúa los dieciséis elementos mínimos
+que debe contener el plan de estudios según el Art.\ 44, desde la denominación
+de la unidad que imparte el plan (fracc.\ I) hasta la obligación de servicio social
+(fracc.\ XVI).
+
+\paragraph{Columnas de cada bloque (Secciones~I y~II)}
+
+\begin{center}
+\begin{tabular}{clp{7.5cm}}
+\toprule
+\textbf{Col.} & \textbf{Encabezado} & \textbf{Contenido} \\
+\midrule
+A & Fundamento          & Identificador de la fracción
+                          (\textit{p.\,ej.}\ \texttt{Art.\ 34 fracc.\ III}) \\
+B & Requisito           & Texto normativo del artículo \\
+C & Cumple              & Veredicto: \texttt{Sí} / \texttt{Parcial} / \texttt{No}
+                          / \texttt{N/A} (celda coloreada) \\
+D & Evidencia en el doc.& Cita o referencia de sección que respalda el veredicto \\
+E & Observación         & Descripción de lo que falta o debe corregirse \\
+F & Análisis del revisor \IA{} & Análisis narrativo generado por el modelo \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{okbox}
+La columna~C se colorea según el veredicto: verde (\texttt{Sí}),
+naranja (\texttt{Parcial}), rojo (\texttt{No}), gris (\texttt{N/A}).
+\end{okbox}
+
+%%──────────────────────────────────────────────────────────
+\subsection{Archivo 2: \texttt{Revision\_DCBI\_2026\_Programas\_<fecha>.xlsx}}
+%%──────────────────────────────────────────────────────────
+
+Contiene la revisión de los programas individuales de UEA y la correspondencia
+con el plan (Secciones~III y~IV).
+
+\subsubsection{Hoja RESUMEN}
+
+Tabla de once columnas con una fila por licenciatura:
+
+\begin{center}
+\begin{tabular}{cl}
+\toprule
+\textbf{Col.} & \textbf{Contenido} \\
+\midrule
+A & Nombre de la licenciatura \\
+B & Total de UEAs procesadas \\
+C & Conteo de UEAs con créditos correctos / total \\
+D & Número de UEAs con error de créditos \\
+E & UEAs sin sección de objetivos \\
+F & UEAs sin contenido sintético \\
+G & UEAs sin bibliografía \\
+H & UEAs de correspondencia sin archivo de programa \\
+I & Pares con discrepancias entre plan y programa \\
+J & UEAs de correspondencia sin problema \\
+K & Estado global (\texttt{OK} o ``$n$ obs.'', coloreado) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsubsection{Hojas por licenciatura}
+
+\paragraph{Bloque Sección~III --- Programas de Estudio (Art.\ 45 + Art.\ 56 \RES{})}
+
+Una fila por UEA detectada. Columnas:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{clp{7cm}}
+\toprule
+\textbf{Col.} & \textbf{Encabezado} & \textbf{Contenido} \\
+\midrule
+A & Clave UEA               & Clave numérica extraída del encabezado \\
+B & Nombre de UEA           & Denominación \\
+C & OBL/OPT                 & Tipo: obligatoria u optativa \\
+D & Seriación               & Texto de seriación o «sin seriación» \\
+E & Objetivos (Sí/No)       & Presencia de la sección de objetivos \\
+F & Contenido (Sí/No)       & Presencia del contenido sintético \\
+G & Conducción (Sí/No)      & Presencia de modalidades de conducción \\
+H & Evaluación (Sí/No)      & Presencia de modalidades de evaluación \\
+I & H.\ Teoría              & Horas de teoría declaradas \\
+J & H.\ Prácticas           & Horas de práctica declaradas \\
+K & Créditos declarados     & Créditos en el encabezado del programa \\
+L & Créditos fórmula        & $2h_T + h_P$ (Art.\ 56 \RES{}) \\
+M & Créditos OK             & Coincidencia K\,=\,L (verde/rojo) \\
+N & Bibliografía (Sí/No)    & Presencia de sección de bibliografía \\
+O & Advertencias            & Mensajes de error o anomalías menores \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{notabox}
+Las columnas E--H y N se colorean en verde cuando el valor es \texttt{Sí}
+y en rojo cuando es \texttt{No}.
+\end{notabox}
+
+\paragraph{Bloque Sección~IV --- Correspondencia Plan vs.\ Programas de UEA}
+
+Una fila por UEA cruzada. Columnas:
+
+\begin{center}
+\begin{tabular}{clp{7.5cm}}
+\toprule
+\textbf{Col.} & \textbf{Encabezado} & \textbf{Contenido} \\
+\midrule
+A & Clave (plan)              & Clave tal como aparece en el plan \\
+B & Nombre en plan            & Denominación en la tabla del plan \\
+C & Archivo programa          & Nombre del archivo \texttt{.docx} correspondiente \\
+D & Sin archivo en programas  & \texttt{Sí} (rojo) si la UEA del plan carece de archivo \\
+E & Sin UEA en plan           & \texttt{Sí} (rojo) si existe archivo pero no aparece en el plan \\
+F & Discrepancias             & Lista en formato
+                                \texttt{campo: valor\_plan} $\to$ \texttt{valor\_programa} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{notabox}
+La columna~A (\textit{Clave}) se colorea en \textbf{verde} (\texttt{C6EFCE})
+cuando la UEA no presenta ningún problema (\texttt{res.ok}\,=\,\texttt{True}).
+Las columnas~D y~E se colorean en \textbf{rojo} (\texttt{FFC7CE}) con texto en negrita
+cuando su valor es \texttt{Sí}.
+La columna~F se colorea en \textbf{amarillo} (\texttt{FFEB9C}) cuando contiene
+al menos una discrepancia.
+\end{notabox}
+
+%%============================================================
+\section{Uso del sistema}
+%%============================================================
+
+%%──────────────────────────────────────────────────────────
+\subsection{Ejecución}
+%%──────────────────────────────────────────────────────────
+
+\begin{lstlisting}[language={}]
+cd revisor/
+
+# Todas las licenciaturas (requiere ANTHROPIC_API_KEY)
+python3 main_v2.py
+
+# Solo una licenciatura
+python3 main_v2.py -l Quimica
+
+# Sin llamadas a la API de Claude (Secciones I y II en blanco)
+python3 main_v2.py --no-ia
+
+# Salida detallada por UEA
+python3 main_v2.py -v
+\end{lstlisting}
+
+%%──────────────────────────────────────────────────────────
+\subsection{Requisitos de entorno}
+%%──────────────────────────────────────────────────────────
+
+\begin{itemize}[nosep]
+  \item Python 3.10 o superior.
+  \item Paquetes: \texttt{anthropic}, \texttt{python-docx}, \texttt{pdfplumber},
+        \texttt{openpyxl}.
+  \item Variable de entorno \texttt{ANTHROPIC\_API\_KEY} o archivo
+        \texttt{revisor/.env} con la clave.
+\end{itemize}
+
+%%──────────────────────────────────────────────────────────
+\subsection{Carpeta de salida}
+%%──────────────────────────────────────────────────────────
+
+Los archivos Excel se escriben en:
+
+\begin{lstlisting}[language={}]
+Revisiones/
+  Revision_DCBI_2026_Planes_<AAAA-MM-DD>.xlsx
+  Revision_DCBI_2026_Programas_<AAAA-MM-DD>.xlsx
+\end{lstlisting}
+
+donde \texttt{<AAAA-MM-DD>} es la fecha del sistema en el momento de la ejecución.
+
+%%============================================================
+\section{Referencia legislativa}
+%%============================================================
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+\textbf{Artículo} & \textbf{Contenido} & \textbf{Sección en el Excel} \\
+\midrule
+Art.\ 34 \RES{} & Documentación General (pertinencia y justificación) & Sección~I \\
+Art.\ 44 \RES{} & Contenido mínimo del plan de estudios               & Sección~II \\
+Art.\ 45 \RES{} & Contenido mínimo de los programas de UEA            & Sección~III \\
+Art.\ 56 \RES{} & Definición y fórmula de créditos                    & Sección~III \\
+Art.\ 48 \RES{} & Límites de créditos de licenciatura (410--615)      & (resumen) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+%%============================================================
+\end{document}
+%%============================================================
