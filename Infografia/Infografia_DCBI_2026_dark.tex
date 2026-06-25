@@ -1,5 +1,5 @@
-%% Infografia_DCBI_2026.tex — identidad nowhere_minimal
-%% Compilar desde Infografia/: pdflatex -interaction=nonstopmode Infografia_DCBI_2026.tex
+%% Infografia_DCBI_2026_dark.tex — versión dark mode (pantalla / proyección)
+%% Compilar desde Infografia/: pdflatex -interaction=nonstopmode Infografia_DCBI_2026_dark.tex
 
 \documentclass[9pt,a4paper]{article}
 \usepackage[margin=0.55cm,top=0.50cm,bottom=0.50cm]{geometry}
@@ -24,59 +24,77 @@
 \setlength{\columnsep}{5pt}
 \setlength{\multicolsep}{2pt}
 
-%%─── Paleta nowhere_minimal ───────────────────────────────────────────────────
+%%─── Paleta nowhere_minimal — modo oscuro ────────────────────────────────────
 \definecolor{uamred}{HTML}{C0101A}
 \definecolor{nearblack}{HTML}{0D0D0D}
-\definecolor{graymid}{HTML}{7A7A7A}
-\definecolor{paperbg}{HTML}{F5F4F0}
+\definecolor{darkbg}{HTML}{141414}      %% fondo de página
+\definecolor{graymid}{HTML}{8A8A8A}     %% texto secundario — más claro que en modo luz
+\definecolor{paperbg}{HTML}{F5F4F0}     %% texto principal sobre fondo oscuro
 
-%%─── Escala tipográfica (4 niveles) ──────────────────────────────────────────
+%%─── Fondo oscuro de página ──────────────────────────────────────────────────
+\pagecolor{darkbg}
+\color{paperbg}
+
+%%─── Escala tipográfica — texto claro sobre fondo oscuro ─────────────────────
 \newcommand{\BIGNUM}[1]%
   {{\fontsize{20}{22}\selectfont\ttfamily\bfseries\color{uamred}#1}}
 \newcommand{\BIGNUMK}[1]%
-  {{\fontsize{20}{22}\selectfont\ttfamily\bfseries\color{nearblack}#1}}
+  {{\fontsize{20}{22}\selectfont\ttfamily\bfseries\color{paperbg}#1}}
 \newcommand{\MEDNUM}[1]%
   {{\fontsize{14}{16}\selectfont\ttfamily\bfseries\color{uamred}#1}}
 \newcommand{\MEDNUMK}[1]%
-  {{\fontsize{14}{16}\selectfont\ttfamily\bfseries\color{nearblack}#1}}
-\newcommand{\LBL}[1]{{\small\bfseries\color{nearblack}#1}}
+  {{\fontsize{14}{16}\selectfont\ttfamily\bfseries\color{paperbg}#1}}
+\newcommand{\LBL}[1]{{\small\bfseries\color{paperbg}#1}}
 \newcommand{\NOTE}[1]{{\tiny\color{graymid}#1}}
-%% Encabezado de sección: nearblack bold uppercase + regla uamred de 0.6 pt
 \newcommand{\SECHEAD}[1]{%
-  {\fontsize{6}{7}\selectfont\bfseries\color{nearblack}\MakeUppercase{#1}}%
+  {\fontsize{6}{7}\selectfont\bfseries\color{paperbg}\MakeUppercase{#1}}%
   \par\nointerlineskip\vspace{1pt}%
   {\color{uamred}\hrule height 0.6pt}\par\vspace{3pt}}
 
-%%─── Estilos tcolorbox ────────────────────────────────────────────────────────
+%%─── Estilos tcolorbox — modo oscuro ─────────────────────────────────────────
 \tcbset{
+  %% encabezado — rojo sólido, mismo que modo luz
   hdr/.style={enhanced,sharp corners,
     colback=uamred,colframe=uamred,
+    colupper=white,
     left=7pt,right=7pt,top=5pt,bottom=5pt,
     before skip=0pt,after skip=3pt},
+  %% tarjeta estadística — gris oscuro, borde norte rojo
   stat/.style={enhanced,sharp corners,
-    colback=black!4,colframe=black!4,
+    colback=white!10!nearblack,colframe=white!10!nearblack,
+    colupper=paperbg,
     borderline north={1.8pt}{0pt}{uamred},
     left=5pt,right=5pt,top=4pt,bottom=3pt,
     before skip=0pt,after skip=0pt},
+  %% banda de sección — gris oscuro ligeramente más claro
   band/.style={enhanced,sharp corners,
-    colback=black!5,colframe=black!5,
+    colback=white!14!nearblack,colframe=white!14!nearblack,
+    colupper=paperbg,
     left=5pt,right=5pt,top=4pt,bottom=4pt,
     before skip=2pt,after skip=2pt},
+  %% tarjeta de hallazgo — borde izquierdo rojo, fondo muy oscuro
   card/.style={enhanced,sharp corners,
-    colback=black!3,colframe=black!3,
+    colback=white!7!nearblack,colframe=white!7!nearblack,
+    colupper=paperbg,
     borderline west={2pt}{0pt}{uamred},
     left=5pt,right=4pt,top=3pt,bottom=3pt,
     before skip=2pt,after skip=0pt},
+  %% contenedor de figura — borde gris medio, fondo casi negro
   figbox/.style={enhanced,sharp corners,
-    colback=white,colframe=black!15,
+    colback=white!4!nearblack,colframe=white!28!nearblack,
+    colupper=paperbg,
     left=2pt,right=2pt,top=2pt,bottom=2pt,
     before skip=0pt,after skip=0pt},
+  %% caja sin decoración (mejora relativa, pie)
   plain/.style={enhanced,sharp corners,
-    colback=black!3,colframe=black!3,
+    colback=white!10!nearblack,colframe=white!10!nearblack,
+    colupper=paperbg,
     left=5pt,right=5pt,top=3pt,bottom=3pt,
     before skip=0pt,after skip=0pt},
+  %% caja de lectura — borde norte gris, sin acento de color
   leer/.style={enhanced,sharp corners,
-    colback=black!2,colframe=black!2,
+    colback=white!6!nearblack,colframe=white!6!nearblack,
+    colupper=paperbg,
     borderline north={0.5pt}{0pt}{graymid},
     left=5pt,right=4pt,top=3pt,bottom=3pt,
     before skip=2pt,after skip=0pt},
@@ -128,7 +146,7 @@
 %% ── Proceso de análisis ──────────────────────────────────────────────────────
 \begin{tcolorbox}[band]
 \SECHEAD{proceso de análisis en dos fases}
-\centering\small
+\centering\small\color{paperbg}
 \textbf{Texto de 626 programas}~%
 $\longrightarrow$~%
 \textbf{Comparación por palabras clave}~%
@@ -137,7 +155,7 @@ $\longrightarrow$~%
 $\longrightarrow$~%
 \textbf{Revisión inteligente de contenido}~%
 $\longrightarrow$~%
-\textbf{\color{uamred}Similitud real entre programas}
+\textbf{Similitud real entre programas}
 \end{tcolorbox}
 
 \vspace{3pt}
@@ -172,9 +190,9 @@ La diagonal siempre es roja: cada plan comparado consigo mismo.}
 \vspace{3pt}
 \begin{tcolorbox}[plain]
 \centering
-\MEDNUMK{+154\,\%}\;\small más pares entre licenciaturas\\[-1pt]
+\MEDNUMK{+154\,\%}\;\small\color{paperbg} más pares entre licenciaturas\\[-1pt]
 \NOTE{vs.\ solo comparar palabras clave}\\[3pt]
-\MEDNUMK{+75\,\%}\;\small más pares dentro de cada plan\\[-1pt]
+\MEDNUMK{+75\,\%}\;\small\color{paperbg} más pares dentro de cada plan\\[-1pt]
 \NOTE{vs.\ solo comparar palabras clave}
 \end{tcolorbox}
 \begin{tcolorbox}[leer]
